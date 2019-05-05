@@ -25,6 +25,7 @@ alias tetris="bastet"
 alias f="fzf | xargs -o "
 
 export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse"
+set -x FZF_DEFAULT_COMMAND 'ag --files --hidden --follow --glob "!.git/*"'
 
 #ディレクトリを記憶
 dir=$HOME
