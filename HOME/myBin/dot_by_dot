@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cscreen -s1 -x 2560 -y 1600

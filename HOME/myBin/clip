@@ -1,0 +1,27 @@
+#!/usr/local/bin/python3
+import pyperclip
+import argparse
+import sys
+
+def getStr():
+    parser = argparse.ArgumentParser()
+    if sys.stdin.isatty():
+        parser.add_argument("CopyText", help="Please set text", type=str)
+    txt = parser.parse_args()
+    return(txt)
+
+def pasteBoard(text):
+    pyperclip.copy(str(text))
+
+def main():
+    args = getStr()
+    copyTxt = ""
+    if hasattr(args, "CopyText"):
+        copyTxt = args.CopyText
+    else:
+        copyTxt = sys.stdin.read()
+    pasteBoard(copyTxt)
+    print(copyTxt, end="")
+
+if __name__ == '__main__':
+    main()
