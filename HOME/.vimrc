@@ -47,6 +47,9 @@ syntax  enable
 set splitbelow
 set termwinsize=7x0
 
+"for backspaceKey
+set backspace=indent,eol,start
+
 "dein Scripts-----------------------------
 if &compatible
     set nocompatible               " Be iMproved
@@ -62,7 +65,7 @@ if dein#load_state('/Users/katokota/.vim/./dein')
     " Required:
     call dein#add('/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim')
 
-    let g:rc_dir = $HOME . '/.vim/rc/'
+    let g:rc_dir = $HOME . '/.vim/dein/rc/'
     let s:toml      = g:rc_dir . '/dein.toml'
     let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
@@ -86,3 +89,10 @@ endif
 
 "End dein Scripts-------------------------
 
+"For dein
+function! s:DeinCleanf()
+    call map(dein#check_clean(), "delete(v:val, 'rf')")
+    call dein#recache_runtimepath()
+endfunction
+
+command! DeinClean call:DeinCleanf()

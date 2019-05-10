@@ -1,0 +1,85 @@
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+"ALEの設定
+"let g:airline#extensions#ale#enabled = 1
+""let g:ale_sign_column_always = 1
+let g:ale_sign_error   = '!}'
+let g:ale_sign_warning = '?}'
+"タイムアウト時間の調整
+"let g:ale_lint_delay = 1000
+'''
+
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
+hook_add = '''
+"カッコのハイライト標準オフ
+let g:loaded_matchparen = 1
+""カッコの対応
+source $VIMRUNTIME/macros/matchit.vim
+'''
+
+[[plugins]]
+repo = 'qpkorr/vim-bufkill'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+hook_add = '''
+" fzfは単体でインストールしているのでそこへのパス
+set rtp+=/usr/local/opt/fzf
+" dotファイルを含める&プレビュー
+command! -bang -nargs=? -complete=dir Files
+\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'ag --hidden --ignore .git -g ""'}), <bang>0)
+command! -bang -nargs=* Ag
+\ call fzf#vim#grep(
+        \   'ag --column --color --hidden --ignore .git '.shellescape(<q-args>), 0,
+        \   <bang>0 ? fzf#vim#with_preview('up:60%')
+        \           : fzf#vim#with_preview('right:50%', '?'),
+        \   <bang>0)
+" キーバインド
+nmap \b :Buffers<Enter>
+nmap \f :Files<Enter>
+nmap \t :Tags<Enter>
+'''
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+hook_add = '''
+let g:indent_guides_guide_size = 1
+'''
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+set laststatus=2
+set noshowmode
+let g:lightline = {
+    \ 'colorscheme': 'seoul256',
+    \ }
+'''
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+# かっこ操作
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+# かっこの補完
