@@ -50,6 +50,9 @@ set termwinsize=7x0
 "for backspaceKey
 set backspace=indent,eol,start
 
+"for command mode
+set wildmenu
+
 "dein Scripts-----------------------------
 if &compatible
     set nocompatible               " Be iMproved
