@@ -1,64 +1,20 @@
-# surround.vim
+# commentary.vim
 
-Surround.vim is all about "surroundings": parentheses, brackets, quotes,
-XML tags, and more.  The plugin provides mappings to easily delete,
-change and add such surroundings in pairs.
+Comment stuff out.  Use `gcc` to comment out a line (takes a count),
+`gc` to comment out the target of a motion (for example, `gcap` to
+comment out a paragraph), `gc` in visual mode to comment out the selection,
+and `gc` in operator pending mode to target a comment.  You can also use
+it as a command, either with a range like `:7,17Commentary`, or as part of a
+`:global` invocation like with `:g/TODO/Commentary`. That's it.
 
-It's easiest to explain with examples.  Press `cs"'` inside
+I wrote this because 5 years after Vim added support for mapping an
+operator, I still couldn't find a commenting plugin that leveraged that
+feature (I overlooked
+[tcomment.vim](https://github.com/tomtom/tcomment_vim)).  Striving for
+minimalism, it weighs in at under 100 lines of code.
 
-    "Hello world!"
-
-to change it to
-
-    'Hello world!'
-
-Now press `cs'<q>` to change it to
-
-    <q>Hello world!</q>
-
-To go full circle, press `cst"` to get
-
-    "Hello world!"
-
-To remove the delimiters entirely, press `ds"`.
-
-    Hello world!
-
-Now with the cursor on "Hello", press `ysiw]` (`iw` is a text object).
-
-    [Hello] world!
-
-Let's make that braces and add some space (use `}` instead of `{` for no
-space): `cs]{`
-
-    { Hello } world!
-
-Now wrap the entire line in parentheses with `yssb` or `yss)`.
-
-    ({ Hello } world!)
-
-Revert to the original text: `ds{ds)`
-
-    Hello world!
-
-Emphasize hello: `ysiw<em>`
-
-    <em>Hello</em> world!
-
-Finally, let's try out visual mode. Press a capital V (for linewise
-visual mode) followed by `S<p class="important">`.
-
-    <p class="important">
-      <em>Hello</em> world!
-    </p>
-
-This plugin is very powerful for HTML and XML editing, a niche which
-currently seems underfilled in Vim land.  (As opposed to HTML/XML
-*inserting*, for which many plugins are available).  Adding, changing,
-and removing pairs of tags simultaneously is a breeze.
-
-The `.` command will work with `ds`, `cs`, and `yss` if you install
-[repeat.vim](https://github.com/tpope/vim-repeat).
+Oh, and it uncomments, too.  The above maps actually toggle, and `gcgc`
+uncomments a set of adjacent commented lines.
 
 ## Installation
 
@@ -67,23 +23,25 @@ support:
 
     mkdir -p ~/.vim/pack/tpope/start
     cd ~/.vim/pack/tpope/start
-    git clone https://tpope.io/vim/surround.git
-    vim -u NONE -c "helptags surround/doc" -c q
+    git clone https://tpope.io/vim/commentary.git
+    vim -u NONE -c "helptags commentary/doc" -c q
 
-## Contributing
+## FAQ
 
-See the contribution guidelines for
-[pathogen.vim](https://github.com/tpope/vim-pathogen#readme).
+> My favorite file type isn't supported!
+
+Relax!  You just have to adjust `'commentstring'`:
+
+    autocmd FileType apache setlocal commentstring=#\ %s
 
 ## Self-Promotion
 
-Like surround.vim?  Star the repository on
-[GitHub](https://github.com/tpope/vim-surround) and vote for it on
-[vim.org](https://www.vim.org/scripts/script.php?script_id=1697).
-
-Love surround.vim?  Follow [tpope](http://tpo.pe/) on
-[GitHub](https://github.com/tpope) and
-[Twitter](http://twitter.com/tpope).
+Like commentary.vim? Follow the repository on
+[GitHub](https://github.com/tpope/vim-commentary) and vote for it on
+[vim.org](http://www.vim.org/scripts/script.php?script_id=3695).  And if
+you're feeling especially charitable, follow [tpope](http://tpo.pe/) on
+[Twitter](http://twitter.com/tpope) and
+[GitHub](https://github.com/tpope).
 
 ## License
 

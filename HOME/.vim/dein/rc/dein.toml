@@ -83,3 +83,7 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'cohama/lexima.vim'
 # かっこの補完
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+
