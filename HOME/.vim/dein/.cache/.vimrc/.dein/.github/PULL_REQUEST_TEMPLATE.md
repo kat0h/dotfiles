@@ -1,13 +1,15 @@
-<!--
-Before creating a pull request, do the following.
+#### Requirements (please check off with 'x')
 
-* Read the Contributing guide linked above first.
-* Read the documentation that comes with ALE with `:help ale-dev`.
+- [ ] I have read the [Contributing Guidelines](https://github.com/ryanoasis/vim-devicons/blob/master/contributing.md)
+- [ ] I have read or at least glanced at the [FAQ](https://github.com/ryanoasis/vim-devicons#faq--troubleshooting)
+- [ ] I have read or at least glanced at the [Wiki](https://github.com/ryanoasis/vim-devicons/wiki)
 
-Have fun!
--->
+#### What does this Pull Request (PR) do?
 
-Where are the tests? Have you added tests? Have you updated the tests? Read the
-comment above and the documentation referenced in it first. Write tests!
+#### How should this be manually tested?
 
-Seriously, read `:help ale-dev` and write tests.
+#### Any background context you can provide?
+
+#### What are the relevant tickets (if any)?
+
+#### Screenshots (if appropriate or helpful)

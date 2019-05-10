@@ -1,15 +1,17 @@
+# LintTool
 [[plugins]]
 repo = 'w0rp/ale'
 hook_add = '''
 "ALEの設定
-"let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 ""let g:ale_sign_column_always = 1
-let g:ale_sign_error   = '!}'
-let g:ale_sign_warning = '?}'
+let g:ale_sign_error   = ' '
+let g:ale_sign_warning = ' '
 "タイムアウト時間の調整
 "let g:ale_lint_delay = 1000
 '''
 
+# 括弧の対応の可視化
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
 hook_add = '''
@@ -19,9 +21,11 @@ let g:loaded_matchparen = 1
 source $VIMRUNTIME/macros/matchit.vim
 '''
 
+# BDでいい感じにバッファをkillできる
 [[plugins]]
 repo = 'qpkorr/vim-bufkill'
 
+# fzfのvimフロントエンド
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 hook_add = '''
@@ -42,48 +46,105 @@ nmap \f :Files<Enter>
 nmap \t :Tags<Enter>
 '''
 
+# 行頭行末にあるスペースを可視化
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
+# インデントの可視化
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 hook_add = '''
 let g:indent_guides_guide_size = 1
 '''
 
+# ファイルの差分を表示
+# :GitGutterToggle
+# :GitGutterLineHighlightsToggle
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 
+# gcでコメントの切り替えができる
 [[plugins]]
 repo = 'tpope/vim-commentary'
 
+# textobjの拡張基礎
 [[plugins]]
 repo = 'kana/vim-textobj-user'
 
+# ae ie を追加
 [[plugins]]
 repo = 'kana/vim-textobj-entire'
 
+# ステータスラインの拡張
+# [[plugins]]
+# repo = 'itchyny/lightline.vim'
+# hook_add = '''
+# set laststatus=2
+# set noshowmode
+# let g:lightline = {
+#     \ 'colorscheme': 'seoul256',
+#     \ }
+# '''
+
+# ステータスラインの拡張
 [[plugins]]
-repo = 'itchyny/lightline.vim'
+repo = 'vim-airline/vim-airline'
 hook_add = '''
 set laststatus=2
 set noshowmode
-let g:lightline = {
-    \ 'colorscheme': 'seoul256',
-    \ }
+let g:airline_theme = 'molokai'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
+let g:airline_section_c = '%t'
+let g:airline_section_x = '%{&filetype}'
+let g:airline_section_z = '%3l:%2v %{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
+let g:airline#extensions#ale#error_symbol = ' '
+let g:airline#extensions#ale#warning_symbol = ' '
+let g:airline#extensions#default#section_truncate_width = {}
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+set t_Co=256
+let g:airline_powerline_fonts = 1
 '''
 
+# airline用カラースキーム
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+# 様々なアイコンを追加
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+# tomlファイル用カラースキーム
 [[plugins]]
 repo = 'cespare/vim-toml'
 
+# S で括弧の追加等ができる
 [[plugins]]
 repo = 'tpope/vim-surround'
-# かっこ操作
 
+# 括弧の補完
 [[plugins]]
 repo = 'cohama/lexima.vim'
-# かっこの補完
 
+# python用
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 
+# 翻訳ができる
+[[plugins]]
+repo = 'skanehira/translate.vim'
+hook_add = '''
+let g:translate_winsize = 5
+'''
+
+# ウィンドウサイズ変更
+[[plugins]]
+repo = 'simeji/winresizer'
+
+# Git操作ができる
+# 専らAirLine用
+[[plugins]]
+repo = 'tpope/vim-fugitive'

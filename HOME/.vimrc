@@ -45,13 +45,26 @@ syntax  enable
 
 "for terminalMod
 set splitbelow
-set termwinsize=7x0
+" set termwinsize=10x0
 
 "for backspaceKey
 set backspace=indent,eol,start
 
 "for command mode
 set wildmenu
+
+"window
+set noequalalways
+
+"検索件数の表示
+set shortmess-=S
+
+"Undoポイントの設置
+inoremap <C-w> <C-g>u<C-w>
+inoremap <C-d> <C-g>u<Delete>
+inoremap <C-u> <C-g>u<C-u>
+inoremap <C-m> <C-g>u<C-m>
+inoremap <C-j> <C-g>u<C-j>
 
 "dein Scripts-----------------------------
 if &compatible

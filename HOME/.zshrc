@@ -14,8 +14,11 @@ export PATH
 # Setting PATH
 # Added 2018/5/11
 export PATH=$PATH:/Users/katokota/myBin
+#
 # gopath
 export GOPATH=$HOME/.golang
+export PATH=$PATH:$GOPATH/bin
+
 alias rm="trash"
 alias cls="clear"
 alias tetris="bastet"
@@ -23,12 +26,11 @@ alias f="fzf | xargs -o -t "
  export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse"
      export FZF_DEFAULT_COMMAND='find . -type f -name "*"'
 export FZF_DEFAULT_COMMAND='ag -l --hidden'
-#ディレクトリを記憶
-dir=$HOME
-memdir(){
-dir=`pwd`
+
+function vf(){
+    if [ $1 = "" ]; then return; fi
+    echo -e "\x1b]51;[\"drop\",\"$1\"]\x07"
 }
-alias memcd="cd $dir"
 
 #ディレクトリを作って移動
 #mkdircd()

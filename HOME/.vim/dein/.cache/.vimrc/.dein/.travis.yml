@@ -1,4 +1,10 @@
-language: ruby
-rvm:
-  - 2.4.1
-script: rake ci
+language: viml
+install:
+    - git clone https://github.com/thinca/vim-themis
+script:
+    - vim --version
+    - vim-themis/bin/themis --reporter spec
+branches:
+    - master
+    - dev
+    - temp
