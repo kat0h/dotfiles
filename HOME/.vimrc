@@ -61,7 +61,7 @@ set shortmess-=S
 
 "Undoポイントの設置
 inoremap <C-w> <C-g>u<C-w>
-inoremap <C-d> <C-g>u<Delete>
+inoremap <C-d> <Delete>
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-m> <C-g>u<C-m>
 inoremap <C-j> <C-g>u<C-j>
@@ -81,7 +81,7 @@ if dein#load_state('/Users/katokota/.vim/./dein')
     " Required:
     call dein#add('/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim')
 
-    let g:rc_dir = $HOME . '/.vim/dein/rc/'
+    let g:rc_dir = $HOME . '/.vim/deinrc'
     let s:toml      = g:rc_dir . '/dein.toml'
     let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 

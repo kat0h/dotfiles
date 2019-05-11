@@ -1,3 +1,0 @@
-#!/usr/local/Cellar/python/3.7.1/bin/python3
-s = input()
-print(s)

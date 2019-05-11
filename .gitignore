@@ -1,3 +1,5 @@
 .DS_Store
 HOME/.vim/bundle/*
+HOME/.vim/colors/*
+HOME/.vim/dein/*
 
