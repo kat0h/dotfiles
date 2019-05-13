@@ -1,208 +1,249 @@
-# Change Log
 
-This is the Changelog for the vim-airline project.
+CHANGELOG
+================================================================================
+This project is using [Semantic Versioning 2.0.0](http://semver.org/)
 
-## [Unreleased]
-- New features
-  - Extensions:
-    - [Defx](https://github.com/Shougo/defx.nvim) support
-  - Improvements
-    - The statusline can be configured to be shown on top (in the tabline)
-      Set the `g:airline_statusline_ontop` to enable this experimental feature.
-    - If `buffer_idx_mode=2`, up to 89 mappings will be exposed to access more
-      buffers directly (issue #1823)
-    - Allow to use `random` as special theme name, which will switch to a random
-      airline theme (at least if a random number can be generated :()
-    - The branch extensions now also displays whether the repository is in a clean state
-      (will append a ! or ⚡if the repository is considered dirty).
-    - The whitespace extensions will also check for conflict markers
-    - `:AirlineRefresh` command now takes an additional `!` attribute, that **skips** 
-      recreating the highlighting groups (which might have a serious performance
-      impact if done very often, as might be the case when the configuration variable 
-      `airline_skip_empty_sections` is active).
-
-## [0.10] - 2018-12-15
-- New features
-  - Extensions:
-    - [LanguageClient](https://github.com/autozimu/LanguageClient-neovim)
-    - [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags)
-    - [vim-localsearch](https://github.com/mox-mox/vim-localsearch)
-    - [xtabline](https://github.com/mg979/vim-xtabline)
-    - [vim-grepper](https://github.com/mhinz/vim-grepper)
-  - Add custom AirlineModeChanged autocommand, allowing to call user defined commands
-    whenever airline displays a different mode
-  - New :AirlineExtensions command, to show which extensions have been loaded
-  - Detect several new modes (e.g. completion, virtual replace, etc)
-- Improvements
-  - Various performance improvements, should Vim keep responsive, even when
-    many highlighting groups need to be re-created
-  - Rework tabline extension
-  - Refactor [vim-ctrlspace](https://github.com/szw/vim-ctrlspace) extension
-  - Refactor the wordcount extension
-  - Reworked the po extension
-  - Allow to disable line numbers for the [Ale Extension](https://github.com/w0rp/ale)
-  - [fugitive](https://github.com/tpope/vim-fugitive) plugin has been refactored
-    causing adjustments for vim-airline, also uses Fugitives new API calls
-  - some improvements to Vims terminal mode
-  - Allow to use alternative seperators for inactive windows (#1236)
-  - Statusline can be set to inactive, whenever Vim loses focus (using FocusLost autocommand)
-
-## [0.9] - 2018-01-15
-- Changes
-  - Look of default Airline Symbols has been improved [#1397](https://github.com/vim-airline/vim-airline/issues/1397)
-  - Airline does now set `laststatus=2` if needed
-  - Syntastic extension now displays warnings and errors separately
-  - Updates on Resize and SessionLoad events
-  - Add `maxlinenr` symbol to `airline_section_z`
-  - Add quickfix title to inactive windows
-- Improvements
-  - Many performance improvements (using caching and async feature when possible)
-  - Cache changes to highlighting groups if `g:airline_highlighting_cache = 1` is set
-  - Allow to skip empty sections by setting `g:airline_skip_empty_sections` variable
-  - Make use of improved Vim Script API, if available (e.g. getwininfo())
-  - Support for Vims terminal feature (very experimental since it hasn't been stabilized yet)
-  - More configuration for the tabline extension (with clickable buffers for Neovim)
-  - Works better on smaller window sizes
-  - Make airline aware of git worktrees
-  - Improvements to the fugitive extension [#1603](https://github.com/vim-airline/vim-airline/issues/1603)
-  - Allows for configurable fileformat output if `g:airline#parts#ffenc#skip_expected_string` is set
-  - Improvements to the documentation
-- New features
-  - Full async support for Vim 8 and Neovim
-  - Extensions:
-    - [vim-bufmru](https://github.com/mildred/vim-bufmru)
-    - [xkb-switch](https://github.com/ierton/xkb-switch)
-    - [input-source-switcher](https://github.com/vovkasm/input-source-switcher)
-    - [vimagit](https://github.com/jreybert/vimagit)
-    - [denite](https://github.com/Shougo/denite.nvim)
-    - [dein](https://github.com/Shougo/dein.vim)
-    - [vimtex](https://github.com/lervag/vimtex)
-    - [minpac](https://github.com/k-takata/minpac/)
-    - [vim-cursormode](https://github.com/vheon/vim-cursormode)
-    - [Neomake](https://github.com/neomake/neomake)
-    - [Ale](https://github.com/w0rp/ale)
-    - [vim-obsession](https://github.com/tpope/vim-obsession)
-    - spell (can also display Spell language)
-    - keymap
-  - Formatters:
-    - Formatters for JavaScript [#1617](https://github.com/vim-airline/vim-airline/issues/1617)
-    - Tabline: Allow for custom formatter for `tab_nr_type` [#1418](https://github.com/vim-airline/vim-airline/issues/1418)
-    - Customizable wordcount formatter [#1584](https://github.com/vim-airline/vim-airline/issues/1584)
-  - Add User autocommand for Theme changing [#1226](https://github.com/vim-airline/vim-airline/issues/1226)
-  - Shows mercurial mq status if hg mq extension is enabled
-
-## [0.8] - 2016-03-09
-- Changes
-  - Airline converted to an organization and moved to new [repository](https://github.com/vim-airline/vim-airline)
-  - Themes have been split into an separate repository [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
-- Improvements
-  - Extensions
-    - branch: support Git and Mercurial simultaneously, untracked files
-    - whitespace: new mixed-indent rule
-  - Windows support
-  - Many bug fixes
-  - Support for Neovim
-- New features
-  - Many new themes
-  - Extensions/integration
-    - [taboo](https://github.com/gcmt/taboo.vim)
-    - [vim-ctrlspace](https://github.com/szw/vim-ctrlspace)
-    - [quickfixsigns](https://github.com/tomtom/quickfixsigns_vim)
-    - [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
-    - [po.vim](http://www.vim.org/scripts/script.php?script_id=695)
-    - [unicode.vim](https://github.com/chrisbra/unicode.vim)
-    - wordcount
-    - crypt indicator
-    - byte order mark indicator
-  - Tabline's tab mode can display splits simultaneously
-
-## [0.7] - 2014-12-10
-- New features
-    - accents support; allowing multiple colors/styles in the same section
-    - extensions: eclim
-    - themes: understated, monochrome, murmur, sol, lucius
-- Improvements
-    -  solarized theme; support for 8 color terminals
-    -  tabline resizes dynamically based on number of open buffers
-    -  miscellaneous bug fixes
-
-## [0.6] - 2013-10-08
-
-- New features
-    - accents support; allowing multiple colors/styles in the same section
-    - extensions: eclim
-    - themes: understated, monochrome, murmur, sol, lucius
-- Improvements
-    - solarized theme; support for 8 color terminals
-    - tabline resizes dynamically based on number of open buffers
-    - miscellaneous bug fixes
-
-## [0.5] - 2013-09-13
-
-- New features
-    - smart tabline extension which displays all buffers when only one tab is visible
-    - automatic section truncation when the window resizes
-    - support for a declarative style of configuration, allowing parts to contain metadata such as minimum window width or conditional visibility
-    - themes: zenburn, serene
-- Other
-    - a sizable chunk of vim-airline is now running through a unit testing suite, automated via Travis CI
-
-## [0.4] - 2013-08-26
-
- - New features
-    - integration with csv.vim and vim-virtualenv
-    - hunks extension for vim-gitgutter and vim-signify
-    - automatic theme switching with matching colorschemes
-    - commands: AirlineToggle
-    - themes: base16 (all variants)
- - Improvements
-    - integration with undotree, tagbar, and unite
- - Other
-    - refactored core and exposed statusline builder and pipeline
-    - all extension related g:airline_variables have been deprecated in favor of g:airline#extensions# variables
-    - extensions found in the runtimepath outside of the default distribution will be automatically loaded
-
-## [0.3] - 2013-08-12
-
--  New features
-    -  first-class integration with tagbar
-    -  white space detection for trailing spaces and mixed indentation
-    -  introduced warning section for syntastic and white space detection
-    -  improved ctrlp integration: colors are automatically selected based on the current airline theme
-    -  new themes: molokai, bubblegum, jellybeans, tomorrow
--  Bug fixes
-    -  improved handling of eventignore used by other plugins
--  Other
-    - code cleaned up for clearer separation between core functionality and extensions
-    - introduced color extraction from highlight groups, allowing themes to be generated off of the active colorscheme (e.g. jellybeans and tomorrow)
-    - License changed to MIT
-
-## [0.2] - 2013-07-28
-
--  New features
-      - iminsert detection
-      - integration with vimshell, vimfiler, commandt, lawrencium
-      - enhanced bufferline theming
-      - support for ctrlp theming
-      - support for custom window excludes
-- New themes
-      - luna and wombat
-- Bug fixes
-      - refresh branch name after switching with a shell command
-
-## [0.1] - 2013-07-17
-
-- Initial release
-  - integration with other plugins: netrw, unite, nerdtree, undotree, gundo, tagbar, minibufexplr, ctrlp
-  - support for themes: 8 included
-
-[Unreleased]: https://github.com/vim-airline/vim-airline/compare/v0.10...HEAD
-[0.9]: https://github.com/vim-airline/vim-airline/compare/v0.8...v0.9
-[0.8]: https://github.com/vim-airline/vim-airline/compare/v0.7...v0.8
-[0.7]: https://github.com/vim-airline/vim-airline/compare/v0.6...v0.7
-[0.6]: https://github.com/vim-airline/vim-airline/compare/v0.5...v0.6
-[0.5]: https://github.com/vim-airline/vim-airline/compare/v0.4...v0.5
-[0.4]: https://github.com/vim-airline/vim-airline/compare/v0.3...v0.4
-[0.3]: https://github.com/vim-airline/vim-airline/compare/v0.2...v0.3
-[0.2]: https://github.com/vim-airline/vim-airline/compare/v0.1...v0.2
-[0.1]: https://github.com/vim-airline/vim-airline/releases/tag/v0.1
+- v0.11.0
+  - Added Docker filetypes support (PR #228) (@IngoHeimbach)
+  - Added Swift filetypes support (PR #252) (@motform)
+  - Added Elixir filetypes support (PR #244) (@akoutmos)
+  - Added configuration for 'prePadding' (fixes #231)
+  - Added support for `vue` filetype extensions out-of-the-box (fixes #235)
+  - Added configuration for 'DevIconsArtifactFix' (#225)
+  - Added leftrelease override to work on single mouse click (PR #246) (@Matrix86)
+  - Added Travis CI with vim linting (PR #236) (@kutsan)
+  - Fixed Vim-Startify no longer working "out of the box" (#233)
+  - Fixed Denite information being discarded (fixes #216) (PR #229 @carlitux)
+  - Fixed inconsistent spacing between folder and file glyphs (fixes #213)
+  - Updated variable declarations and refactored into set function (PR #237) (@kutsan)
+  - Updated plugin initialization functions to autoload on demand (PR #238) (@kutsan)
+  - Updated documentation and refactored massively to Wiki (PR #232) (@kutsan)
+  - Updated `vim` glyph to better glyph (fixes #234)
+  - Updated Readme screenshots and badges
+- v0.10.0
+  - Added support for symlink directories (PR #221) (@mhartington)
+  - Added missing Denite config in readme (PR #217, fixes #205) (@mohamadLy)
+  - Fixed NERDTree folder open bug with cascade setting (fixes #194)
+  - Fixed potential issue with Vim-Airline (PR #219) (@chrisbra)
+  - Fixed readme.md (removed duplicate section) (PR #222) (@thehappydinoa)
+  - Updated Vim-Airline Repo link in readme (PR #220) (@chrisbra)
+- v0.9.3
+  - Added `tsx` filetype (PR #210) (@dustinblackman)
+  - Updated links of [deprecated kien/ctrlp](https://github.com/kien/ctrlp.vim) to [active ctrlp fork](https://github.com/ctrlpvim/ctrlp.vim) (PR #211) (@haxorjim)
+  - Updated MacOS and Windows `guifont` examples with alternate format (fixes #208)
+- v0.9.2
+  - Added `yaml` filetype (PR #207) (@jpoppe)
+  - Added mention of `vim-workspace` as an integrated plugin (PR #206) (@bagrat)
+  - Fixed NERDTree keymap `U` open folder icon bug (fixes #189)
+- v0.9.1
+  - Added `sass` filetype (PR #202) (@toastal)
+  - Fixed NERDTree open/close folder icon bugs (fixes #194)
+  - Fixed airline conflict with file enconding `skip_expected_string` feature (fixes #203)
+  - Fixed possible glyph artifacts on open/close folder glyphs
+- v0.9.0
+  - Added support for [Denite](https://github.com/Shougo/denite.nvim) (PR #191) (@0phoff)
+  - Added symbol for byte order marker (BOM) (utf-8) (PR #199) (@Snaptags)
+  - Added support for `.zshrc`, `.vimrc`, `pp` (Puppet classes extensions), and `Vagrantfile` filetypes (enhancement #200) (@kiyanwang)
+  - Added support for `h`, `hpp`, `hxx` (C/C++ header filetype extensions) (enhancement #190)
+  - Added support for `bash`, `zsh`, `ksh`, `csh`, `awk`, `ps1` (script extensions) (enhancement #196)
+  - Added support for `rmd` (R Markdown) (partially fixes #195)
+  - Fixes opened folders titles padding/spacing offset (fixes #197)
+- v0.8.6
+  - Added support for vimfiler explorer mode (fixes #171)
+  - Added `doc/tags` to `.gitignore` (PR #182) (@doronbehar)
+  - Added warning to readme pertaining to old versions of NERDTree and CtrlP (PR #177, fixes #174) (@Melon-Bread)
+  - Fixes CtrlP buffer names (PR #185) (@HerringtonDarkholme)
+  - Fixes character encoding issue in vim doc (PR #178) (@mhartington)
+  - Fixes extraneous space after glyph in airline (PR #184) (@tbodt)
+  - Fixes errors when NERDTree not present (PR #187) (@blueyed)
+  - Updated Contributor Covenant to `v1.4`
+  - Updated API examples
+- v0.8.5
+  - Fixed errors in neovim (E670) (PR #163, fixes #162) (@mhartington)
+  - Fixed issue of updating NERDTree window via `CursorHoldUpdate` (PR #166) (@svanharmelen)
+    - Fixes updating of special buffer when selected
+    - Fixes potential issues CtrlP opening in wrong buffer when NERDTree is opened
+  - Fixed issue with CtrlP `:CtrlPMRU` always defaulting to current buffer (fixes #88)
+    - Also adds glyphs to other CtrlP modes besides MRU as a side effect
+  - Fixed documentation discrepency on pluging load order (PR #169) (@F1LT3R)
+  - Fixed documentation related to CtrlP MRU mode (PR #170, fixes #168) (@F1LT3R)
+- v0.8.4
+  - Fixed always warning about deprecated CtrlP version (fixes #137)
+  - Fixed missing configuration info about pattern based symbols (fixes #152)
+  - Fixed `WebDevIconsGetFileTypeSymbol` method iterator missing `break` (PR #156) (@blueyed)
+  - Fixed a typo in the readme (PR #159) (@SSARCandy)
+  - Added reference to [tiagofumo/vim-nerdtree-syntax-highlight](https://github.com/tiagofumo/vim-nerdtree-syntax-highlight) in readme (PR #161) (@tiagofumo)
+    - However, the [FAQ](https://github.com/ryanoasis/vim-devicons/wiki/FAQ) has been moved to the [Wiki](https://github.com/ryanoasis/vim-devicons/wiki) in this release
+- v0.8.3
+  - Fixed NERDTree not displaying glyph (icon) for newly created files (fixes #153)
+    - Also adds info to readme about `updatetime`
+  - Fixed resourcing `vimrc` not maintaining current NERDTree state (fixes #154)
+    - Adds new public methods `webdevicons#hardRefresh()` and `webdevicons#softRefresh()`
+    - Makes public method `webdevicons#refresh()` do a 'soft' refresh
+  - Fixed various source formatting and implemented most of vim lint ([vint](https://github.com/Kuniwak/vint)) recommendations
+  - Added public methods available to readme
+- v0.8.2
+  - Updated `jsx` filetype (using React glyph) (enhancement PR #148) (@alpertuna)
+  - Added issue and pull request templates
+- v0.8.1
+  - Fixed Unite display issues (absolute paths and/or duplicate paths) (fixes #140)
+  - Fixed custom CtrlP open function causing 'E16' (fixes #115)
+  - Fixed typo in readme for setting default folder glyph (PR #143)
+  - Added documentation for highlighting icon/glyphs only (not just entire lines) in NERDTree (fixes #142)
+- v0.8.0
+  - Added support for more [unite](https://github.com/Shougo/unite.vim) actions: `file_rec/async`, `file_rec/neovim`, `file_rec/neovim2`, `file_rec/git` (enhancement PR #132, fixes #131) (@mhartington)
+  - Improved Darwin detection by using a lighter method/logic (#135) (@delphinus35)
+  - Fixes `NERDTree-C` (fix PR #139) (@endenwer)
+  - Fixes error using open/close symbols for folder (fixes #130)
+- v0.7.1
+  - Misc readme updates
+  - Fixed performance issues and odd graphical artifacts in v0.7.0 (fixes #127)
+  - Improved installation instructions and re-organized some items to [Nerd Fonts repo](https://github.com/ryanoasis/nerd-fonts) (PR #129, fixes #125, #128) (@her)
+- v0.7.0
+  - Deprecated support for [kien/ctrlp](https://github.com/kien/ctrlp.vim) and only support [active ctrlp fork](https://github.com/ctrlpvim/ctrlp.vim) going forward (fixes #117)
+  - Added information to readme about [vim-startify](https://github.com/mhinz/vim-startify) support (enhancement #94)
+  - Added information to readme with possible fix to 'Dots after icons' (fixes #110) (@KabbAmine)
+  - Added support for 'cljc' (Clojure) filetypes (fix PR #120) (@spacepluk)
+  - Fixed certain folders in NERDTree showing file glyphs (based on pattern matching) (fixes #112)
+  - Fixed OS icon being display with as Linux Tux on Mac (fixes #118,fix PR #121) (@trodrigu)
+  - Fixed deprecated Linux font path in readme (fix PR #123) (@jrobeson)
+- v0.6.1
+  - Fixed likely breaking bug: undefined variable g:DevIconsEnableFoldersOpenClose (fixes #109)
+  - Fixed up the changelog details
+- v0.6.0
+  - Added support for [Powerline](https://github.com/powerline/powerline) (enhancement PR #74) (@delphinus35)
+  - Added support for 'ts' (TypeScript) filetypes (enhancement #79)
+  - Added support for 'jl' (Julia) filetypes
+  - Added support for 'bat' (batch) filetypes
+  - Added support for 'ejs' (Embedded JavaScript Templates) filetypes (enhancement #105) (@lerrua)
+  - Added support for 'react.jsx' filetype
+  - Added support for 'procfile' filetype
+  - Changed default 'go' filetype glyph to a better one
+  - Added open & close folder glyphs (icons) (enhancement #104)
+  - Fixed new files not having icons until refreshing NERDTree (fixes #33)
+    - Solution very similar to [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
+- v0.5.4
+  - Misc readme updates
+  - Add support for ocaml 'ml', 'mli' filetypes (enhancement PR #99) (@CharlieMartell)
+  - Add support for 'sql' and 'dump' filetypes (enhancement PR #100) (@lerrua)
+  - Add support for 'ico' filetypes (enhancement PR #101) (@lerrua)
+  - Add support for 'markdown' filetypes (enhancement PR #102) (@lerrua)
+  - Improved install fonts instructions on Mac (enhancement PR #103) (@lerrua)
+- v0.5.3
+  - Add 'slim' filetype support (same icon as 'html') (enhancement PR #98) (@lerrua)
+  - Add 'fish' filetype support (same icon as 'sh') (enhancement #93) (@michaelmrose)
+  - Updated old link references (enhancement PR #87) (@lerrua)
+  - Improved default Ruby icon (uses 'glyph set 2') (enhancement PR #97) (@lerrua)
+  - Prevent destorying user's conceal settings (Use setlocal) (enhancement PR #96) (@shawncplus)
+  - Fixes filenames of buffers getting lost in unite filter (fixes #86) (@ahrse)
+  - Various readme updates and fixes
+- v0.5.2
+  - Various readme updates and fixes
+  - Various file clean-up (.gitignore removed)
+  - Fixed link to install fonts (PR #83 fixes #81) (@theRemix)
+  - Fixed glyph used for Go (PR #82) (@hoop33)
+  - Added Code of Conduct
+- v0.5.1
+  - Fixed [CtrlP](https://github.com/ctrlpvim/ctrlp.vim) integration bugs (truncating 6 characters is unreliable) and only add glyphs for MRU File Mode (Fixes #80)
+  - Readme updates and improvements
+- v0.5.0
+  - Readme updates (removed polls sections, v0.5.0 specific changes)
+  - Misc code formatting fixes (tabs to spaces, modeline additions, reorganization)
+  - Update API: make WebDevIconsGetFileFormatSymbol return only fenc (fixes #73)
+  - Added Perl support (enhancement #60)
+  - Added support for some (mostly frontend) frameworks (enhancement #61)
+  - Added basic support for vim-flagship (enhancement #70)
+  - Added support for Unite and Vimfiler (enhancement #54)
+  - Added support for CtrlP (enhancement #56)
+  - Rebranding part 1: title and image (vim-devicons) (enhancement #76)
+- v0.4.4
+  - Lots of readme updates and tweaks
+  - Changelog semver details
+  - Spelling / confusing grammar corrections (PR #68) (@adelarsq)
+  - Fixed default folder/directory glyph (PR Fixes #72) (@cj)
+  - Mac OS X screenshot (Fixes #32) (@RageZBla)
+  - Fixed misalignment when used with  [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin) (Fixes #71)
+  - Fixed re-sourcing bug (Fixes #71)
+  - Fixed directory node user settings being overwritten (Fixes #59)
+  - Fixed minor screenshot issues and clean-up
+- v0.4.3
+  - Prevent error 'Unknown function' when opening Vim without airline plugin (Fixes #67)
+  - Temporary fix for gvim glyph artifact issues (particuarly NERDTree) (Fixes #58)
+  - Support file format symbols (glyphs) in vim-airline (Enhancement #66)
+  - Add vimrc setup example to readme (Documentation #65)
+  - Fixes Conceal highlighting issues (Fixes #53, #52)
+  - Make sure plugin plays nice with [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin) (Enhancement #62)
+  - general readme updates and improvements
+  - changelog format fixes
+- v0.4.2
+  - Updated vim doc with latest readme updates (html2vimdoc)
+  - Fixes #7 update readme for font and vim setup on osx and win platforms
+  - Fixes #49 with a FAQ update
+  - Fixes #41 No such event: nerdtree syntax match (@nbicalcarata)
+  - Removed test files from the repo and added folders to git-ignore
+  - Warn about loading vim-webdevicons before nerdtree plugin
+  - fix lazy NERDTree (@blueyed)
+  - Improve conceiling with NERDTree (@blueyed)
+  - add instructions to readme for vim setup on os x (@alfredbez)
+- v0.4.1
+  - Fixes #39 - updated screenshots (particularly nerdtree)
+  - Fixes #37 - g:webdevicons_conceal_nerdtree_brackets applying global config
+  - Add instructions to readme for adding icon to lightline (@hoop33)
+  - Updated vim doc with latest readme updates (sync'd with html2vimdoc)
+  - Added TL;DR section to readme
+  - Add a note to readme to load NERDTree before vim-webdevicons (@hoop33)
+  - Fix: Automatically turning off NERDTree support (@hoop33)
+  - general readme updates
+- v0.4.0
+  - #27 Remove [ ] wrapping icons
+  - #26 Add detection and warning on unsupported (old) NERDTree versions
+  - updated readme with more links and new details on new features and conifgs
+  - #30 Improve vim standard plugin conventions and tips
+  - #30 work on sections and standard plugin conventions part 1
+  - #30 clean-up of unused (for now) autoload file
+  - #28 setting global options broken part 1
+  - #29 Add vimdoc, more updates
+  - autogenerating vimdoc using html2vimdoc
+  - readme updates
+- v0.3.4
+  - Adds basic support for directory/folder glyphs - fixes #22
+  - optimize icon lookup - WebDevIconsGetFileTypeSymbol: use if/else (@blueyed)
+  - Do not clobber the default or customized airline formatter (@blueyed)
+  - fixed a bug related to the latest airline updates (Ali Aliev)
+  - various readme updates
+  - more sample usage images
+- v0.3.3
+  - Load the plugin once only (@blueyed)
+  - Add font installation instructions, fixes #5 (@wikimatze)
+  - added plugin install instructions
+  - slight readme re-ordering
+  - moved contributing section near bottom
+  - added additional screenshots
+  - added more thanks to those whose some more of the glyphs came from
+- v0.3.2
+  - moved screenshots into the wiki (wiki.vim-webdevicons) to reduce unnecessary project size of cloning repo
+- v0.3.1
+  - readme updates (with references to new font-patcher repo)
+  - readme updates screenshots reference wiki
+- v0.3.0
+  - moved font-patcher and patched fonts into a separate repo (nerd-filetype-glyphs-fonts-patcher)
+  - adds twigg file type support for #10 (@wikimatze)
+  - adds cpp file type support
+  - updated utf8 test file with glyphs
+  - readme fixes (@wikimatze, @blueyed)
+  - readme updates
+- v0.2.1
+  - readme updates
+- v0.2.0
+  - Script for patching any font: Initial cleaned up work for issue (feature enhancement) for #1
+  - added python font patcher and readme updates
+- v0.1.4
+  - readme updates
+- v0.1.3
+  - fixes #3 make matches case insensitive (ignore case)
+- v0.1.2
+  - fixes lookup for exact file notes (@johngeorgewright)
+- v0.1.1
+  - updated readme substantially
+- v0.1.0
+  - release

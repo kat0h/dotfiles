@@ -1,6 +1,14 @@
+"                 o8o
+"                 `"'
+"    oooo    ooo oooo  ooo. .oo.  .oo.   oooo d8b  .ooooo.
+"     `88.  .8'  `888  `888P"Y88bP"Y88b  `888""8P d88' `"Y8
+"      `88..8'    888   888   888   888   888     888
+".o.    `888'     888   888   888   888   888     888   .o8
+"Y8P     `8'     o888o o888o o888o o888o d888b    `Y8bod8P'
+
 "行号・行のライン
 "set number
-"set cursorline
+set cursorline
 
 "文字コード
 set encoding=utf-8

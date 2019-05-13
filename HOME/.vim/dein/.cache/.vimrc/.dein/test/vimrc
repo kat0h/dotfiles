@@ -1,8 +1,13 @@
-" Minimal vimrc to use jedi-vim.
-"
-" Not used anywhere yet, but allows for easy testing.
-let script_dir = fnamemodify(expand('<sfile>'), ':h:h')
-let &runtimepath = script_dir.','.&runtimepath.','.script_dir.'/after'
+filetype off
 
-syntax on
-filetype plugin indent on
+set runtimepath+=vader.vim
+set runtimepath+=..
+
+filetype plugin on
+syntax enable
+
+set hidden
+
+let g:startify_session_dir = 'session'
+let g:startify_relative_path = 1
+let g:startify_custom_header = []
