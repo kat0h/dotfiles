@@ -1,1 +1,1 @@
-See the [contribution guidelines for pathogen.vim](https://github.com/tpope/vim-pathogen/blob/master/CONTRIBUTING.markdown).
+See the [contribution guidelines for fugitive.vim](https://github.com/tpope/vim-fugitive/blob/master/CONTRIBUTING.markdown).

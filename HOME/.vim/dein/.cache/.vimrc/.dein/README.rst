@@ -1,269 +1,212 @@
-.. image:: https://github.com/davidhalter/jedi-vim/blob/master/doc/logotype-a.svg
+.. Copyright (c) 2012 - 2017, Eric Van Dewoestine
+   All rights reserved.
 
-#################################################
-jedi-vim - awesome Python autocompletion with VIM
-#################################################
+   Redistribution and use of this software in source and binary forms, with
+   or without modification, are permitted provided that the following
+   conditions are met:
 
-.. image:: https://travis-ci.org/davidhalter/jedi-vim.svg?branch=master
-   :target: https://travis-ci.org/davidhalter/jedi-vim
-   :alt: Travis-CI build status
+   * Redistributions of source code must retain the above
+     copyright notice, this list of conditions and the
+     following disclaimer.
 
-jedi-vim is a VIM binding to the autocompletion library
-`Jedi <http://github.com/davidhalter/jedi>`_.
+   * Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the
+     following disclaimer in the documentation and/or other
+     materials provided with the distribution.
 
-Here are some pictures:
+   * Neither the name of Eric Van Dewoestine nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission of
+     Eric Van Dewoestine.
 
-.. image:: https://github.com/davidhalter/jedi/raw/master/docs/_screenshots/screenshot_complete.png
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+   IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+   THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+   PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-Completion for almost anything (Ctrl+Space).
+.. _overview:
 
-.. image:: https://github.com/davidhalter/jedi/raw/master/docs/_screenshots/screenshot_function.png
+==================
+Overview
+==================
 
-Display of function/class bodies, docstrings.
-
-.. image:: https://github.com/davidhalter/jedi/raw/master/docs/_screenshots/screenshot_pydoc.png
-
-Documentation (Pydoc) support (with highlighting, Shift+k).
-
-There is also support for goto and renaming.
-
-
-Get the latest from `github <http://github.com/davidhalter/jedi-vim>`_.
-
-Documentation
-=============
-
-Documentation is available in your vim: ``:help jedi-vim``. You can also look
-it up `on github <http://github.com/davidhalter/jedi-vim/blob/master/doc/jedi-vim.txt>`_.
-
-You can read the Jedi library documentation `here <http://jedi.readthedocs.io/en/latest/>`_.
-
-If you want to report issues, just use the github issue tracker. In case of
-questions about the software, please use `stackoverflow
-<https://stackoverflow.com/questions/tagged/jedi-vim>`_ and tag your question with ``jedi-vim``.
-
-
-Contributing
-============
-
-We love Pull Requests! Read the instructions in ``CONTRIBUTING.md``.
-
+Supertab is a vim plugin which allows you to use <Tab> for all your insert
+completion needs (:help ins-completion).
 
 Features
-========
+--------
 
-The Jedi library understands most of Python's core features. From decorators to
-generators, there is broad support.
+- Configurable to suit your needs:
 
-Apart from that, jedi-vim supports the following commands
+  - Default completion type to use.
+  - Prevent <Tab> from completing after/before defined patterns.
+  - Close vim's completion preview window when code completion is finished.
+  - When using other completion types, you can configure how long to 'remember'
+    the current completion type before returning to the default.
+  - Don't like using <Tab>? You can also configure a different pair of keys to
+    scroll forwards and backwards through completion results.
 
-- Completion ``<C-Space>``
-- Goto assignments ``<leader>g`` (typical goto function)
-- Goto definitions ``<leader>d`` (follow identifier as far as possible,
-  includes imports and statements)
-- Show Documentation/Pydoc ``K`` (shows a popup with assignments)
-- Renaming ``<leader>r``
-- Usages ``<leader>n`` (shows all the usages of a name)
-- Open module, e.g. ``:Pyimport os`` (opens the ``os`` module)
+- Optional improved 'longest' completion support (after typing some characters,
+  hitting <Tab> will highlight the next longest match).
+- Built in 'context' completion option which chooses the appropriate completion
+  type based on the text preceding the cursor.
 
+  - You can also plug in your own functions to determine which completion type
+    to use.
+
+- Support for simple completion chaining (falling back to a different
+  completion type, keyword completion for example, if omni or user completion
+  returns no results).
 
 Installation
-============
-
-Requirements
 ------------
-You need a VIM version that was compiled with Python 2.7 or later
-(``+python`` or ``+python3``).  You can check this from within VIM using
-``:python3 import sys; print(sys.version)`` (use ``:python`` for Python 2).
 
-Manual installation
--------------------
+You have a few options when it comes to installing supertab:
 
-You might want to use `pathogen <https://github.com/tpope/vim-pathogen>`_ or
-`Vundle <https://github.com/gmarik/vundle>`_ to install jedi-vim.
+1. Use your linux package manager:
 
-The first thing you need after that is an up-to-date version of Jedi. You can
-either install it via ``pip install jedi`` or with
-``git submodule update --init`` in your jedi-vim repository.
+   Some linux distributions include a supertab package so you don't have to
+   manage the install/upgrade of supertab separately from other software on your
+   system.
 
-Example installation command using Pathogen:
+2. Use a vim plugin manager:
 
-.. code-block:: sh
+   There are several plugin managers for vim, which will either allow you to
+   manually clone vim plugin repositories, or will do so for you. Probably the
+   two most popular ones currently are `pathogen
+   <https://github.com/tpope/vim-pathogen>`_ and `vundle
+   <https://github.com/gmarik/Vundle.vim>`_. Please refer to their docs for
+   instructions on how to install plugins.
 
-    git clone --recursive https://github.com/davidhalter/jedi-vim.git ~/.vim/bundle/jedi-vim
+3. And lastly you can use the vimball (.vmb) file found on
+   `vim.org <http://www.vim.org/scripts/script.php?script_id=1643>`_:
 
-Example installation using Vundle:
+   Vimball files are installed by simply opening them in vim and then sourcing
+   the file:
 
-Add the following line in your `~/.vimrc`
-    
-.. code-block:: vim
+   ::
 
-    Plugin 'davidhalter/jedi-vim'
+     $ vim supertab.vmb
+     :source %
 
+Documentation
+-------------
 
-Installation with your distribution
------------------------------------
+You can access the supertab documentation from within vim using the following
+command:
 
-On Arch Linux, you can also install jedi-vim from official repositories as
-`vim-jedi <https://www.archlinux.org/packages/community/any/vim-jedi/>`__.
-It is also available on
-`Debian (≥8) <https://packages.debian.org/vim-python-jedi>`__ and
-`Ubuntu (≥14.04) <http://packages.ubuntu.com/vim-python-jedi>`__ as
-vim-python-jedi.
-On Fedora Linux, it is available as
-`vim-jedi <https://apps.fedoraproject.org/packages/vim-jedi>`__.
+::
 
-Please note that this version might be quite old compared to using jedi-vim
-from Git.
+  :help supertab
 
-Caveats
--------
+You can also view the text file on
+`github <https://github.com/ervandew/supertab/blob/master/doc/supertab.txt>`_.
 
-Note that the `python-mode <https://github.com/klen/python-mode>`_ VIM plugin seems
-to conflict with jedi-vim, therefore you should disable it before enabling
-jedi-vim.
+Frequently Asked Questions
+--------------------------
 
-To enjoy the full features of jedi-vim, you should have VIM >= 7.3, compiled with
-``+conceal`` (which is not the case on some platforms, including OS X). If your VIM
-does not meet these requirements, the parameter recommendation list may not appear
-when you type an open bracket after a function name. Please read
-`the documentation <http://github.com/davidhalter/jedi-vim/blob/master/doc/jedi-vim.txt>`_
-for details.
+- **Why isn't anything happening when I hit <tab>?**
 
+  First make sure you properly installed supertab and that you have plugin
+  support enabled in vim. You can run the following in vim to check that
+  supertab was loaded:
 
-Settings
-========
+  ::
 
-Jedi is by default automatically initialized. If you don't want that I suggest
-you disable the auto-initialization in your ``.vimrc``:
+    :scriptnames
 
-.. code-block:: vim
+  Next make sure that the supertab insert mapping exists. It's possible some
+  other plugin could have overridden the mapping. You can check this by running
+  the following in vim, which would show that it's mapped to `SuperTabForward`:
 
-    let g:jedi#auto_initialization = 0
+  ::
 
-There are also some VIM options (like ``completeopt`` and key defaults) which
-are automatically initialized, but you can skip this:
+    :verbose imap <tab>
 
-.. code-block:: vim
+  If supertab has been loaded and the insert mapping looks correct, make sure
+  you don't have the `paste` option enabled in your vimrc or elsewhere. When
+  that option is enabled, all insert mappings are disabled. You can run the
+  following command in vim to check if and where that option was set:
 
-    let g:jedi#auto_vim_configuration = 0
+  ::
 
+    :verbose set paste?
 
-You can make jedi-vim use tabs when going to a definition etc:
+- **Why isn't supertab honoring my configured settings (attempts to complete at the
+  start of a line, always performs keyword completion instead of my configured
+  default, etc.)?**
 
-.. code-block:: vim
+  Chances are that you have a very old version of `snipmate
+  <https://github.com/msanders/snipmate.vim>`_ installed, or something similar,
+  which will issue a `<c-n>` when no snippet is found. Supertab use to map to
+  `<c-n>`, so this behavior would act as a fallback to supertab, but current
+  versions of supertab no longer do so, resulting in snipmate bypassing supertab
+  entirely.
 
-    let g:jedi#use_tabs_not_buffers = 1
+  You can check if this is the case by running the following in vim to see what
+  is mapped to `<tab>`:
 
-If you are a person who likes to use VIM-splits, you might want to put this in your ``.vimrc``:
+  ::
 
-.. code-block:: vim
+    :verbose imap <tab>
 
-    let g:jedi#use_splits_not_buffers = "left"
+  To resolve the issue you can either:
 
-This options could be "left", "right", "top", "bottom" or "winwidth". It will decide the direction where the split open.
+  #. Install my `fork <https://github.com/ervandew/snipmate.vim>`_ or
+  #. Upgrade to a more recent snipmate fork, like `garbas/vim-snipmate
+     <https://github.com/garbas/vim-snipmate>`_
 
-Jedi automatically starts the completion, if you type a dot, e.g. ``str.``, if
-you don't want this:
+  See `#74 <https://github.com/ervandew/supertab/issues/74>`_ for additional
+  details.
 
-.. code-block:: vim
+- **Why does <tab> navigate the completion menu from bottom to top?**
 
-    let g:jedi#popup_on_dot = 0
+  First, if after reading the explanation below (or if you don't want to bother
+  reading it), you still want the default to scroll down the list then you can
+  use:
 
-Jedi selects the first line of the completion menu: for a better typing-flow
-and usually saves one keypress.
+  ::
 
-.. code-block:: vim
+    let g:SuperTabDefaultCompletionType = "<c-n>"
 
-    let g:jedi#popup_select_first = 0
+  or if your default completion type is currently `context` then you can use
+  this instead:
 
-Jedi displays function call signatures in insert mode in real-time, highlighting
-the current argument. The call signatures can be displayed as a pop-up in the
-buffer (set to 1, the default), which has the advantage of being easier to refer
-to, or in Vim's command line aligned with the function call (set to 2), which
-can improve the integrity of Vim's undo history.
+  ::
 
-.. code-block:: vim
+    let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-    let g:jedi#show_call_signatures = "1"
+  Now on to the reasoning behind this. When using `<c-p>` or `<c-n>` to start
+  insert completion, both populate the completion popup with the same list of
+  words in the same order, the only difference is that `<c-p>` highlights the
+  nearest matching word located above the current cursor position, which is the
+  result at the bottom of the completion popup. Without supertab installed,
+  continuing to hit `<c-p>` will walk up the list to next nearest word above the
+  cursor.
 
-Here are a few more defaults for actions, read the docs (``:help jedi-vim``) to
-get more information. If you set them to ``""``, they are not assigned.
+  I think Bram chose to display the results like this so that
 
-.. code-block:: vim
+  #. the completion logic is the same for `<c-n>` and `<c-p>`, only the first
+     entry to highlight differs
+  #. so that the behavior of `<c-p>` mode is consistent, always moving up the
+     list and
+  #. when starting `<c-p>` mode you don't have to switch over to
+     using `<c-n>` to get the next nearest entry, just continue to hit `<c-p>`.
 
-    NOTE: subject to change!
+  So, with supertab I wanted to preserve the same behavior. If `<c-p>` is your
+  default completion method (supertab defaults to this being the case), then
+  `<tab>` will start it and additional uses of `<tab>` will move up the list
+  instead of down so that you don't have to suddenly switch to using `<s-tab>`
+  to get the next nearest result.
 
-    let g:jedi#goto_command = "<leader>d"
-    let g:jedi#goto_assignments_command = "<leader>g"
-    let g:jedi#goto_definitions_command = ""
-    let g:jedi#documentation_command = "K"
-    let g:jedi#usages_command = "<leader>n"
-    let g:jedi#completions_command = "<C-Space>"
-    let g:jedi#rename_command = "<leader>r"
-
-
-Finally, if you don't want completion, but all the other features, use:
-
-.. code-block:: vim
-
-    let g:jedi#completions_enabled = 0
-
-FAQ
-===
-
-I don't want the docstring window to popup during completion
-------------------------------------------------------------
-
-This depends on the ``completeopt`` option. Jedi initializes it in its
-``ftplugin``. Add the following line to your ``.vimrc`` to disable it:
-
-.. code-block:: vim
-
-    autocmd FileType python setlocal completeopt-=preview
-
-
-I want <Tab> to do autocompletion
----------------------------------
-
-Don't even think about changing the Jedi command to ``<Tab>``,
-use `supertab <https://github.com/ervandew/supertab>`_!
-
-
-The completion is too slow!
----------------------------
-
-1. Completion of complex libraries (like Numpy) should only be slow the first
-   time you complete them. After that the results should be cached and very fast.
-
-2. If it is still slow after the initial completion and you have installed the
-   python-mode Vim plugin, try disabling its rope mode:
-
-   .. code-block:: vim
-
-       let g:pymode_rope = 0
-
-   See issue `#163 <https://github.com/davidhalter/jedi-vim/issues/163>`__.
-
-3. You can also use `deoplete-jedi <https://github.com/zchee/deoplete-jedi>`__
-   for completions, which uses Jedi, but does completions asynchronously
-   (requires Neovim).
-   It makes sense to use both jedi-vim and deoplete-jedi, but you should disable
-   jedi-vim's completions then:
-
-   .. code-block:: vim
-   
-       let g:jedi#completions_enabled = 0
-
-Testing
-=======
-
-jedi-vim is being tested with a combination of `vspec
-<https://github.com/kana/vim-vspec>`_ and `py.test <http://pytest.org/>`_.
-
-The tests are in the ``test`` subdirectory, you can run them calling::
-
-    py.test
-
-The tests are automatically run with `travis
-<https://travis-ci.org/davidhalter/jedi-vim>`_.
+  Why is `<c-p>` the supertab default? The original supertab author found (and I
+  agree with his finding) that while coding, the keyword match you want is
+  typically the closer of the matches above the cursor, which `<c-p>` naturally
+  provides.

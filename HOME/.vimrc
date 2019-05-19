@@ -6,12 +6,15 @@
 ".o.    `888'     888   888   888   888   888     888   .o8
 "Y8P     `8'     o888o o888o o888o o888o d888b    `Y8bod8P'
 
+set encoding=utf-8
+scriptencoding utf-8
+
 "行号・行のライン
-"set number
+set number
 set cursorline
+" set relativenumber
 
 "文字コード
-set encoding=utf-8
 set fileencoding=utf-8
 scriptencoding utf-8
 set ambiwidth=double
@@ -24,7 +27,7 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch
-"nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
+nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 "set whichwrap=b,s,h,l,<,>,[,],~
 
 "バッファ
@@ -39,14 +42,16 @@ set smarttab
 set shiftround
 
 "ColorScheme
-colorscheme molokai
+colorscheme atom-dark-256
 
 "Show Mode
 "set noshowmode
 
 "Use mouse
 set mouse=a
-set ttymouse=sgr
+if has('nvim') != 1
+    set ttymouse=sgr
+endif
 
 "Use syntax highlight
 syntax  enable
@@ -73,6 +78,15 @@ inoremap <C-d> <Delete>
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-m> <C-g>u<C-m>
 inoremap <C-j> <C-g>u<C-j>
+
+" Move between open buffers.
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprev<CR>
+
+" swap ; :
+nnoremap ; :
+nnoremap : ;
+nnoremap q; q:
 
 "dein Scripts-----------------------------
 if &compatible

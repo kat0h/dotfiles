@@ -1,335 +1,354 @@
-fzf :heart: vim
-===============
+# vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.png)](https://travis-ci.org/vim-airline/vim-airline)
 
-Things you can do with [fzf][fzf] and Vim.
+Lean &amp; mean status/tabline for vim that's light as air.
 
-Rationale
----------
+![img](https://github.com/vim-airline/vim-airline/wiki/screenshots/demo.gif)
 
-[fzf][fzf] in itself is not a Vim plugin, and the official repository only
-provides the [basic wrapper function][run] for Vim and it's up to the users to
-write their own Vim commands with it. However, I've learned that many users of
-fzf are not familiar with Vimscript and are looking for the "default"
-implementation of the features they can find in the alternative Vim plugins.
+When the plugin is correctly loaded, Vim will draw a nice statusline at the
+bottom of each window.
 
-This repository is a bundle of fzf-based commands and mappings extracted from
-my [.vimrc][vimrc] to address such needs. They are *not* designed to be
-flexible or configurable, and there's no guarantee of backward-compatibility.
+That line consists of several sections, each one displaying some piece of
+information. By default (without configuration) this line will look like this:
 
-Why you should use fzf on Vim
------------------------------
-
-Because you can and you love fzf.
-
-fzf runs asynchronously and can be orders of magnitude faster than similar Vim
-plugins. However, the benefit may not be noticeable if the size of the input
-is small, which is the case for many of the commands provided here.
-Nevertheless I wrote them anyway since it's really easy to implement custom
-selector with fzf.
-
-Installation
-------------
-
-fzf.vim depends on the basic Vim plugin of [the main fzf
-repository][fzf-main], which means you need to **set up both "fzf" and
-"fzf.vim" on Vim**. To learn more about fzf/Vim integration, see
-[README-VIM][README-VIM].
-
-[fzf-main]: https://github.com/junegunn/fzf
-[README-VIM]: https://github.com/junegunn/fzf/blob/master/README-VIM.md
-
-### Using [vim-plug](https://github.com/junegunn/vim-plug)
-
-If you already installed fzf using [Homebrew](https://brew.sh/), the following
-should suffice:
-
-```vim
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+```
++-----------------------------------------------------------------------------+
+|~                                                                            |
+|~                                                                            |
+|~                     VIM - Vi IMproved                                      |
+|~                                                                            |
+|~                       version 8.0                                          |
+|~                    by Bram Moolenaar et al.                                |
+|~           Vim is open source and freely distributable                      |
+|~                                                                            |
+|~           type :h :q<Enter>          to exit                               |
+|~           type :help<Enter> or <F1>  for on-line help                      |
+|~           type :help version8<Enter> for version info                      |
+|~                                                                            |
+|~                                                                            |
++-----------------------------------------------------------------------------+
+| A | B |                     C                            X | Y | Z |  [...] |
++-----------------------------------------------------------------------------+
 ```
 
-But if you want to install fzf as well using vim-plug:
+The statusline is the colored line at the bottom, which contains the sections
+(possibly in different colors):
 
-```vim
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+section|meaning (example)
+-------|------------------
+  A    | displays the mode + additional flags like crypt/spell/paste (INSERT)
+  B    | VCS information (branch, hunk summary) (master)
+  C    | filename + read-only flag (~/.vim/vimrc RO)
+  X    | filetype  (vim)
+  Y    | file encoding[fileformat] (utf-8[unix])
+  Z    | current position in the file
+ [...] | additional sections (warning/errors/statistics) from external plugins (e.g. YCM, syntastic, ...)
+
+The information in Section Z looks like this:
+
+`10% ☰ 10/100 ln : 20`
+
+This means:
+```
+10%     - 10 percent down the top of the file
+☰ 10    - current line 10
+/100 ln - of 100 lines
+: 20    - current column 20
 ```
 
-- `dir` and `do` options are not mandatory
-- Use `./install --bin` instead if you don't need fzf outside of Vim
-- Make sure to use Vim 7.4 or above
+For a better look, those sections can be colored differently, depending on various conditions
+(e.g. the mode or whether the current file is 'modified')
 
-Commands
---------
+# Features
 
-| Command           | List                                                                    |
-| ---               | ---                                                                     |
-| `Files [PATH]`    | Files (similar to `:FZF`)                                               |
-| `GFiles [OPTS]`   | Git files (`git ls-files`)                                              |
-| `GFiles?`         | Git files (`git status`)                                                |
-| `Buffers`         | Open buffers                                                            |
-| `Colors`          | Color schemes                                                           |
-| `Ag [PATTERN]`    | [ag][ag] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
-| `Rg [PATTERN]`    | [rg][rg] search result (`ALT-A` to select all, `ALT-D` to deselect all) |
-| `Lines [QUERY]`   | Lines in loaded buffers                                                 |
-| `BLines [QUERY]`  | Lines in the current buffer                                             |
-| `Tags [QUERY]`    | Tags in the project (`ctags -R`)                                        |
-| `BTags [QUERY]`   | Tags in the current buffer                                              |
-| `Marks`           | Marks                                                                   |
-| `Windows`         | Windows                                                                 |
-| `Locate PATTERN`  | `locate` command output                                                 |
-| `History`         | `v:oldfiles` and open buffers                                           |
-| `History:`        | Command history                                                         |
-| `History/`        | Search history                                                          |
-| `Snippets`        | Snippets ([UltiSnips][us])                                              |
-| `Commits`         | Git commits (requires [fugitive.vim][f])                                |
-| `BCommits`        | Git commits for the current buffer                                      |
-| `Commands`        | Commands                                                                |
-| `Maps`            | Normal mode mappings                                                    |
-| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
-| `Filetypes`       | File types
+*  Tiny core written with extensibility in mind ([open/closed principle][8]).
+*  Integrates with a variety of plugins, including: [vim-bufferline][6],
+   [fugitive][4], [unite][9], [ctrlp][10], [minibufexpl][15], [gundo][16],
+   [undotree][17], [nerdtree][18], [tagbar][19], [vim-gitgutter][29],
+   [vim-signify][30], [quickfixsigns][39], [syntastic][5], [eclim][34],
+   [lawrencium][21], [virtualenv][31], [tmuxline][35], [taboo.vim][37],
+   [ctrlspace][38], [vim-bufmru][47], [vimagit][50], [denite][51] and more.
+*  Looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
+*  Optimized for speed; it loads in under a millisecond.
+*  Extensive suite of themes for popular color schemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others.
+ Note these are now external to this plugin. See [below][46] for detail.
+*  Supports 7.2 as the minimum Vim version.
+*  The master branch tries to be as stable as possible, and new features are merged in only after they have gone through a [full regression test][33].
+*  Unit testing suite.
 
-- Most commands support `CTRL-T` / `CTRL-X` / `CTRL-V` key
-  bindings to open in a new tab, a new split, or in a new vertical split
-- Bang-versions of the commands (e.g. `Ag!`) will open fzf in fullscreen
-- You can set `g:fzf_command_prefix` to give the same prefix to the commands
-    - e.g. `let g:fzf_command_prefix = 'Fzf'` and you have `FzfFiles`, etc.
+## Straightforward customization
 
-(<a name="helptags">1</a>: `Helptags` will shadow the command of the same name
-from [pathogen][pat]. But its functionality is still available via `call
-pathogen#helptags()`. [↩](#a1))
+If you don't like the defaults, you can replace all sections with standard `statusline` syntax.  Give your statusline that you've built over the years a face lift.
 
-[pat]: https://github.com/tpope/vim-pathogen
-[f]:   https://github.com/tpope/vim-fugitive
+![image](https://f.cloud.github.com/assets/306502/1009429/d69306da-0b38-11e3-94bf-7c6e3eef41e9.png)
 
-### Customization
+## Themes
 
-#### Global options
+Themes have moved to
+another repository as of [this commit][45].
 
-See [README-VIM.md][readme-vim] of the main fzf repository for details.
-
-[readme-vim]: https://github.com/junegunn/fzf/blob/master/README-VIM.md#configuration
+Install the themes as you would this plugin (Vundle example):
 
 ```vim
-" This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
-" In Neovim, you can set up fzf window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split' }
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 ```
 
-#### Command-local options
+See https://github.com/vim-airline/vim-airline-themes for more.
 
-```vim
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
+## Automatic truncation
 
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+Sections and parts within sections can be configured to automatically hide when the window size shrinks.
 
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
+![image](https://f.cloud.github.com/assets/306502/1060831/05c08aac-11bc-11e3-8470-a506a3037f45.png)
 
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-```
+## Smarter tab line
 
-#### Advanced customization
+Automatically displays all buffers when there's only one tab open.
 
-You can use autoload functions to define your own commands.
+![tabline](https://f.cloud.github.com/assets/306502/1072623/44c292a0-1495-11e3-9ce6-dcada3f1c536.gif)
 
-```vim
-" Command for git grep
-" - fzf#vim#grep(command, with_column, [options], [fullscreen])
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+This is disabled by default; add the following to your vimrc to enable the extension:
 
-" Override Colors command. You can safely do this in your .vimrc as fzf.vim
-" will not override existing commands.
-command! -bang Colors
-  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+    let g:airline#extensions#tabline#enabled = 1
 
-" Augmenting Ag command using fzf#vim#with_preview function
-"   * fzf#vim#with_preview([[options], [preview window], [toggle keys...]])
-"     * For syntax-highlighting, Ruby and any of the following tools are required:
-"       - Bat: https://github.com/sharkdp/bat
-"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
-"       - CodeRay: http://coderay.rubychan.de/
-"       - Rouge: https://github.com/jneen/rouge
-"
-"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
-"   :Ag! - Start fzf in fullscreen and display the preview window above
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
+Separators can be configured independently for the tabline, so here is how you can define "straight" tabs:
 
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
 
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-```
+In addition, you can also choose which path formatter airline uses. This affects how file paths are
+displayed in each individual tab as well as the current buffer indicator in the upper right.
+To do so, set the `formatter` field with:
 
-Mappings
---------
+    let g:airline#extensions#tabline#formatter = 'default'
 
-| Mapping                            | Description                               |
-| ---                                | ---                                       |
-| `<plug>(fzf-maps-n)`               | Normal mode mappings                      |
-| `<plug>(fzf-maps-i)`               | Insert mode mappings                      |
-| `<plug>(fzf-maps-x)`               | Visual mode mappings                      |
-| `<plug>(fzf-maps-o)`               | Operator-pending mappings                 |
-| `<plug>(fzf-complete-word)`        | `cat /usr/share/dict/words`               |
-| `<plug>(fzf-complete-path)`        | Path completion using `find` (file + dir) |
-| `<plug>(fzf-complete-file)`        | File completion using `find`              |
-| `<plug>(fzf-complete-file-ag)`     | File completion using `ag`                |
-| `<plug>(fzf-complete-line)`        | Line completion (all open buffers)        |
-| `<plug>(fzf-complete-buffer-line)` | Line completion (current buffer only)     |
+Here is a complete list of formatters with screenshots:
 
-### Usage
+#### `default`
+![image](https://user-images.githubusercontent.com/2652762/34422844-1d005efa-ebe6-11e7-8053-c784c0da7ba7.png)
 
-```vim
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+#### `jsformatter`
+![image](https://user-images.githubusercontent.com/2652762/34422843-1cf6a4d2-ebe6-11e7-810a-07e6eb08de24.png)
 
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+#### `unique_tail`
+![image](https://user-images.githubusercontent.com/2652762/34422841-1ce5b4ec-ebe6-11e7-86e9-3d45c876068b.png)
 
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-```
+#### `unique_tail_improved`
+![image](https://user-images.githubusercontent.com/2652762/34422842-1cee23f2-ebe6-11e7-962d-97e068873077.png)
 
-### Completion helper
+## Seamless integration
 
-`fzf#vim#complete` is a helper function for creating custom fuzzy completion
-using fzf. If the first parameter is a command string or a Vim list, it will
-be used as the source.
+vim-airline integrates with a variety of plugins out of the box.  These extensions will be lazily loaded if and only if you have the other plugins installed (and of course you can turn them off).
 
-```vim
-" Replace the default dictionary completion with fzf-based fuzzy completion
-inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
-```
+#### [ctrlp.vim][10]
+![image](https://f.cloud.github.com/assets/306502/962258/7345a224-04ec-11e3-8b5a-f11724a47437.png)
 
-For advanced uses, you can pass an options dictionary to the function. The set
-of options is pretty much identical to that for `fzf#run` only with the
-following exceptions:
+#### [unite.vim][9]
+![image](https://f.cloud.github.com/assets/306502/962319/4d7d3a7e-04ed-11e3-9d59-ab29cb310ff8.png)
 
-- `reducer` (funcref)
-    - Reducer transforms the output lines of fzf into a single string value
-- `prefix` (string or funcref; default: `\k*$`)
-    - Regular expression pattern to extract the completion prefix
-    - Or a function to extract completion prefix
-- Both `source` and `options` can be given as funcrefs that take the
-  completion prefix as the argument and return the final value
-- `sink` or `sink*` are ignored
+#### [denite.nvim][51]
+![image](https://cloud.githubusercontent.com/assets/246230/23939717/f65bce6e-099c-11e7-85c3-918dbc839392.png)
 
-```vim
-" Global line completion (not just open buffers. ripgrep required.)
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-  \ 'prefix': '^.*$',
-  \ 'source': 'rg -n ^ --color always',
-  \ 'options': '--ansi --delimiter : --nth 3..',
-  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-```
+#### [tagbar][19]
+![image](https://f.cloud.github.com/assets/306502/962150/7e7bfae6-04ea-11e3-9e28-32af206aed80.png)
 
-#### Reducer example
+#### [csv.vim][28]
+![image](https://f.cloud.github.com/assets/306502/962204/cfc1210a-04eb-11e3-8a93-42e6bcd21efa.png)
 
-```vim
-function! s:make_sentence(lines)
-  return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
-endfunction
+#### [syntastic][5]
+![image](https://f.cloud.github.com/assets/306502/962864/9824c484-04f7-11e3-9928-da94f8c7da5a.png)
 
-inoremap <expr> <c-x><c-s> fzf#vim#complete({
-  \ 'source':  'cat /usr/share/dict/words',
-  \ 'reducer': function('<sid>make_sentence'),
-  \ 'options': '--multi --reverse --margin 15%,0',
-  \ 'left':    20})
-```
+#### hunks ([vim-gitgutter][29] & [vim-signify][30])
+![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
-Status line of terminal buffer
-------------------------------
+#### [vimagit][50]
+![vim-airline-vimagit-demo](https://cloud.githubusercontent.com/assets/533068/22107273/2ea85ba0-de4d-11e6-9fa8-331103b88df4.gif)
 
-When fzf starts in a terminal buffer (see [fzf/README-VIM.md][termbuf]), you
-may want to customize the statusline of the containing buffer.
+#### [virtualenv][31]
+![image](https://f.cloud.github.com/assets/390964/1022566/cf81f830-0d98-11e3-904f-cf4fe3ce201e.png)
 
-[termbuf]: https://github.com/junegunn/fzf/blob/master/README-VIM.md#fzf-inside-terminal-buffer
+#### [tmuxline][35]
+![image](https://f.cloud.github.com/assets/1532071/1559276/4c28fbac-4fc7-11e3-90ef-7e833d980f98.gif)
 
-### Hide statusline
+#### [promptline][36]
+![airline-promptline-sc](https://f.cloud.github.com/assets/1532071/1871900/7d4b28a0-789d-11e3-90e4-16f37269981b.gif)
 
-```vim
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-```
+#### [ctrlspace][38]
+![papercolor_with_ctrlspace](https://cloud.githubusercontent.com/assets/493242/12912041/7fc3c6ec-cf16-11e5-8775-8492b9c64ebf.png)
 
-### Custom statusline
+#### [xkb-switch][48]/[xkb-layout][49]
+![image](https://cloud.githubusercontent.com/assets/5715281/22061422/347e7842-ddb8-11e6-8bdb-7abbd418653c.gif)
 
-```vim
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
+#### [vimtex][53]
+![image](https://cloud.githubusercontent.com/assets/1798172/25799740/e77d5c2e-33ee-11e7-8660-d34ce4c5f13f.png)
 
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-```
+#### [localsearch][54]
+![image](https://raw.githubusercontent.com/mox-mox/vim-localsearch/master/vim-airline-localsearch-indicator.png)
 
-License
--------
+#### [LanguageClient][57]
+![image](https://user-images.githubusercontent.com/9622/45275524-52f45c00-b48b-11e8-8b83-a66240b10747.gif)
 
-MIT
+## Extras
 
-[fzf]:   https://github.com/junegunn/fzf
-[run]:   https://github.com/junegunn/fzf#usage-as-vim-plugin
-[vimrc]: https://github.com/junegunn/dotfiles/blob/master/vimrc
-[ag]:    https://github.com/ggreer/the_silver_searcher
-[rg]:    https://github.com/BurntSushi/ripgrep
-[us]:    https://github.com/SirVer/ultisnips
+vim-airline also supplies some supplementary stand-alone extensions.  In addition to the tabline extension mentioned earlier, there is also:
+
+#### whitespace
+![image](https://f.cloud.github.com/assets/306502/962401/2a75385e-04ef-11e3-935c-e3b9f0e954cc.png)
+
+### statusline on top
+The statusline can alternatively by drawn on top, making room for other plugins to use the statusline:
+The example shows a custom statusline setting, that imitates Vims default statusline, while allowing
+to call custom functions.  Use `:let g:airline_statusline_ontop=1` to enable it.
+
+![image](https://i.imgur.com/tW1lMRU.png)
+
+## Configurable and extensible
+
+#### Fine-tuned configuration
+
+Every section is composed of parts, and you can reorder and reconfigure them at will.
+
+![image](https://f.cloud.github.com/assets/306502/1073278/f291dd4c-14a3-11e3-8a83-268e2753f97d.png)
+
+Sections can contain accents, which allows for very granular control of visuals (see configuration [here](https://github.com/vim-airline/vim-airline/issues/299#issuecomment-25772886)).
+
+![image](https://f.cloud.github.com/assets/306502/1195815/4bfa38d0-249d-11e3-823e-773cfc2ca894.png)
+
+#### Extensible pipeline
+
+Completely transform the statusline to your liking.  Build out the statusline as you see fit by extracting colors from the current colorscheme's highlight groups.
+
+![allyourbase](https://f.cloud.github.com/assets/306502/1022714/e150034a-0da7-11e3-94a5-ca9d58a297e8.png)
+
+# Rationale
+
+There's already [powerline][2], why yet another statusline?
+
+*  100% vimscript; no python needed.
+
+What about [vim-powerline][1]?
+
+*  vim-powerline has been deprecated in favor of the newer, unifying powerline, which is under active development; the new version is written in python at the core and exposes various bindings such that it can style statuslines not only in vim, but also tmux, bash, zsh, and others.
+
+# Where did the name come from?
+
+I wrote the initial version on an airplane, and since it's light as air it turned out to be a good name.  Thanks for flying vim!
+
+# Installation
+
+This plugin follows the standard runtime path structure, and as such it can be installed with a variety of plugin managers:
+
+| Plugin Manager | Install with... |
+| ------------- | ------------- |
+| [Pathogen][11] | `git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline`<br/>Remember to run `:Helptags` to generate help tags |
+| [NeoBundle][12] | `NeoBundle 'vim-airline/vim-airline'` |
+| [Vundle][13] | `Plugin 'vim-airline/vim-airline'` |
+| [Plug][40] | `Plug 'vim-airline/vim-airline'` |
+| [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
+| [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
+| [minpac][55] | `call minpac#add('vim-airline/vim-airline')` |
+| pack feature (native Vim 8 package feature)| `git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline`<br/>Remember to run `:helptags` to generate help tags |
+| manual | copy all of the files into your `~/.vim` directory |
+
+# Documentation
+
+`:help airline`
+
+# Integrating with powerline fonts
+
+For the nice looking powerline symbols to appear, you will need to install a patched font.  Instructions can be found in the official powerline [documentation][20].  Prepatched fonts can be found in the [powerline-fonts][3] repository.
+
+Finally, you can add the convenience variable `let g:airline_powerline_fonts = 1` to your vimrc which will automatically populate the `g:airline_symbols` dictionary with the powerline symbols.
+
+# FAQ
+
+Solutions to common problems can be found in the [Wiki][27].
+
+# Performance
+
+Whoa!  Everything got slow all of a sudden...
+
+vim-airline strives to make it easy to use out of the box, which means that by default it will look for all compatible plugins that you have installed and enable the relevant extension.
+
+Many optimizations have been made such that the majority of users will not see any performance degradation, but it can still happen.  For example, users who routinely open very large files may want to disable the `tagbar` extension, as it can be very expensive to scan for the name of the current function.
+
+The [minivimrc][7] project has some helper mappings to troubleshoot performance related issues.
+
+If you don't want all the bells and whistles enabled by default, you can define a value for `g:airline_extensions`.  When this variable is defined, only the extensions listed will be loaded; an empty array would effectively disable all extensions (e.g. `:let g:airline_extensions = []`).
+
+Also, you can enable caching of the various syntax highlighting groups. This will try to prevent some of the more expensive `:hi` calls in Vim, which seem to be expensive in the Vim core at the expense of possibly not being one hundred percent correct all the time (especially if you often change highlighting groups yourself using `:hi` commands). To set this up do `:let g:airline_highlighting_cache = 1`. A `:AirlineRefresh` will however clear the cache.
+
+In addition you might want to check out the [dark_minimal theme][56], which does not change highlighting groups once they are defined. Also please check the [FAQ][27] for more information on how to diagnose and fix the problem.
+
+# Screenshots
+
+A full list of screenshots for various themes can be found in the [Wiki][14].
+
+# Maintainers
+
+The project is currently being maintained by [Bailey Ling][41], [Christian Brabandt][42], and [Mike Hartington][44].
+
+If you are interested in becoming a maintainer (we always welcome more maintainers), please [go here][43].
+
+# License
+
+[MIT License][58]. Copyright (c) 2013-2019 Bailey Ling & Contributors.
+
+[1]: https://github.com/Lokaltog/vim-powerline
+[2]: https://github.com/Lokaltog/powerline
+[3]: https://github.com/Lokaltog/powerline-fonts
+[4]: https://github.com/tpope/vim-fugitive
+[5]: https://github.com/scrooloose/syntastic
+[6]: https://github.com/bling/vim-bufferline
+[7]: https://github.com/bling/minivimrc
+[8]: http://en.wikipedia.org/wiki/Open/closed_principle
+[9]: https://github.com/Shougo/unite.vim
+[10]: https://github.com/ctrlpvim/ctrlp.vim
+[11]: https://github.com/tpope/vim-pathogen
+[12]: https://github.com/Shougo/neobundle.vim
+[13]: https://github.com/VundleVim/Vundle.vim
+[14]: https://github.com/vim-airline/vim-airline/wiki/Screenshots
+[15]: https://github.com/techlivezheng/vim-plugin-minibufexpl
+[16]: https://github.com/sjl/gundo.vim
+[17]: https://github.com/mbbill/undotree
+[18]: https://github.com/scrooloose/nerdtree
+[19]: https://github.com/majutsushi/tagbar
+[20]: https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
+[21]: https://bitbucket.org/ludovicchabant/vim-lawrencium
+[22]: https://github.com/MarcWeber/vim-addon-manager
+[23]: https://github.com/altercation/solarized
+[24]: https://github.com/chriskempson/tomorrow-theme
+[25]: https://github.com/tomasr/molokai
+[26]: https://github.com/nanotech/jellybeans.vim
+[27]: https://github.com/vim-airline/vim-airline/wiki/FAQ
+[28]: https://github.com/chrisbra/csv.vim
+[29]: https://github.com/airblade/vim-gitgutter
+[30]: https://github.com/mhinz/vim-signify
+[31]: https://github.com/jmcantrell/vim-virtualenv
+[32]: https://github.com/chriskempson/base16-vim
+[33]: https://github.com/vim-airline/vim-airline/wiki/Test-Plan
+[34]: http://eclim.org
+[35]: https://github.com/edkolev/tmuxline.vim
+[36]: https://github.com/edkolev/promptline.vim
+[37]: https://github.com/gcmt/taboo.vim
+[38]: https://github.com/szw/vim-ctrlspace
+[39]: https://github.com/tomtom/quickfixsigns_vim
+[40]: https://github.com/junegunn/vim-plug
+[41]: https://github.com/bling
+[42]: https://github.com/chrisbra
+[43]: https://github.com/vim-airline/vim-airline/wiki/Becoming-a-Maintainer
+[44]: https://github.com/mhartington
+[45]: https://github.com/vim-airline/vim-airline/commit/d7fd8ca649e441b3865551a325b10504cdf0711b
+[46]: https://github.com/vim-airline/vim-airline#themes
+[47]: https://github.com/mildred/vim-bufmru
+[48]: https://github.com/ierton/xkb-switch
+[49]: https://github.com/vovkasm/input-source-switcher
+[50]: https://github.com/jreybert/vimagit
+[51]: https://github.com/Shougo/denite.nvim
+[52]: https://github.com/Shougo/dein.vim
+[53]: https://github.com/lervag/vimtex
+[54]: https://github.com/mox-mox/vim-localsearch
+[55]: https://github.com/k-takata/minpac/
+[56]: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dark_minimal.vim
+[57]: https://github.com/autozimu/LanguageClient-neovim
+[58]: https://github.com/vim-airline/vim-airline/blob/master/LICENSE

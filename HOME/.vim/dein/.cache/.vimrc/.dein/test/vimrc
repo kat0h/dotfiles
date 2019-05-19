@@ -1,13 +1,39 @@
-filetype off
+" vint: -ProhibitSetNoCompatible
 
-set runtimepath+=vader.vim
-set runtimepath+=..
+" Make most tests just set lists synchronously when run in Docker, etc.
+let g:ale_set_lists_synchronously = 1
 
-filetype plugin on
-syntax enable
+" Load builtin plugins
+" We need this because run_vim.sh sets -i NONE
+if has('win32')
+    set runtimepath=$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,C:\vader,C:\testplugin
+else
+    set runtimepath=/home/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,/testplugin,/vader
+endif
 
-set hidden
+" The following is just an example
+filetype plugin indent on
+syntax on
 
-let g:startify_session_dir = 'session'
-let g:startify_relative_path = 1
-let g:startify_custom_header = []
+if !has('win32')
+    set shell=/bin/sh
+    set shellcmdflag=-c
+endif
+
+set nocompatible
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set backspace=2
+set nofoldenable
+set foldmethod=syntax
+set foldlevelstart=10
+set foldnestmax=10
+set ttimeoutlen=0
+" The encoding must be explicitly set for tests for Windows.
+execute 'set encoding=utf-8'
+
+let g:mapleader=','
+
+let g:ale_ignore_2_4_warnings = 1

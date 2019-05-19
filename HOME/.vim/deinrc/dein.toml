@@ -9,6 +9,7 @@ let g:ale_sign_error   = ' '
 let g:ale_sign_warning = ' '
 "タイムアウト時間の調整
 "let g:ale_lint_delay = 1000
+" 言語に適したlintツール
 let g:ale_linters = {
 \   'python': ['pyflakes'],
 \}
@@ -44,9 +45,9 @@ command! -bang -nargs=* Ag
         \           : fzf#vim#with_preview('right:50%', '?'),
         \   <bang>0)
 " キーバインド
-nmap \b :Buffers
-nmap \f :Files
-nmap \t :Tags
+nnoremap \b :Buffers 
+nnoremap \f :Files 
+nnoremap \t :Tags 
 '''
 
 # 行頭行末にあるスペースを可視化
@@ -65,6 +66,16 @@ let g:indent_guides_guide_size = 1
 # :GitGutterLineHighlightsToggle
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
+hook_add = '''
+let g:gitgutter_sign_added = ' '
+let g:gitgutter_sign_modified = ' '
+let g:gitgutter_sign_removed = ' '
+let g:gitgutter_sign_removed_first_line = ' '
+let g:gitgutter_sign_modified_removed = ' '
+'''
+
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
 
 # gcでコメントの切り替えができる
 [[plugins]]
@@ -97,17 +108,18 @@ set laststatus=2
 set noshowmode
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
 let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
 let g:airline_section_c = '%t'
 let g:airline_section_x = '%{&filetype}'
-let g:airline_section_z = '%3l:%2v %{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
+let g:airline_section_z = '%{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
 let g:airline#extensions#ale#error_symbol = ' '
 let g:airline#extensions#ale#warning_symbol = ' '
 let g:airline#extensions#default#section_truncate_width = {}
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 set t_Co=256
 "let g:airline_powerline_fonts = 1
 '''
@@ -132,20 +144,9 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
-# python用
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-
-# 翻訳ができる
-[[plugins]]
-repo = 'skanehira/translate.vim'
-hook_add = '''
-let g:translate_winsize = 5
-'''
-
 # ウィンドウサイズ変更
-[[plugins]]
-repo = 'simeji/winresizer'
+# [[plugins]]
+# repo = 'simeji/winresizer'
 
 # Git操作ができる
 # 専らAirLine用
@@ -156,6 +157,52 @@ repo = 'tpope/vim-fugitive'
 [[plugins]]
 repo = 'mhinz/vim-startify'
 
+# . の強化
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+# endの挿入
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+# colorscheme
+[[plugins]]
+repo = 'itchyny/landscape.vim'
+hook_add = '''
+" colorscheme landscape
+'''
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+hook_add = '''
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+'''
 
+[[plugins]]
+repo = 'ervandew/supertab'
+
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# build = 'coc#util#install()'
+# hook_add = '''
+#   nmap <silent> gd <Plug>(coc-definition)
+#   nmap <silent> gy <Plug>(coc-type-definition)
+#   nmap <silent> gi <Plug>(coc-implementation)
+#   nmap <silent> gr <Plug>(coc-references)
+#   " Remap for rename current word
+#   nmap <leader>rn <Plug>(coc-rename)
+#   " Highlight symbol under cursor on CursorHold
+#   autocmd CursorHold * silent call CocActionAsync('highlight')
+#   " Use K for show documentation in preview window
+#   nnoremap <silent> K :call <SID>show_documentation()<CR>
+#   function! s:show_documentation()
+#     if &filetype == 'vim'
+#       execute 'h '.expand('<cword>')
+#     else
+#       call CocAction('doHover')
+#     endif
+#   endfunction
+# '''
