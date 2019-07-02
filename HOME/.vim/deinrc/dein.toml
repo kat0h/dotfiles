@@ -11,7 +11,7 @@ let g:ale_sign_warning = ' '
 "let g:ale_lint_delay = 1000
 " 言語に適したlintツール
 let g:ale_linters = {
-\   'python': ['pyflakes'],
+\   'python': ['flake8'],
 \}
 '''
 
@@ -24,10 +24,6 @@ let g:loaded_matchparen = 1
 ""カッコの対応
 source $VIMRUNTIME/macros/matchit.vim
 '''
-
-# BDでいい感じにバッファをkillできる
-[[plugins]]
-repo = 'qpkorr/vim-bufkill'
 
 # fzfのvimフロントエンド
 [[plugins]]
@@ -45,9 +41,9 @@ command! -bang -nargs=* Ag
         \           : fzf#vim#with_preview('right:50%', '?'),
         \   <bang>0)
 " キーバインド
-nnoremap \b :Buffers 
+nnoremap \b :Buffers
 nnoremap \f :Files 
-nnoremap \t :Tags 
+nnoremap \t :Tags
 '''
 
 # 行頭行末にあるスペースを可視化
@@ -55,11 +51,11 @@ nnoremap \t :Tags
 repo = 'bronson/vim-trailing-whitespace'
 
 # インデントの可視化
-[[plugins]]
-repo = 'Yggdroot/indentLine'
-hook_add = '''
-let g:indent_guides_guide_size = 1
-'''
+# [[plugins]]
+# repo = 'Yggdroot/indentLine'
+# hook_add = '''
+# let g:indent_guides_guide_size = 1
+# '''
 
 # ファイルの差分を表示
 # :GitGutterToggle
@@ -73,9 +69,8 @@ let g:gitgutter_sign_removed = ' '
 let g:gitgutter_sign_removed_first_line = ' '
 let g:gitgutter_sign_modified_removed = ' '
 '''
-
-[[plugins]]
-repo = 'tpope/vim-rhubarb'
+ [[plugins]]
+ repo = 'tpope/vim-rhubarb'
 
 # gcでコメントの切り替えができる
 [[plugins]]
@@ -84,21 +79,6 @@ repo = 'tpope/vim-commentary'
 # textobjの拡張基礎
 [[plugins]]
 repo = 'kana/vim-textobj-user'
-
-# ae ie を追加
-[[plugins]]
-repo = 'kana/vim-textobj-entire'
-
-# ステータスラインの拡張
-# [[plugins]]
-# repo = 'itchyny/lightline.vim'
-# hook_add = '''
-# set laststatus=2
-# set noshowmode
-# let g:lightline = {
-#     \ 'colorscheme': 'seoul256',
-#     \ }
-# '''
 
 # ステータスラインの拡張
 [[plugins]]
@@ -121,7 +101,7 @@ let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 set t_Co=256
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 '''
 
 # airline用カラースキーム
@@ -132,30 +112,37 @@ repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
-# tomlファイル用カラースキーム
-[[plugins]]
-repo = 'cespare/vim-toml'
-
 # S で括弧の追加等ができる
 [[plugins]]
 repo = 'tpope/vim-surround'
 
 # 括弧の補完
 [[plugins]]
-repo = 'cohama/lexima.vim'
-
-# ウィンドウサイズ変更
-# [[plugins]]
-# repo = 'simeji/winresizer'
+repo = 'Raimondi/delimitMate'
 
 # Git操作ができる
 # 専らAirLine用
-[[plugins]]
-repo = 'tpope/vim-fugitive'
+ [[plugins]]
+ repo = 'tpope/vim-fugitive'
 
 # 最近使ったファイル
-[[plugins]]
-repo = 'mhinz/vim-startify'
+# [[plugins]]
+# repo = 'mhinz/vim-startify'
+# hook_add = '''
+# " startify
+# let g:startify_files_number = 10
+# let g:startify_list_order = [
+        # \ ['♻  最近使ったファイル:'],
+        # \ 'files',
+        # \ ['♲  最近使ったファイル(カレントディレクトリ下):'],
+        # \ 'dir',
+        # \ ['⚑  セッション:'],
+        # \ 'sessions',
+        # \ ['☺  ブックマーク:'],
+        # \ 'bookmarks',
+        # \ ]
+# let g:startify_bookmarks = []
+# '''
 
 # . の強化
 [[plugins]]
@@ -166,43 +153,39 @@ repo = 'tpope/vim-repeat'
 repo = 'tpope/vim-endwise'
 
 # colorscheme
-[[plugins]]
-repo = 'itchyny/landscape.vim'
-hook_add = '''
-" colorscheme landscape
-'''
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-'''
-
-[[plugins]]
-repo = 'ervandew/supertab'
+# [[plugins]]
+# repo = 'itchyny/landscape.vim'
+# hook_add = '''
+# " colorscheme landscape
+# '''
 
 # [[plugins]]
-# repo = 'neoclide/coc.nvim'
-# build = 'coc#util#install()'
+# repo = 'scrooloose/nerdtree'
 # hook_add = '''
-#   nmap <silent> gd <Plug>(coc-definition)
-#   nmap <silent> gy <Plug>(coc-type-definition)
-#   nmap <silent> gi <Plug>(coc-implementation)
-#   nmap <silent> gr <Plug>(coc-references)
-#   " Remap for rename current word
-#   nmap <leader>rn <Plug>(coc-rename)
-#   " Highlight symbol under cursor on CursorHold
-#   autocmd CursorHold * silent call CocActionAsync('highlight')
-#   " Use K for show documentation in preview window
-#   nnoremap <silent> K :call <SID>show_documentation()<CR>
-#   function! s:show_documentation()
-#     if &filetype == 'vim'
-#       execute 'h '.expand('<cword>')
-#     else
-#       call CocAction('doHover')
-#     endif
-#   endfunction
+# nnoremap <silent><C-e> :NERDTreeToggle<CR>
 # '''
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_add = '''
+let g:rainbow_active = 1
+'''
+
+[[plugins]]
+repo = 'keith/swift.vim'
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+
+# BDでいい感じにバッファをkillできる
+[[plugins]]
+repo = 'qpkorr/vim-bufkill'
+
+[[plugins]]
+repo = 'skanehira/train.vim'
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
+
+[[plugins]]
+repo = 'https://github.com/itchyny/dictionary.vim'

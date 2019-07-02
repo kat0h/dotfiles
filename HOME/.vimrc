@@ -9,7 +9,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-"行号・行のライン
+"行番号・行のライン
 set number
 set cursorline
 " set relativenumber
@@ -42,16 +42,18 @@ set smarttab
 set shiftround
 
 "ColorScheme
-colorscheme atom-dark-256
+colorscheme tender
+" set background=light
+
 
 "Show Mode
 "set noshowmode
 
 "Use mouse
-set mouse=a
-if has('nvim') != 1
-    set ttymouse=sgr
-endif
+" set mouse=a
+" if has('nvim') != 1
+"     set ttymouse=sgr
+" endif
 
 "Use syntax highlight
 syntax  enable
@@ -87,23 +89,41 @@ nnoremap <C-p> :bprev<CR>
 nnoremap ; :
 nnoremap : ;
 nnoremap q; q:
+vnoremap ; :
+vnoremap : ;
+tnoremap <C-w>; <C-w>:
+tnoremap <C-w>: <C-w>;
+
+" send C-w when type <C-w><C-w>
+
+" Enable mouse
+set mouse=a
 
 "dein Scripts-----------------------------
 if &compatible
     set nocompatible               " Be iMproved
 endif
+"
+" dein自体の自動インストール
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
 " Required:
 set runtimepath+=/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/Users/katokota/.vim/./dein')
-    call dein#begin('/Users/katokota/.vim/./dein')
+if dein#load_state('~/.cache/dein')
+    call dein#begin('~/.cache/dein')
     "Let dein manage dein
     " Required:
-    call dein#add('/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim')
+    call dein#add('~/.cache/dein')
 
-    let g:rc_dir = $HOME . '/.vim/deinrc'
+    let g:rc_dir = '~/dotfiles/HOME/.vim/deinrc'
     let s:toml      = g:rc_dir . '/dein.toml'
     let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 

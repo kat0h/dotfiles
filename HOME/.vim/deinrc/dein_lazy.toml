@@ -5,3 +5,8 @@ on_ft = ['python']
 hook_add = '''
 autocmd FileType python setlocal completeopt-=preview
 '''
+
+# tomlファイル用シンタックスハイライト
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']

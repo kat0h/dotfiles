@@ -4,12 +4,21 @@
 #read i
 #find . -type f | grep ".DS_Store" | xargs rm
 
+cd ~/dotfiles
 for FILENAME in `ls -a HOME/ | grep -v "\.$" | grep -v ".DS_Store"`
 do
     ln -s ~/dotfiles/HOME/$FILENAME ~/
     if [ $? -eq "0" ] ; then
         echo "link" $FILENAME
     else
-        echo "error" $FILENAME
+        echo "It's alleady linked" $FILENAME
     fi
 done
+
+if [ -e ./HOME/.vim/dein ]
+then
+    echo deinWasInstalled!
+else
+    cd ./HOME/.vim
+    echo no | bash ./settingScript/dein_install.sh
+fi
