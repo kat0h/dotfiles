@@ -12,7 +12,6 @@ scriptencoding utf-8
 "行番号・行のライン
 set number
 set cursorline
-" set relativenumber
 
 "文字コード
 set fileencoding=utf-8
@@ -28,7 +27,6 @@ set ignorecase
 set smartcase
 set hlsearch
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
-"set whichwrap=b,s,h,l,<,>,[,],~
 
 "バッファ
 set hidden
@@ -42,25 +40,17 @@ set smarttab
 set shiftround
 
 "ColorScheme
-colorscheme tender
-" set background=light
+colorscheme atom-dark-256
 
-
-"Show Mode
-"set noshowmode
-
-"Use mouse
-" set mouse=a
-" if has('nvim') != 1
-"     set ttymouse=sgr
-" endif
+"for complete
+set completeopt+=noinsert
+set completeopt+=noselect
 
 "Use syntax highlight
 syntax  enable
 
 "for terminalMod
 set splitbelow
-" set termwinsize=10x0
 
 "for backspaceKey
 set backspace=indent,eol,start
@@ -82,19 +72,17 @@ inoremap <C-m> <C-g>u<C-m>
 inoremap <C-j> <C-g>u<C-j>
 
 " Move between open buffers.
-nnoremap <C-n> :bnext<CR>
-nnoremap <C-p> :bprev<CR>
+nnoremap <silent><C-n> :bnext<CR>
+nnoremap <silent><C-p> :bprev<CR>
 
 " swap ; :
 nnoremap ; :
 nnoremap : ;
 nnoremap q; q:
-vnoremap ; :
-vnoremap : ;
+xnoremap ; :
+xnoremap : ;
 tnoremap <C-w>; <C-w>:
 tnoremap <C-w>: <C-w>;
-
-" send C-w when type <C-w><C-w>
 
 " Enable mouse
 set mouse=a
@@ -103,7 +91,6 @@ set mouse=a
 if &compatible
     set nocompatible               " Be iMproved
 endif
-"
 " dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
@@ -112,41 +99,32 @@ if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
-
 " Required:
 set runtimepath+=/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim
-
 " Required:
 if dein#load_state('~/.cache/dein')
     call dein#begin('~/.cache/dein')
     "Let dein manage dein
     " Required:
     call dein#add('~/.cache/dein')
-
     let g:rc_dir = '~/dotfiles/HOME/.vim/deinrc'
     let s:toml      = g:rc_dir . '/dein.toml'
     let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
     call dein#load_toml(s:toml,      {'lazy': 0})
     call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
     " Required:
     call dein#end()
     call dein#save_state()
 endif
-
 " Required:
 filetype plugin indent on
 syntax enable
-
-
 " If you want to install not installed plugins on startup.
 if dein#check_install()
     call dein#install()
 endif
-
 "End dein Scripts-------------------------
-
 "For dein
 function! s:DeinCleanf()
     call map(dein#check_clean(), "delete(v:val, 'rf')")
