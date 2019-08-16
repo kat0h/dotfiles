@@ -55,41 +55,13 @@ repo = 'airblade/vim-gitgutter'
 [[plugins]]
 repo = 'tpope/vim-rhubarb'
 
-# textobjの拡張基礎
+# textobjの拡張
 [[plugins]]
 repo = 'kana/vim-textobj-user'
 
 # gcでコメントの切り替えができる
 [[plugins]]
 repo = 'tpope/vim-commentary'
-
-# ステータスラインの拡張
-# [[plugins]]
-# repo = 'vim-airline/vim-airline'
-# hook_add = '''
-# set laststatus=2
-# set noshowmode
-# # let g:airline_theme = 'bubblegum'
-# let g:airline#extensions#branch#enabled = 1
-# let g:airline#extensions#tabline#enabled = 0
-# let g:airline#extensions#wordcount#enabled = 0
-# let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
-# let g:airline_section_c = '%t'
-# let g:airline_section_x = '%{&filetype}'
-# let g:airline_section_z = '%{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
-# let g:airline#extensions#ale#error_symbol = ' '
-# let g:airline#extensions#ale#warning_symbol = ' '
-# let g:airline#extensions#default#section_truncate_width = {}
-# let g:airline#extensions#whitespace#enabled = 1
-# let g:airline#extensions#tabline#buffer_idx_mode = 1
-# let g:airline#extensions#tabline#formatter = 'unique_tail'
-# set t_Co=256
-# let g:airline_powerline_fonts = 1
-# '''
-
-# airline用カラースキーム
-# [[plugins]]
-# repo = 'vim-airline/vim-airline-themes'
 
 # 様々なアイコンを追加
 [[plugins]]
@@ -102,11 +74,6 @@ repo = 'tpope/vim-surround'
 # 括弧の補完
 [[plugins]]
 repo = 'Raimondi/delimitMate'
-
-# Git操作ができる
-# 専らAirLine用
-[[plugins]]
-repo = 'tpope/vim-fugitive'
 
 # . の強化
 [[plugins]]

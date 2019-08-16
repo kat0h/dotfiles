@@ -14,7 +14,7 @@ set number
 set cursorline
 
 " ステータスライン
-set laststatus = 2
+set laststatus=2
 
 "文字コード
 set fileencoding=utf-8
