@@ -13,6 +13,9 @@ scriptencoding utf-8
 set number
 set cursorline
 
+" ステータスライン
+set laststatus = 2
+
 "文字コード
 set fileencoding=utf-8
 scriptencoding utf-8
@@ -88,9 +91,6 @@ tnoremap <C-w>: <C-w>;
 set mouse=a
 
 "dein Scripts-----------------------------
-if &compatible
-    set nocompatible               " Be iMproved
-endif
 " dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
@@ -105,7 +105,7 @@ set runtimepath+=/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
     call dein#begin('~/.cache/dein')
     "Let dein manage dein
-    " Required:
+;   " Required:
     call dein#add('~/.cache/dein')
     let g:rc_dir = '~/dotfiles/HOME/.vim/deinrc'
     let s:toml      = g:rc_dir . '/dein.toml'
