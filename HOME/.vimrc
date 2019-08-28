@@ -68,27 +68,25 @@ set noequalalways
 set shortmess-=S
 
 "Undoポイントの設置
-inoremap <C-w> <C-g>u<C-w>
-inoremap <C-d> <Delete>
-inoremap <C-u> <C-g>u<C-u>
-inoremap <C-m> <C-g>u<C-m>
-inoremap <C-j> <C-g>u<C-j>
+inoremap <silent><C-w> <C-g>u<C-w>
+inoremap <silent><C-d> <Delete>
+inoremap <silent><C-u> <C-g>u<C-u>
+inoremap <silent><C-m> <C-g>u<C-m>
+inoremap <silent><C-j> <C-g>u<C-j>
 
 " Move between open buffers.
-nnoremap <silent><C-n> :bnext<CR>
-nnoremap <silent><C-p> :bprev<CR>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 
-" swap ; :
-nnoremap ; :
-nnoremap : ;
-nnoremap q; q:
-xnoremap ; :
-xnoremap : ;
-tnoremap <C-w>; <C-w>:
-tnoremap <C-w>: <C-w>;
 
 " Enable mouse
 set mouse=a
+
+" jk
+nnoremap j gj
+nnoremap k gk
 
 "dein Scripts-----------------------------
 " dein自体の自動インストール

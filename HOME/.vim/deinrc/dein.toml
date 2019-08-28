@@ -1,20 +1,3 @@
-# LintTool
-[[plugins]]
-repo = 'w0rp/ale'
-hook_add = '''
-"ALEの設定
-let g:airline#extensions#ale#enabled = 1
-let g:ale_sign_column_always = 1
-let g:ale_sign_error   = ' '
-let g:ale_sign_warning = ' '
-"タイムアウト時間の調整
-"let g:ale_lint_delay = 1000
-" 言語に適したlintツール
-let g:ale_linters = {
-\   'python': ['flake8'],
-\}
-'''
-
 # 括弧の対応の可視化
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
@@ -25,35 +8,9 @@ let g:loaded_matchparen = 1
 source $VIMRUNTIME/macros/matchit.vim
 '''
 
-# fzfのvimフロントエンド
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-hook_add = '''
-" fzfは単体でインストールしているのでそこへのパス
-set rtp+=/usr/local/opt/fzf
-" dotファイルを含める&プレビュー
-command! -bang -nargs=? -complete=dir Files
-\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'source': 'ag --hidden --ignore .git -g ""'}), <bang>0)
-command! -bang -nargs=* Ag
-\ call fzf#vim#grep(
-        \   'ag --column --color --hidden --ignore .git '.shellescape(<q-args>), 0,
-        \   <bang>0 ? fzf#vim#with_preview('up:60%')
-        \           : fzf#vim#with_preview('right:50%', '?'),
-        \   <bang>0)
-'''
-
 # 行頭行末にあるスペースを可視化
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
-
-# ファイルの差分を表示
-# :GitGutterToggle
-# :GitGutterLineHighlightsToggle
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-
-[[plugins]]
-repo = 'tpope/vim-rhubarb'
 
 # textobjの拡張
 [[plugins]]
@@ -97,10 +54,6 @@ let g:rainbow_active = 1
 
 [[plugins]]
 repo = 'keith/swift.vim'
-
-# BDでいい感じにバッファをkillできる
-[[plugins]]
-repo = 'qpkorr/vim-bufkill'
 
 [[plugins]]
 repo = 'itchyny/dictionary.vim'
