@@ -1,0 +1,8 @@
+# tomlファイル用シンタックスハイライト
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'keith/swift.vim'
+on_ft = ['swift']

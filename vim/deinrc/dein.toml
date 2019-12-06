@@ -53,7 +53,11 @@ let g:rainbow_active = 1
 '''
 
 [[plugins]]
-repo = 'keith/swift.vim'
+repo = 'itchyny/lightline.vim'
+
+# Undotree
+[[plugins]]
+repo = 'mbbill/undotree'
 
 [[plugins]]
-repo = 'itchyny/dictionary.vim'
+repo = 'vim-jp/vimdoc-ja'

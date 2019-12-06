@@ -12,6 +12,7 @@ scriptencoding utf-8
 "行番号・行のライン
 set number
 set cursorline
+set cursorlineopt=number
 
 " ステータスライン
 set laststatus=2
@@ -67,9 +68,15 @@ set noequalalways
 "検索件数の表示
 set shortmess-=S
 
+" complete
+set completeopt=menuone
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
+  exec "imap " . k . " " . k . "<C-N><C-P>"
+endfor
+imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
+
 "Undoポイントの設置
 inoremap <silent><C-w> <C-g>u<C-w>
-inoremap <silent><C-d> <Delete>
 inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
 inoremap <silent><C-j> <C-g>u<C-j>
@@ -88,6 +95,15 @@ set mouse=a
 nnoremap j gj
 nnoremap k gk
 
+" leader
+let mapleader = "\<Space>"
+nnoremap <Leader>; :
+nnoremap <Leader>w :w<CR>
+
+
+" ______  _______ _____ __   _   _    _ _____ _______
+" |     \ |______   |   | \  |    \  /    |   |  |  |
+" |_____/ |______ __|__ |  \_| .   \/   __|__ |  |  |
 "dein Scripts-----------------------------
 " dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
