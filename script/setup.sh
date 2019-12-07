@@ -2,7 +2,7 @@ cd ~/dotfiles/
 
 while read filename
 do
-	ln -sf `echo $filename | awk '{print $1 " ~/" $2}'`
+	echo "ln -sf `echo $filename | awk '{print "~/dotfiles/" $1 " ~/" $2}'`" | sh
 done <<END
 tmux.conf .tmux.conf
 vim .vim
