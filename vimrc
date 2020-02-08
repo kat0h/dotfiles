@@ -68,25 +68,11 @@ set noequalalways
 "検索件数の表示
 set shortmess-=S
 
-" complete
-set completeopt=menuone
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-  exec "imap " . k . " " . k . "<C-N><C-P>"
-endfor
-imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
-
 "Undoポイントの設置
 inoremap <silent><C-w> <C-g>u<C-w>
 inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
 inoremap <silent><C-j> <C-g>u<C-j>
-
-" Move between open buffers.
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
-
 
 " Enable mouse
 set mouse=a
@@ -94,12 +80,6 @@ set mouse=a
 " jk
 nnoremap j gj
 nnoremap k gk
-
-" leader
-let mapleader = "\<Space>"
-nnoremap <Leader>; :
-nnoremap <Leader>w :w<CR>
-
 
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
@@ -119,9 +99,9 @@ set runtimepath+=/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
     call dein#begin('~/.cache/dein')
     "Let dein manage dein
-;   " Required:
+   " Required:
     call dein#add('~/.cache/dein')
-    let g:rc_dir = '~/dotfiles/HOME/.vim/deinrc'
+    let g:rc_dir = '~/dotfiles/vim/deinrc'
     let s:toml      = g:rc_dir . '/dein.toml'
     let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 

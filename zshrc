@@ -69,6 +69,9 @@ fpath=(~/.zsh-completions $fpath)
 autoload -U compinit && compinit # 補完機能の強化
 # fi
 
+# for w3m
+export WWW_HOME="http://google.com/"
+
 
 # 初回シェル時のみ tmux実行
 # if [ $SHLVL = 1 ]; then
