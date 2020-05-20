@@ -43,12 +43,10 @@ set expandtab
 set smarttab
 set shiftround
 
-"ColorScheme
-colorscheme atom-dark-256
 
 "for complete
-set completeopt+=noinsert
-set completeopt+=noselect
+set completeopt+=menuone,menu,preview
+set pumheight=12
 
 "Use syntax highlight
 syntax  enable
@@ -125,4 +123,6 @@ function! s:DeinCleanf()
     call dein#recache_runtimepath()
 endfunction
 
-command! DeinClean call:DeinCleanf()
+command! DeinCheckInstall call dein#check_install()
+command! DeinCheckClean call dein#check_clean()
+command! DeinUpdate call dein#update()

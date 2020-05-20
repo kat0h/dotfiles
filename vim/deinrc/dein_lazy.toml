@@ -6,3 +6,4 @@ on_ft = ['toml']
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = ['swift']
+

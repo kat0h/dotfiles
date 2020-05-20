@@ -9,3 +9,5 @@ vim .vim
 vimrc .vimrc
 zshrc .zshrc
 END
+
+pip3 install --user pynvim
