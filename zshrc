@@ -18,6 +18,7 @@ export PATH=$PATH:/Users/katokota/myBin
 # gopath
 export GOPATH=$HOME/.golang
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
 
 alias rm="trash"
 alias cls="clear"
@@ -77,3 +78,4 @@ export WWW_HOME="http://google.com/"
 # if [ $SHLVL = 1 ]; then
 # tmux
 # fi
+

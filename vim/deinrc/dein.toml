@@ -20,10 +20,6 @@ repo = 'kana/vim-textobj-user'
 [[plugins]]
 repo = 'tpope/vim-commentary'
 
-# 様々なアイコンを追加
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
 # S で括弧の追加等ができる
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -54,10 +50,6 @@ let g:rainbow_active = 1
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-
-# Undotree
-[[plugins]]
-repo = 'mbbill/undotree'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -111,3 +103,15 @@ repo='cocopon/iceberg.vim'
 hook_add='''
 colorscheme iceberg
 '''
+[[plugins]]
+repo = 'alvan/vim-closetag'
+hook_add='''
+let g:closetag_filenames = '*.html,*.vue,*.xml'
+'''
+
+[[plugins]]
+repo = "AndrewRadev/switch.vim"
+
+[[plugins]]
+repo = "yonchu/accelerated-smooth-scroll"
+
