@@ -92,6 +92,7 @@ nnoremap <silent><Right> <C-w>l
 nnoremap <silent><Up> <C-w>j
 nnoremap <silent><Down> <C-w>j
 
+"保存
 cabbr w!! w !sudo tee > /dev/null %
 
 function! OpenRcFiles()
