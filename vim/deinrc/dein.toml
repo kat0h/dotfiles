@@ -1,40 +1,25 @@
-# 括弧の対応の可視化
+# えあーらいん
 [[plugins]]
-repo = 'itchyny/vim-parenmatch'
-hook_add = '''
-"カッコのハイライト標準オフ
-let g:loaded_matchparen = 1
-""カッコの対応
-source $VIMRUNTIME/macros/matchit.vim
-'''
+repo = 'itchyny/lightline.vim'
 
 # 行頭行末にあるスペースを可視化
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
 
-# textobjの拡張
-[[plugins]]
-repo = 'kana/vim-textobj-user'
-
 # gcでコメントの切り替えができる
 [[plugins]]
 repo = 'tpope/vim-commentary'
-
+# . の強化
+[[plugins]]
+repo = 'tpope/vim-repeat'
 # S で括弧の追加等ができる
 [[plugins]]
 repo = 'tpope/vim-surround'
 
 # 括弧の補完
 [[plugins]]
-repo = 'Raimondi/delimitMate'
+repo = 'jiangmiao/auto-pairs'
 
-# . の強化
-[[plugins]]
-repo = 'tpope/vim-repeat'
-
-# endの挿入
-[[plugins]]
-repo = 'tpope/vim-endwise'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -43,19 +28,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 '''
 
 [[plugins]]
-repo = 'luochen1990/rainbow'
-hook_add = '''
-let g:rainbow_active = 1
-'''
-
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
-repo = 'vim/killersheep'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
@@ -63,7 +36,6 @@ hook_add='''
 if empty(globpath(&rtp, 'autoload/lsp.vim'))
     finish
 endif
-
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
@@ -71,13 +43,11 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <f2> <plug>(lsp-rename)
     inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
 endfunction
-
 augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 let g:asyncomplete_auto_popup = 1
@@ -85,24 +55,15 @@ let g:asyncomplete_auto_completeopt = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
 '''
-
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
-
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
-
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
-
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
-[[plugins]]
-repo='cocopon/iceberg.vim'
-hook_add='''
-colorscheme iceberg
-'''
 [[plugins]]
 repo = 'alvan/vim-closetag'
 hook_add='''
@@ -110,8 +71,10 @@ let g:closetag_filenames = '*.html,*.vue,*.xml'
 '''
 
 [[plugins]]
-repo = "AndrewRadev/switch.vim"
+repo = 'tomasr/molokai'
+hook_add='''
+colorscheme molokai
+'''
 
 [[plugins]]
-repo = "yonchu/accelerated-smooth-scroll"
-
+repo = 'kato-k/nyancat.vim'

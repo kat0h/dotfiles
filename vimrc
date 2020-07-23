@@ -16,6 +16,7 @@ set cursorlineopt=number
 
 " ステータスライン
 set laststatus=2
+set noshowmode
 
 "文字コード
 set fileencoding=utf-8
@@ -43,16 +44,12 @@ set expandtab
 set smarttab
 set shiftround
 
-
 "for complete
 set completeopt+=menuone,menu,preview
 set pumheight=12
 
 "Use syntax highlight
-syntax  enable
-
-"for terminalMod
-set splitbelow
+syntax enable
 
 "for backspaceKey
 set backspace=indent,eol,start
@@ -72,12 +69,24 @@ inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
 inoremap <silent><C-j> <C-g>u<C-j>
 
+nnoremap <silent><C-n> <Esc>:bn<CR>
+nnoremap <silent><C-p> <Esc>:bp<CR>
+
 " Enable mouse
 set mouse=a
 
-" jk
-nnoremap j gj
-nnoremap k gk
+autocmd FileType vue syntax sync fromstart
+
+nnoremap <S-Left>  <C-w><<CR>
+nnoremap <S-Right> <C-w>><CR>
+nnoremap <S-Up>    <C-w>-<CR>
+nnoremap <S-Down>  <C-w>+<CR>
+nnoremap <silent><Left> <C-w>h
+nnoremap <silent><Right> <C-w>l
+nnoremap <silent><Up> <C-w>j
+nnoremap <silent><Down> <C-w>j
+
+cabbr w!! w !sudo tee > /dev/null %
 
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
