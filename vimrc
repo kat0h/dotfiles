@@ -88,6 +88,8 @@ nnoremap <silent><Down> <C-w>j
 
 cabbr w!! w !sudo tee > /dev/null %
 
+let mapleader = "\<Space>"
+
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
 " |_____/ |______ __|__ |  \_| .   \/   __|__ |  |  |

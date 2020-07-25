@@ -7,3 +7,17 @@ on_ft = ['toml']
 repo = 'keith/swift.vim'
 on_ft = ['swift']
 
+[[plugins]]
+repo = 'mattn/vim-goimports'
+on_ft = ['go']
+
+[[plugins]]
+repo = 'alvan/vim-closetag'
+hook_add='''
+let g:closetag_filenames = '*.html,*.vue,*.xml'
+'''
+on_ft = ['html', 'vue', 'xml']
+
+[[plugins]]
+repo = 'kato-k/nyancat.vim'
+on_cmd = ['Nyan']

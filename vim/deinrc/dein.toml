@@ -20,41 +20,42 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
 
-
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 '''
+[[plugins]]
+repo='ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
-hook_add='''
-if empty(globpath(&rtp, 'autoload/lsp.vim'))
-    finish
-endif
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> <f2> <plug>(lsp-rename)
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-endfunction
-augroup lsp_install
-    au!
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_completeopt = 1
-let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 1
-'''
+# hook_add='''
+# if empty(globpath(&rtp, 'autoload/lsp.vim'))
+#     finish
+# endif
+# function! s:on_lsp_buffer_enabled() abort
+#     setlocal omnifunc=lsp#complete
+#     setlocal signcolumn=yes
+#     nmap <buffer> gd <plug>(lsp-definition)
+#     nmap <buffer> <f2> <plug>(lsp-rename)
+#     inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+# endfunction
+# augroup lsp_install
+#     au!
+#     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+# augroup END
+# command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+# let g:lsp_diagnostics_enabled = 1
+# let g:lsp_diagnostics_echo_cursor = 1
+# let g:asyncomplete_auto_popup = 1
+# let g:asyncomplete_auto_completeopt = 1
+# let g:asyncomplete_popup_delay = 200
+# let g:lsp_text_edit_enabled = 1
+# '''
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
 [[plugins]]
@@ -63,12 +64,12 @@ repo = 'prabirshrestha/async.vim'
 repo = 'prabirshrestha/asyncomplete.vim'
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
 [[plugins]]
-repo = 'alvan/vim-closetag'
-hook_add='''
-let g:closetag_filenames = '*.html,*.vue,*.xml'
-'''
+repo = 'mattn/vim-lsp-icons'
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -77,4 +78,38 @@ colorscheme molokai
 '''
 
 [[plugins]]
-repo = 'kato-k/nyancat.vim'
+repo = 'easymotion/vim-easymotion'
+hook-add = '''
+map <Leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+" nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+'''
+
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
+hook_add = '''
+let g:loaded_matchparen = 1
+'''
+
+[[plugins]]
+repo = 'itchyny/vim-cursorword'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+nnoremap <leader>r :QuickRun -outputter popup
+'''
