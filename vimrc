@@ -90,6 +90,13 @@ cabbr w!! w !sudo tee > /dev/null %
 
 let mapleader = "\<Space>"
 
+function! OpenRcFiles()
+    edit ~/.vimrc
+    edit ~/.vim/deinrc/dein.toml
+    edit ~/.vim/deinrc/dein_lazy.toml
+endfunction
+command! Preference call OpenRcFiles()
+
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
 " |_____/ |______ __|__ |  \_| .   \/   __|__ |  |  |
@@ -133,7 +140,4 @@ function! s:DeinCleanf()
     call map(dein#check_clean(), "delete(v:val, 'rf')")
     call dein#recache_runtimepath()
 endfunction
-
-command! DeinCheckInstall call dein#check_install()
-command! DeinCheckClean call dein#check_clean()
-command! DeinUpdate call dein#update()
+command! DeinClean call s:DeinCleanf()

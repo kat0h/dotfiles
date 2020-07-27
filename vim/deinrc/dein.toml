@@ -1,6 +1,24 @@
 # えあーらいん
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'fugitive', 'filename' ] ]
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightLineFugitive',
+            \   'readonly': 'LightLineReadonly',
+            \   'modified': 'LightLineModified',
+            \   'filename': 'LightLineFilename',
+            \   'filetype': 'LightLineFiletype',
+            \   'fileformat': 'LightLineFileformat',
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
+            \ }
+'''
 
 # 行頭行末にあるスペースを可視化
 [[plugins]]
@@ -33,29 +51,29 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
-# hook_add='''
-# if empty(globpath(&rtp, 'autoload/lsp.vim'))
-#     finish
-# endif
-# function! s:on_lsp_buffer_enabled() abort
-#     setlocal omnifunc=lsp#complete
-#     setlocal signcolumn=yes
-#     nmap <buffer> gd <plug>(lsp-definition)
-#     nmap <buffer> <f2> <plug>(lsp-rename)
-#     inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-# endfunction
-# augroup lsp_install
-#     au!
-#     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-# augroup END
-# command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-# let g:lsp_diagnostics_enabled = 1
-# let g:lsp_diagnostics_echo_cursor = 1
-# let g:asyncomplete_auto_popup = 1
-# let g:asyncomplete_auto_completeopt = 1
-# let g:asyncomplete_popup_delay = 200
-# let g:lsp_text_edit_enabled = 1
-# '''
+hook_add='''
+if empty(globpath(&rtp, 'autoload/lsp.vim'))
+    finish
+endif
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+endfunction
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 1
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+'''
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
 [[plugins]]
