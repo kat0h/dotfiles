@@ -169,15 +169,3 @@ let g:loaded_matchparen = 1
 
 [[plugins]]
 repo = 'itchyny/vim-cursorword'
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-hook_add = '''
-nnoremap <leader>r :QuickRun -outputter popup
-'''
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-
-[[plugins]]
-repo = '/usr/local/opt/fzf'

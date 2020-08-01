@@ -97,6 +97,9 @@ function! OpenRcFiles()
 endfunction
 command! Preference call OpenRcFiles()
 
+set iskeyword+=-
+set ttimeoutlen=10
+
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
 " |_____/ |______ __|__ |  \_| .   \/   __|__ |  |  |
