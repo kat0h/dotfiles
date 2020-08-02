@@ -33,13 +33,6 @@ function vf(){
     echo -e "\x1b]51;[\"drop\",\"$1\"]\x07"
 }
 
-#ディレクトリを作って移動
-#mkdircd()
-#{
-#    mkdir $1
-#    cd $1
-#}
-
 autoload -Uz colors
 colors
 
