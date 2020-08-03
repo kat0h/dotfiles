@@ -14,7 +14,6 @@ export PATH
 # Setting PATH
 # Added 2018/5/11
 export PATH=$PATH:/Users/katokota/myBin
-#
 # gopath
 export GOPATH=$HOME/.golang
 export PATH=$PATH:$GOPATH/bin
