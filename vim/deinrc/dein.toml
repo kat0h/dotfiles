@@ -2,6 +2,7 @@
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
+if has('mac')
 let g:lightline = {
         \ 'colorscheme': 'onedark',
         \ 'mode_map': {'c': 'NORMAL'},
@@ -21,6 +22,27 @@ let g:lightline = {
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
         \ }
+
+else
+let g:lightline = {
+        \ 'colorscheme': 'onedark',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'LightlineModified',
+        \   'readonly': 'LightlineReadonly',
+        \   'fugitive': 'LightlineFugitive',
+        \   'filename': 'LightlineFilename',
+        \   'fileformat': 'LightlineFileformat',
+        \   'filetype': 'LightlineFiletype',
+        \   'fileencoding': 'LightlineFileencoding',
+        \   'mode': 'LightlineMode'
+        \ }
+        \ }
+
+endif
 
 function! LightlineModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -85,10 +107,17 @@ repo = 'jiangmiao/auto-pairs'
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
+if has('mac')
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+endif
 '''
 [[plugins]]
 repo='ryanoasis/vim-devicons'
+hook_add = '''
+if !has('mac')
+  let g:webdevicons_enable_nerdtree = 0
+endif
+'''
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
