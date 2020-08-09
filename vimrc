@@ -71,6 +71,8 @@ inoremap <silent><C-j> <C-g>u<C-j>
 
 nnoremap <silent><C-n> <Esc>:bn<CR>
 nnoremap <silent><C-p> <Esc>:bp<CR>
+tnoremap <silent><C-n> <C-w>:bn<CR>
+tnoremap <silent><C-p> <C-w>:bp<CR>
 
 " Enable mouse
 set mouse=a
@@ -99,6 +101,30 @@ command! Preference call OpenRcFiles()
 
 set iskeyword+=-
 set ttimeoutlen=10
+
+set termwinsize=10x0
+
+let g:isOpenTerm = 0
+function! ToggleTerm()
+    if !bufexists("!/usr/local/bin/zsh")
+        bo terminal
+        let g:isOpenTerm = 1
+    else
+        if g:isOpenTerm == 1
+            let l:bufnum = win_findbuf(bufnr("!/usr/local/bin/zsh"))
+            if !(l:bufnum == [])
+                call win_gotoid(l:bufnum[0])
+                close
+            endif
+            let g:isOpenTerm = 0
+        elseif g:isOpenTerm == 0
+            botright 10sp !/usr/local/bin/zsh
+            let g:isOpenTerm = 1
+        endif
+    endif
+endfunction
+nnoremap <silent><C-u> :call ToggleTerm()<CR>
+tnoremap <silent><C-u> <C-w>:call ToggleTerm()<CR>
 
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |

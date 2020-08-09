@@ -141,7 +141,7 @@ colorscheme onedark
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
-hook-add = '''
+hook_add = '''
 map <Leader> <Plug>(easymotion-prefix)
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -169,3 +169,16 @@ let g:loaded_matchparen = 1
 
 [[plugins]]
 repo = 'itchyny/vim-cursorword'
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+
+[[plugins]]
+repo = 'lambdalisue/glyph-palette.vim'
+hook_add = '''
+    augroup my-glyph-palette
+    autocmd! *
+    autocmd FileType fern call glyph_palette#apply()
+    autocmd FileType nerdtree,startify call glyph_palette#apply()
+    augroup END
+'''
