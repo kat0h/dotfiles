@@ -123,8 +123,8 @@ function! ToggleTerm()
         endif
     endif
 endfunction
-nnoremap <silent><C-u> :call ToggleTerm()<CR>
-tnoremap <silent><C-u> <C-w>:call ToggleTerm()<CR>
+nnoremap <silent><C-t> :call ToggleTerm()<CR>
+tnoremap <silent><C-t> <C-w>:call ToggleTerm()<CR>
 
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
