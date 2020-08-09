@@ -14,7 +14,6 @@ export PATH
 # Setting PATH
 # Added 2018/5/11
 export PATH=$PATH:/Users/katokota/myBin
-#
 # gopath
 export GOPATH=$HOME/.golang
 export PATH=$PATH:$GOPATH/bin
@@ -32,13 +31,6 @@ function vf(){
     if [ $1 = "" ]; then return; fi
     echo -e "\x1b]51;[\"drop\",\"$1\"]\x07"
 }
-
-#ディレクトリを作って移動
-#mkdircd()
-#{
-#    mkdir $1
-#    cd $1
-#}
 
 autoload -Uz colors
 colors

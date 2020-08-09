@@ -12,7 +12,7 @@ scriptencoding utf-8
 "行番号・行のライン
 set number
 set cursorline
-set cursorlineopt=number
+" set cursorlineopt=number
 
 " ステータスライン
 set laststatus=2
