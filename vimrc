@@ -63,12 +63,15 @@ set noequalalways
 "検索件数の表示
 set shortmess-=S
 
+let mapleader = "\<Space>"
+
 "Undoポイントの設置
 inoremap <silent><C-w> <C-g>u<C-w>
 inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
 inoremap <silent><C-j> <C-g>u<C-j>
 
+"Bufferの切り替え
 nnoremap <silent><C-n> <Esc>:bn<CR>
 nnoremap <silent><C-p> <Esc>:bp<CR>
 tnoremap <silent><C-n> <C-w>:bn<CR>
@@ -77,6 +80,7 @@ tnoremap <silent><C-p> <C-w>:bp<CR>
 " Enable mouse
 set mouse=a
 
+"For Vue
 autocmd FileType vue syntax sync fromstart
 
 nnoremap <S-Left>  <C-w><<CR>
@@ -90,7 +94,6 @@ nnoremap <silent><Down> <C-w>j
 
 cabbr w!! w !sudo tee > /dev/null %
 
-let mapleader = "\<Space>"
 
 function! OpenRcFiles()
     edit ~/.vimrc
@@ -99,32 +102,37 @@ function! OpenRcFiles()
 endfunction
 command! Preference call OpenRcFiles()
 
+"-も文字のカウント
 set iskeyword+=-
+"
+"<esc>の反応
 set ttimeoutlen=10
 
-set termwinsize=10x0
-
+"For Terminal
 let g:isOpenTerm = 0
+let g:Shell = '!/usr/local/bin/zsh'
 function! ToggleTerm()
-    if !bufexists("!/usr/local/bin/zsh")
-        bo terminal
+    if !bufexists(g:Shell)
+        botright terminal
         let g:isOpenTerm = 1
     else
         if g:isOpenTerm == 1
-            let l:bufnum = win_findbuf(bufnr("!/usr/local/bin/zsh"))
+            let l:bufnum = win_findbuf(bufnr(g:Shell))
             if !(l:bufnum == [])
                 call win_gotoid(l:bufnum[0])
                 close
             endif
             let g:isOpenTerm = 0
         elseif g:isOpenTerm == 0
-            botright 10sp !/usr/local/bin/zsh
+            exe "botright sb ".bufnr(g:Shell)
+            resize 10
             let g:isOpenTerm = 1
         endif
     endif
 endfunction
 nnoremap <silent><C-t> :call ToggleTerm()<CR>
 tnoremap <silent><C-t> <C-w>:call ToggleTerm()<CR>
+
 
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |

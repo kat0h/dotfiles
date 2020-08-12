@@ -109,6 +109,7 @@ repo = 'scrooloose/nerdtree'
 hook_add = '''
 if has('mac')
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+tnoremap <silent><C-e> <C-w>:NERDTreeToggle<CR>
 endif
 '''
 [[plugins]]
