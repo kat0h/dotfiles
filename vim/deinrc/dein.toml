@@ -117,6 +117,12 @@ repo='ryanoasis/vim-devicons'
 hook_add = '''
 if !has('mac')
   let g:webdevicons_enable_nerdtree = 0
+else
+  let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+  let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
+  " アイコン入力方法 : `[Ctrl+V]` > `[u]` > `e905`
+  let g:NERDTreeExtensionHighlightColor = {}
+  let g:NERDTreeExtensionHighlightColor['vue'] = '42B983'
 endif
 '''
 
