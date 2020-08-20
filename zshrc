@@ -19,7 +19,6 @@ export GOPATH=$HOME/.golang
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
 
-alias rm="trash"
 alias cls="clear"
 alias tetris="bastet"
 # alias f="fzf | xargs -o -t "
