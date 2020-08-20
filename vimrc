@@ -94,7 +94,6 @@ nnoremap <silent><Down> <C-w>j
 
 cabbr w!! w !sudo tee > /dev/null %
 
-
 function! OpenRcFiles()
     edit ~/.vimrc
     edit ~/.vim/deinrc/dein.toml
