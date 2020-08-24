@@ -20,7 +20,16 @@ if [[ $(uname) -eq "Darwin" ]]; then
     export PATH=$PATH:$GOPATH/bin
     export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
 
+<<<<<<< HEAD
 fi
+=======
+alias cls="clear"
+alias tetris="bastet"
+# alias f="fzf | xargs -o -t "
+ export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse"
+     export FZF_DEFAULT_COMMAND='find . -type f -name "*"'
+export FZF_DEFAULT_COMMAND='ag -l --hidden'
+>>>>>>> 65153208e31d4908021d5f6227e7a125d6a118c5
 
 if [[ $(uname) -eq "Darwin" ]]; then
     alias tetris="bastet"

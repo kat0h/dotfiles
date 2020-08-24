@@ -1,5 +1,3 @@
-# えあーらいん
-[[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
 if has('mac')
@@ -128,6 +126,9 @@ endif
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
+hook_add='''
+set helplang=ja,en
+'''
 
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
