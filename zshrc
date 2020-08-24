@@ -7,30 +7,33 @@ setopt nobeep # ビープを鳴らさない
 setopt no_tify # バックグラウンドジョブが終了したらすぐに知らせる。
 setopt auto_cd # ディレクトリ名を入力するだけでcdできるようにする
 }
-# Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH
-# Setting PATH
-# Added 2018/5/11
-export PATH=$PATH:/Users/katokota/myBin
-# gopath
-export GOPATH=$HOME/.golang
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
+if [[ $(uname) -eq "Darwin" ]]; then
+    # Setting PATH for Python 3.6
+    # The original version is saved in .bash_profile.pysave
+    PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+    export PATH
+    # Setting PATH
+    # Added 2018/5/11
+    export PATH=$PATH:/Users/katokota/myBin
+    # gopath
+    export GOPATH=$HOME/.golang
+    export PATH=$PATH:$GOPATH/bin
+    export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
 
-alias rm="trash"
+fi
+
+if [[ $(uname) -eq "Darwin" ]]; then
+    alias tetris="bastet"
+    alias rm="trash"
+
+    # alias f="fzf | xargs -o -t "
+    export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse"
+        export FZF_DEFAULT_COMMAND='find . -type f -name "*"'
+    export FZF_DEFAULT_COMMAND='ag -l --hidden'
+
+fi
+
 alias cls="clear"
-alias tetris="bastet"
-# alias f="fzf | xargs -o -t "
- export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse"
-     export FZF_DEFAULT_COMMAND='find . -type f -name "*"'
-export FZF_DEFAULT_COMMAND='ag -l --hidden'
-
-function vf(){
-    if [ $1 = "" ]; then return; fi
-    echo -e "\x1b]51;[\"drop\",\"$1\"]\x07"
-}
 
 autoload -Uz colors
 colors
