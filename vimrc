@@ -6,6 +6,7 @@
 ".o.    `888'     888   888   888   888   888     888   .o8
 "Y8P     `8'     o888o o888o o888o o888o d888b    `Y8bod8P'
 
+" encoding
 set encoding=utf-8
 scriptencoding utf-8
 
