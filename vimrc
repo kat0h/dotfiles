@@ -97,9 +97,9 @@ nnoremap <silent><Down> <C-w>j
 cabbr w!! w !sudo tee > /dev/null %
 
 function! OpenRcFiles()
-    edit ~/.vimrc
-    edit ~/.vim/deinrc/dein.toml
     edit ~/.vim/deinrc/dein_lazy.toml
+    edit ~/.vim/deinrc/dein.toml
+    edit ~/.vimrc
 endfunction
 command! Preference call OpenRcFiles()
 
