@@ -13,7 +13,7 @@ scriptencoding utf-8
 "行番号・行のライン
 set number
 set cursorline
-" set cursorlineopt=number
+set cursorlineopt=number
 
 " ステータスライン
 set laststatus=2
@@ -38,8 +38,8 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 set hidden
 
 "タブの扱い
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set softtabstop=0
 set expandtab
 set smarttab

@@ -21,3 +21,7 @@ on_ft = ['html', 'vue', 'xml']
 [[plugins]]
 repo = 'kato-k/nyancat.vim'
 on_cmd = ['Nyan']
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html', 'vue', 'js', 'xml']
