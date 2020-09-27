@@ -1,6 +1,3 @@
-[[plugins]]
-repo = 'https://github.com/vim-airline/vim-airline'
-
 # 行頭行末にあるスペースを可視化
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
@@ -18,28 +15,6 @@ repo = 'tpope/vim-surround'
 # 括弧の補完
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-if has('mac')
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-tnoremap <silent><C-e> <C-w>:NERDTreeToggle<CR>
-endif
-'''
-[[plugins]]
-repo='ryanoasis/vim-devicons'
-hook_add = '''
-if !has('mac')
-  let g:webdevicons_enable_nerdtree = 0
-else
-  let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-  let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
-  " アイコン入力方法 : `[Ctrl+V]` > `[u]` > `e905`
-  let g:NERDTreeExtensionHighlightColor = {}
-  let g:NERDTreeExtensionHighlightColor['vue'] = '42B983'
-endif
-'''
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -81,8 +56,6 @@ repo = 'prabirshrestha/asyncomplete.vim'
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
-repo = 'mattn/vim-lsp-icons'
-[[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
@@ -94,45 +67,13 @@ colorscheme onedark
 '''
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
-hook_add = '''
-map <Leader> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-" nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-'''
-
-[[plugins]]
 repo = 'itchyny/vim-parenmatch'
 hook_add = '''
 let g:loaded_matchparen = 1
 '''
 
 [[plugins]]
-repo = 'itchyny/vim-cursorword'
-
-[[plugins]]
 repo = 'luochen1990/rainbow'
 
 [[plugins]]
-repo = 'lambdalisue/glyph-palette.vim'
-hook_add = '''
-    augroup my-glyph-palette
-    autocmd! *
-    autocmd FileType fern call glyph_palette#apply()
-    autocmd FileType nerdtree,startify call glyph_palette#apply()
-    augroup END
-'''
+repo = 'mattn/vim-molder'
