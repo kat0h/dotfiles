@@ -57,6 +57,7 @@ set backspace=indent,eol,start
 
 "for command mode
 set wildmenu
+set wildmode=longest:full,full
 
 "window
 set noequalalways
@@ -80,6 +81,7 @@ nnoremap <silent><C-p> <Esc>:bp<CR>
 
 " Enable mouse
 set mouse=a
+set ttymouse=sgr
 
 nnoremap <S-Left>  <C-w><<CR>
 nnoremap <S-Right> <C-w>><CR>

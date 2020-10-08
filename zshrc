@@ -34,6 +34,9 @@ if [[ $(uname) -eq "Darwin" ]]; then
 fi
 
 alias cls="clear"
+alias vi="vim"
+
+alias la="ls -la"
 
 autoload -Uz colors
 colors
@@ -70,7 +73,7 @@ export WWW_HOME="http://google.com/"
 
 
 # 初回シェル時のみ tmux実行
-# if [ $SHLVL = 1 ]; then
-# tmux
-# fi
+if [ $SHLVL = 1 ]; then
+tmux
+fi
 
