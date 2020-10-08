@@ -42,6 +42,7 @@ alias gita="git add ."
 alias gitc="git commit"
 alias gits="git status"
 alias gitl="git log"
+alias gitp="git push"
 
 autoload -Uz colors
 colors
