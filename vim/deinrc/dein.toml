@@ -1,3 +1,6 @@
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
 # 行頭行末にあるスペースを可視化
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
