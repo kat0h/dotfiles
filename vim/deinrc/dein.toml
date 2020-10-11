@@ -80,3 +80,6 @@ repo = 'luochen1990/rainbow'
 
 [[plugins]]
 repo = 'mattn/vim-molder'
+
+[[plugins]]
+repo = 'haya14busa/is.vim'
