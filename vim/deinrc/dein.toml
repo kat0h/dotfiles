@@ -89,5 +89,3 @@ repo = 'mattn/vim-molder'
 [[plugins]]
 repo = 'haya14busa/is.vim'
 
-[[plugins]]
-repo  = 'mg979/vim-visual-multi'

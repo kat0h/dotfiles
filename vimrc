@@ -74,8 +74,8 @@ inoremap <silent><C-m> <C-g>u<C-m>
 inoremap <silent><C-j> <C-g>u<C-j>
 
 "Bufferの切り替え
-nnoremap <silent><C-n> <Esc>:bn<CR>
-nnoremap <silent><C-p> <Esc>:bp<CR>
+" nnoremap <silent><C-n> <Esc>:bn<CR>
+" nnoremap <silent><C-p> <Esc>:bp<CR>
 " tnoremap <silent><C-n> <C-w>:bn<CR>
 " tnoremap <silent><C-p> <C-w>:bp<CR>
 
