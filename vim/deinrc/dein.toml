@@ -1,5 +1,10 @@
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+    \'colorscheme': 'one',
+\}
+'''
 
 # 行頭行末にあるスペースを可視化
 [[plugins]]
@@ -83,3 +88,6 @@ repo = 'mattn/vim-molder'
 
 [[plugins]]
 repo = 'haya14busa/is.vim'
+
+[[plugins]]
+repo  = 'mg979/vim-visual-multi'
