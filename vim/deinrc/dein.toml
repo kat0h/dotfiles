@@ -89,3 +89,5 @@ repo = 'mattn/vim-molder'
 [[plugins]]
 repo = 'haya14busa/is.vim'
 
+[[plugins]]
+repo = 'haya14busa/dein-command.vim'

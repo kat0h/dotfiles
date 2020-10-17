@@ -32,7 +32,6 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch
-nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
 "バッファ
 set hidden
@@ -171,8 +170,15 @@ syntax enable
 if dein#check_install()
     call dein#install()
 endif
+
+let tokenpath = expand('$HOME/.config/github_tokens/dein.token')
+if filereadable(tokenpath)
+    let token = readfile(tokenpath)
+    let g:dein#install_github_api_token = token[0]
+endif
 "End dein Scripts-------------------------
-"For dein
-command! DeinClean call s:DeinCleanf()
+
 "For Vue
 autocmd FileType vue syntax sync fromstart
+
+
