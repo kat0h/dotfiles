@@ -10,6 +10,8 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+set termguicolors
+
 "行番号・行のライン
 set number
 " set cursorline

@@ -38,12 +38,6 @@ alias vi="vim"
 
 alias la="ls -la"
 
-alias gia="git add ."
-alias gic="git commit"
-alias gis="git status"
-alias gil="git log"
-alias gip="git push"
-
 autoload -Uz colors
 colors
 

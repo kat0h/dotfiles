@@ -2,7 +2,7 @@
 repo = 'itchyny/lightline.vim'
 hook_add = '''
 let g:lightline = {
-    \'colorscheme': 'one',
+    \'colorscheme': 'forest_night',
 \}
 '''
 
@@ -69,9 +69,9 @@ repo = 'hrsh7th/vim-vsnip'
 repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
-repo = 'joshdick/onedark.vim'
+repo = 'sainnhe/forest-night'
 hook_add='''
-colorscheme onedark
+colorscheme forest-night
 '''
 
 [[plugins]]
