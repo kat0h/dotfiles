@@ -1,3 +1,12 @@
+# ColorScheme
+[[plugins]]
+repo = 'sainnhe/forest-night'
+hook_add='''
+colorscheme forest-night
+let g:forest_night_disable_italic_comment = 1
+'''
+
+# LightLine
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
@@ -24,12 +33,14 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
 
+# 日本語ドキュメント
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 hook_add='''
 set helplang=ja,en
 '''
 
+# LSP
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add='''
@@ -55,24 +66,24 @@ let g:asyncomplete_auto_completeopt = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
 '''
-[[plugins]]
-repo = 'mattn/vim-lsp-settings'
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-[[plugins]]
-repo = 'hrsh7th/vim-vsnip'
-[[plugins]]
-repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
-repo = 'sainnhe/forest-night'
-hook_add='''
-colorscheme forest-night
-'''
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
@@ -91,3 +102,12 @@ repo = 'haya14busa/is.vim'
 
 [[plugins]]
 repo = 'haya14busa/dein-command.vim'
+
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+
+[[plugins]]
+repo = "ctrlpvim/ctrlp.vim"
+
+[[plugins]]
+repo = "tpope/vim-sleuth"
