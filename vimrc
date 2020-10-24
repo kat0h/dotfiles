@@ -14,8 +14,8 @@ set termguicolors
 
 "行番号・行のライン
 set number
-" set cursorline
-" set cursorlineopt=number
+set cursorline
+set cursorlineopt=number
 
 " ステータスライン
 set laststatus=2
@@ -39,9 +39,6 @@ set hlsearch
 set hidden
 
 "タブの扱い
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0
 set expandtab
 set smarttab
 set shiftround
@@ -74,12 +71,6 @@ inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
 inoremap <silent><C-j> <C-g>u<C-j>
 
-"Bufferの切り替え
-" nnoremap <silent><C-n> <Esc>:bn<CR>
-" nnoremap <silent><C-p> <Esc>:bp<CR>
-" tnoremap <silent><C-n> <C-w>:bn<CR>
-" tnoremap <silent><C-p> <C-w>:bp<CR>
-
 " Enable mouse
 set mouse=a
 set ttymouse=sgr
@@ -103,13 +94,14 @@ function! OpenRcFiles()
 endfunction
 command! Preference call OpenRcFiles()
 
-"-も文字のカウント
+" 文字のカウント
 set iskeyword+=-
-"
-"<esc>の反応
+set iskeyword+=.
+
+" <esc>の反応
 set ttimeoutlen=10
 
-"For Terminal
+" Terminal
 let g:isOpenTerm = 0
 let g:Shell = '!/usr/local/bin/zsh'
 function! ToggleTerm()
@@ -134,6 +126,10 @@ endfunction
 nnoremap <silent><C-t> :call ToggleTerm()<CR>
 tnoremap <silent><C-t> <C-w>:call ToggleTerm()<CR>
 
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=9
+endif
 
 " ______  _______ _____ __   _   _    _ _____ _______
 " |     \ |______   |   | \  |    \  /    |   |  |  |
