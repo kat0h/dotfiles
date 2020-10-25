@@ -9,13 +9,12 @@
 " encoding
 set encoding=utf-8
 scriptencoding utf-8
-
+set t_ZH=
 set termguicolors
 
 "行番号・行のライン
 set number
 set cursorline
-set cursorlineopt=number
 
 " ステータスライン
 set laststatus=2
@@ -51,7 +50,7 @@ set pumheight=12
 syntax enable
 
 "for backspaceKey
-set backspace=indent,eol,start
+set backspace=indent,start
 
 "for command mode
 set wildmenu
@@ -74,15 +73,6 @@ inoremap <silent><C-j> <C-g>u<C-j>
 " Enable mouse
 set mouse=a
 set ttymouse=sgr
-
-nnoremap <S-Left>  <C-w><<CR>
-nnoremap <S-Right> <C-w>><CR>
-nnoremap <S-Up>    <C-w>-<CR>
-nnoremap <S-Down>  <C-w>+<CR>
-nnoremap <silent><Left> <C-w>h
-nnoremap <silent><Right> <C-w>l
-nnoremap <silent><Up> <C-w>j
-nnoremap <silent><Down> <C-w>j
 
 "保存
 cabbr w!! w !sudo tee > /dev/null %
@@ -131,11 +121,6 @@ if (exists('+colorcolumn'))
     highlight ColorColumn ctermbg=9
 endif
 
-" ______  _______ _____ __   _   _    _ _____ _______
-" |     \ |______   |   | \  |    \  /    |   |  |  |
-" |_____/ |______ __|__ |  \_| .   \/   __|__ |  |  |
-"dein Scripts-----------------------------
-" dein自体の自動インストール
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -143,9 +128,6 @@ if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
-" Required:
-set runtimepath+=/Users/katokota/.vim/./dein/repos/github.com/Shougo/dein.vim
-" Required:
 if dein#load_state('~/.cache/dein')
     call dein#begin('~/.cache/dein')
     "Let dein manage dein
@@ -161,7 +143,6 @@ if dein#load_state('~/.cache/dein')
     call dein#end()
     call dein#save_state()
 endif
-" Required:
 filetype plugin indent on
 syntax enable
 " If you want to install not installed plugins on startup.
@@ -179,4 +160,10 @@ endif
 "For Vue
 autocmd FileType vue syntax sync fromstart
 
+let s:path = $HOME.'/.vim/colorrc'
+let s:colorschemename = readfile(s:path)[0]
+" 予期しないコードの実行を防ぐ(多分)
+if getcompletion("", "color")->index(s:colorschemename)!=-1
+  execute "colorscheme " s:colorschemename
+endif
 
