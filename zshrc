@@ -77,3 +77,5 @@ if [ $SHLVL = 1 ]; then
 tmux
 fi
 
+
+eval $(thefuck --alias)

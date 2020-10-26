@@ -160,10 +160,7 @@ endif
 "For Vue
 autocmd FileType vue syntax sync fromstart
 
-let s:path = $HOME.'/.vim/colorrc'
-let s:colorschemename = readfile(s:path)[0]
-" 予期しないコードの実行を防ぐ(多分)
-if getcompletion("", "color")->index(s:colorschemename)!=-1
-  execute "colorscheme " s:colorschemename
+let s:colorrcpath = $HOME . "/.vim/colorrc.vim"
+if filereadable(s:colorrcpath)
+  execute "source" s:colorrcpath
 endif
-
