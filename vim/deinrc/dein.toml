@@ -78,9 +78,6 @@ let g:loaded_matchparen = 1
 repo = 'luochen1990/rainbow'
 
 [[plugins]]
-repo = 'mattn/vim-molder'
-
-[[plugins]]
 repo = 'haya14busa/is.vim'
 
 [[plugins]]
@@ -123,4 +120,10 @@ repo = 'kato-k/vim-colorscheme-settings'
 hook_add = '''
 let g:colorscheme_settings#isShowDefaultColorscheme = v:false
 let g:colorscheme_settings#colorrc_path = $HOME.'/.vim/colorrc.vim'
+'''
+
+[[plugins]]
+repo = 'preservim/nerdtree'
+hook_add = '''
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 '''
