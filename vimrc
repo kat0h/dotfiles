@@ -12,7 +12,7 @@ scriptencoding utf-8
 set t_ZH=
 set termguicolors
 
-"行番号・行のライン
+" 行番号・行のライン
 set number
 set cursorline
 
@@ -20,51 +20,51 @@ set cursorline
 set laststatus=2
 set noshowmode
 
-"文字コード
+" 文字コード
 set fileencoding=utf-8
 scriptencoding utf-8
 set ambiwidth=double
 
-"インデント
+" インデント
 set smartindent
 
-"サーチ
+" サーチ
 set incsearch
 set ignorecase
 set smartcase
 set hlsearch
 
-"バッファ
+" バッファ
 set hidden
 
-"タブの扱い
+" タブの扱い
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
 set expandtab
 set smarttab
 set shiftround
 
-"for complete
+" for complete
 set completeopt+=menuone,menu,preview
 set pumheight=12
 
-"Use syntax highlight
+" Use syntax highlight
 syntax enable
 
-"for backspaceKey
-set backspace=indent,start
-
-"for command mode
+" for command mode
 set wildmenu
 set wildmode=longest:full,full
 
-"window
+" window
 set noequalalways
 
-"検索件数の表示
+" 検索件数の表示
 set shortmess-=S
 
 let mapleader = "\<Space>"
 
-"Undoポイントの設置
+" Undoポイントの設置
 inoremap <silent><C-w> <C-g>u<C-w>
 inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
@@ -74,51 +74,49 @@ inoremap <silent><C-j> <C-g>u<C-j>
 set mouse=a
 set ttymouse=sgr
 
-"保存
+" 保存
 cabbr w!! w !sudo tee > /dev/null %
 
 function! OpenRcFiles()
-    edit ~/.vim/deinrc/dein_lazy.toml
-    edit ~/.vim/deinrc/dein.toml
-    edit ~/.vimrc
+  edit ~/.vim/deinrc/dein.toml
+  edit ~/.vim/deinrc/dein_lazy.toml
+  edit ~/.vimrc
 endfunction
 command! Preference call OpenRcFiles()
-
-" 文字のカウント
-set iskeyword+=-
-set iskeyword+=.
 
 " <esc>の反応
 set ttimeoutlen=10
 
 " Terminal
-let g:isOpenTerm = 0
-let g:Shell = '!/usr/local/bin/zsh'
-function! ToggleTerm()
-    if !bufexists(g:Shell)
-        botright terminal
-        let g:isOpenTerm = 1
-    else
-        if g:isOpenTerm == 1
-            let l:bufnum = win_findbuf(bufnr(g:Shell))
-            if !(l:bufnum == [])
-                call win_gotoid(l:bufnum[0])
-                close
-            endif
-            let g:isOpenTerm = 0
-        elseif g:isOpenTerm == 0
-            exe "botright sb ".bufnr(g:Shell)
-            resize 10
-            let g:isOpenTerm = 1
-        endif
-    endif
-endfunction
-nnoremap <silent><C-t> :call ToggleTerm()<CR>
-tnoremap <silent><C-t> <C-w>:call ToggleTerm()<CR>
+" let g:isOpenTerm = 0
+" let g:Shell = '!/usr/local/bin/zsh'
+" function! ToggleTerm()
+"   if !bufexists(g:Shell)
+"     botright terminal
+"     let g:isOpenTerm = 1
+"   else
+"     if g:isOpenTerm == 1
+"       let l:bufnum = win_findbuf(bufnr(g:Shell))
+"       if !(l:bufnum == [])
+"         call win_gotoid(l:bufnum[0])
+"         close
+"       endif
+"       let g:isOpenTerm = 0
+"     elseif g:isOpenTerm == 0
+"       exe "botright sb ".bufnr(g:Shell)
+"       let g:isOpenTerm = 1
+"     endif
+"   endif
+"   if g:isOpenTerm == 1
+"     resize 10
+"   endif
+" endfunction
+" nnoremap <silent><C-s> :call ToggleTerm()<CR>
+" tnoremap <silent><C-s> <C-w>:call ToggleTerm()<CR>
 
 if (exists('+colorcolumn'))
-    set colorcolumn=80
-    highlight ColorColumn ctermbg=9
+  set colorcolumn=80
+  highlight ColorColumn ctermbg=9
 endif
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
@@ -129,35 +127,35 @@ if !isdirectory(s:dein_repo_dir)
 endif
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
 if dein#load_state('~/.cache/dein')
-    call dein#begin('~/.cache/dein')
-    "Let dein manage dein
-   " Required:
-    call dein#add('~/.cache/dein')
-    let g:rc_dir = '~/dotfiles/vim/deinrc'
-    let s:toml      = g:rc_dir . '/dein.toml'
-    let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+  call dein#begin('~/.cache/dein')
+  "Let dein manage dein
+  " Required:
+  call dein#add('~/.cache/dein')
+  let g:rc_dir = '~/dotfiles/vim/deinrc'
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
 
-    call dein#load_toml(s:toml,      {'lazy': 0})
-    call dein#load_toml(s:lazy_toml, {'lazy': 1})
-    " Required:
-    call dein#end()
-    call dein#save_state()
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+  " Required:
+  call dein#end()
+  call dein#save_state()
 endif
 filetype plugin indent on
 syntax enable
 " If you want to install not installed plugins on startup.
 if dein#check_install()
-    call dein#install()
+  call dein#install()
 endif
 
 let tokenpath = expand('$HOME/.config/github_tokens/dein.token')
 if filereadable(tokenpath)
-    let token = readfile(tokenpath)
-    let g:dein#install_github_api_token = token[0]
+  let token = readfile(tokenpath)
+  let g:dein#install_github_api_token = token[0]
 endif
-"End dein Scripts-------------------------
+" End dein Scripts-------------------------
 
-"For Vue
+" For Vue
 autocmd FileType vue syntax sync fromstart
 
 let s:colorrcpath = $HOME . "/.vim/colorrc.vim"
