@@ -90,33 +90,6 @@ set ttimeoutlen=10
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
 
-" Terminal
-" let g:isOpenTerm = 0
-" let g:Shell = '!/usr/local/bin/zsh'
-" function! ToggleTerm()
-"   if !bufexists(g:Shell)
-"     botright terminal
-"     let g:isOpenTerm = 1
-"   else
-"     if g:isOpenTerm == 1
-"       let l:bufnum = win_findbuf(bufnr(g:Shell))
-"       if !(l:bufnum == [])
-"         call win_gotoid(l:bufnum[0])
-"         close
-"       endif
-"       let g:isOpenTerm = 0
-"     elseif g:isOpenTerm == 0
-"       exe "botright sb ".bufnr(g:Shell)
-"       let g:isOpenTerm = 1
-"     endif
-"   endif
-"   if g:isOpenTerm == 1
-"     resize 10
-"   endif
-" endfunction
-" nnoremap <silent><C-s> :call ToggleTerm()<CR>
-" tnoremap <silent><C-s> <C-w>:call ToggleTerm()<CR>
-
 if (exists('+colorcolumn'))
   set colorcolumn=80
   highlight ColorColumn ctermbg=9
