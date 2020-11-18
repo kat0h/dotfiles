@@ -1,2 +1,2 @@
 set background=dark
-colorscheme forest-night
+colorscheme tokyonight

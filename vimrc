@@ -87,6 +87,9 @@ command! Preference call OpenRcFiles()
 " <esc>の反応
 set ttimeoutlen=10
 
+nnoremap <silent> <leader>n :bn<CR>
+nnoremap <silent> <leader>p :bp<CR>
+
 " Terminal
 " let g:isOpenTerm = 0
 " let g:Shell = '!/usr/local/bin/zsh'
@@ -162,3 +165,4 @@ let s:colorrcpath = $HOME . "/.vim/colorrc.vim"
 if filereadable(s:colorrcpath)
   execute "source" s:colorrcpath
 endif
+

@@ -25,6 +25,7 @@ fi
 if [[ $(uname) -eq "Darwin" ]]; then
     alias tetris="bastet"
     alias rm="trash"
+    eval $(thefuck --alias)
 
     # alias f="fzf | xargs -o -t "
     export FZF_DEFAULT_OPTS="--ansi --select-1 --exit-0 --reverse"
@@ -42,7 +43,6 @@ autoload -Uz colors
 colors
 
 #PROMPTが呼ばれる前に実行される
-precmd () {}
 # PROMPT="%{${bg[blue]%}%}%{${fg[black]}%} %n %{${bg[white]}%}%{${fg[blue]}%}%{${bg[white]}%}%{${fg[black]}%} %~ %{${reset_color}%}%{${fg[white]}%} %{${reset_color}%}"
 # PROMPT="%{${bg[white]}%}%{${fg[black]}%}%~ %{${reset_color}%}%{${fg[white]}%}  %{${reset_color}%}"
 PROMPT="%{${fg[blue]}%}%~%{${fg[yellow]}%} > %{${reset_color}%}"
@@ -71,6 +71,12 @@ autoload -U compinit && compinit # 補完機能の強化
 # for w3m
 export WWW_HOME="http://google.com/"
 
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)[%b|%a]'
+precmd () { vcs_info }
+setopt prompt_subst
+RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
 # 初回シェル時のみ tmux実行
 if [ $SHLVL = 1 ]; then
@@ -78,4 +84,3 @@ tmux
 fi
 
 
-eval $(thefuck --alias)

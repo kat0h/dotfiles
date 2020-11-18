@@ -116,14 +116,14 @@ let g:lightline = {
 repo = 'tpope/vim-sleuth'
 
 [[plugins]]
-repo = 'kato-k/vim-colorscheme-settings'
+repo = '~/dev/vim-plugins/vim-colorscheme-settings'
 hook_add = '''
-let g:colorscheme_settings#isShowDefaultColorscheme = v:false
-let g:colorscheme_settings#colorrc_path = $HOME.'/.vim/colorrc.vim'
+let g:colorschemes_settings#use_default_colorschemes = v:false
+let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
 '''
 
 [[plugins]]
 repo = 'preservim/nerdtree'
 hook_add = '''
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
+nnoremap <silent><C-s> :NERDTreeToggle<CR>
 '''
