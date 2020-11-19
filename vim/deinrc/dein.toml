@@ -116,7 +116,7 @@ let g:lightline = {
 repo = 'tpope/vim-sleuth'
 
 [[plugins]]
-repo = '~/dev/vim-plugins/vim-colorscheme-settings'
+repo = 'kato-k/vim-colorscheme-settings'
 hook_add = '''
 let g:colorschemes_settings#use_default_colorschemes = v:false
 let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
