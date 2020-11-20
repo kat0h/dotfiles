@@ -121,9 +121,3 @@ hook_add = '''
 let g:colorschemes_settings#use_default_colorschemes = v:false
 let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
 '''
-
-[[plugins]]
-repo = 'preservim/nerdtree'
-hook_add = '''
-nnoremap <silent><C-s> :NERDTreeToggle<CR>
-'''
