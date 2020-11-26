@@ -121,3 +121,12 @@ hook_add = '''
 let g:colorschemes_settings#use_default_colorschemes = v:false
 let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
 '''
+
+[[plugins]]
+repo = 'mbbill/undotree'
+hook_add = '''
+nnoremap <leader>u :<C-u>UndotreeToggle<cr>
+'''
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'

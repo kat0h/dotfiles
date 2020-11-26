@@ -8,5 +8,6 @@ tmux.conf .tmux.conf
 vim .vim
 vimrc .vimrc
 zshrc .zshrc
+alacritty.yml .alacritty.yml
 END
 
