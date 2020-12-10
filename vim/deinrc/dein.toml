@@ -27,26 +27,10 @@ set helplang=ja,en
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
 hook_add='''
-if empty(globpath(&rtp, 'autoload/lsp.vim'))
-    finish
-endif
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> <f2> <plug>(lsp-rename)
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-endfunction
-augroup lsp_install
-    au!
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_auto_completeopt = 1
-let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
 '''
 
@@ -76,6 +60,9 @@ let g:loaded_matchparen = 1
 
 [[plugins]]
 repo = 'luochen1990/rainbow'
+hook_add = '''
+let g:rainbow_active = 1
+'''
 
 [[plugins]]
 repo = 'haya14busa/is.vim'
@@ -116,7 +103,7 @@ let g:lightline = {
 repo = 'tpope/vim-sleuth'
 
 [[plugins]]
-repo = 'kato-k/vim-colorscheme-settings'
+repo = '~/dev/vim-plugins/vim-colorscheme-settings/'
 hook_add = '''
 let g:colorschemes_settings#use_default_colorschemes = v:false
 let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
@@ -130,3 +117,12 @@ nnoremap <leader>u :<C-u>UndotreeToggle<cr>
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
+
+# [[plugins]]
+# repo = '~/dev/vim-plugins/vim-auto-color-switcher'
+# hook_add = '''
+# let g:auto_color_switcher_binary_path=expand('~/dev/vim-plugins/vim-auto-color-switcher/plugin/auto_color_switcher')
+# '''
+
+[[plugins]]
+repo = 'arcticicestudio/nord-vim'
