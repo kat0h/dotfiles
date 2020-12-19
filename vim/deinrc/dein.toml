@@ -93,21 +93,16 @@ repo = 'joshdick/onedark.vim'
 # LightLine
 [[plugins]]
 repo = 'itchyny/lightline.vim'
-hook_add = '''
-let g:lightline = {
-    \'colorscheme': 'forest_night',
-\}
-'''
 
 [[plugins]]
 repo = 'tpope/vim-sleuth'
 
-[[plugins]]
-repo = '~/dev/vim-plugins/vim-colorscheme-settings/'
-hook_add = '''
-let g:colorschemes_settings#use_default_colorschemes = v:false
-let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
-'''
+# [[plugins]]
+# repo = '~/dev/vim-plugins/vim-colorscheme-settings/'
+# hook_add = '''
+# let g:colorschemes_settings#use_default_colorschemes = v:false
+# let g:colorschemes_settings#rc_file_path = $HOME..'/.vim/colorrc.vim'
+# '''
 
 [[plugins]]
 repo = 'mbbill/undotree'
@@ -118,11 +113,21 @@ nnoremap <leader>u :<C-u>UndotreeToggle<cr>
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
 
-# [[plugins]]
-# repo = '~/dev/vim-plugins/vim-auto-color-switcher'
-# hook_add = '''
-# let g:auto_color_switcher_binary_path=expand('~/dev/vim-plugins/vim-auto-color-switcher/plugin/auto_color_switcher')
-# '''
+[[plugins]]
+repo = '~/dev/vim-plugins/vim-auto-color-switcher'
+hook_add = '''
+let g:auto_color_switcher#binary_path=expand('~/dev/vim-plugins/vim-auto-color-switcher/plugin/auto_color_switcher')
+let g:auto_color_switcher#command={
+    \ 'light': 'colorscheme xcodelight',
+    \ 'dark' : 'colorscheme xcodedark'
+    \}
+'''
 
 [[plugins]]
 repo = 'arcticicestudio/nord-vim'
+
+[[plugins]]
+repo = 'arzg/vim-colors-xcode'
+
+[[plugins]]
+repo = 'thinca/vim-scouter'

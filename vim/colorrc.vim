@@ -1,2 +1,2 @@
 set background=dark
-colorscheme nord
+colorscheme iceberg
