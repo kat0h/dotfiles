@@ -74,6 +74,10 @@ inoremap <silent><C-j> <C-g>u<C-j>
 set mouse=a
 set ttymouse=sgr
 
+set nocompatible
+set whichwrap=b,s,h,l,<,>,[,]
+set backspace=indent,eol,start
+
 " 保存
 cabbr w!! w !sudo tee > /dev/null %
 
@@ -87,12 +91,19 @@ command! Preference call OpenRcFiles()
 " <esc>の反応
 set ttimeoutlen=10
 
+set nobackup
+set noswapfile
+set autoread
+
+set showcmd
+
+noremap <expr> 0 getline('.')[0 : col('.') - 2] =~# '^\s\+$' ? '0' : '^'
+
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
 
 if (exists('+colorcolumn'))
   set colorcolumn=80
-  highlight ColorColumn ctermbg=9
 endif
 
 augroup vimrc-auto-mkdir
@@ -105,6 +116,16 @@ augroup vimrc-auto-mkdir
     endif
   endfunction
 augroup END
+
+" close quickfix
+au FileType qf nnoremap <silent><buffer>q :quit<CR>
+
+
+"      _      _
+"   __| | ___(_)_ __
+"  / _` |/ _ \ | '_ \ 
+" | (_| |  __/ | | | |
+"  \__,_|\___|_|_| |_|
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
