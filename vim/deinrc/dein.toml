@@ -107,12 +107,21 @@ repo = 'joshdick/onedark.vim'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 hook_add = '''
+function L_eskk_get_mode()
+    if (mode() == 'i') && eskk#is_enabled()
+        return g:eskk#statusline_mode_strings[eskk#get_mode()]
+    else
+        return ''
+    endif
+endfunction
+
 let g:lightline = {
 \   'active': {
-\     'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'], ['radiru'] ]
+\     'left': [ ['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru'] ]
 \   },
 \   'component_function': {
 \     'radiru': 'radiru#playing_station',
+\     'eskk': 'L_eskk_get_mode'
 \   },
 \ }
 '''
@@ -175,4 +184,16 @@ let g:quickrun_config._ = {
       \ 'outputter/error/error'   : 'quickfix',
       \ 'outputter/buffer/close_on_empty' : 1,
       \ }
+'''
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+hook_add = '''
+if !filereadable(expand('~/.config/eskk/jisyo'))
+    call system('mkdir -p ~/.config/eskk')
+    call system('cd ~/.config/eskk/ && wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz && gzip -d SKK-JISYO.L.gz && nkf -Ew SKK-JISYO.L > jisyo && rm -f SKK-JISYO.L')
+endif
+let g:eskk#directory = "~/.config/eskk"
+let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
+let g:eskk#large_dictionary = {'path': "~/.config/eskk/jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 '''

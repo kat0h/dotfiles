@@ -68,7 +68,6 @@ let mapleader = "\<Space>"
 inoremap <silent><C-w> <C-g>u<C-w>
 inoremap <silent><C-u> <C-g>u<C-u>
 inoremap <silent><C-m> <C-g>u<C-m>
-inoremap <silent><C-j> <C-g>u<C-j>
 
 " Enable mouse
 set mouse=a
@@ -97,7 +96,7 @@ set autoread
 
 set showcmd
 
-noremap <expr> 0 getline('.')[0 : col('.') - 2] =~# '^\s\+$' ? '0' : '^'
+nnoremap <expr> 0 getline('.')[0 : col('.') - 2] =~# '^\s\+$' ? '0' : '^'
 
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
@@ -119,6 +118,9 @@ augroup END
 
 " close quickfix
 au FileType qf nnoremap <silent><buffer>q :quit<CR>
+
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 
 "      _      _
