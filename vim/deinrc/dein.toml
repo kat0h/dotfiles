@@ -144,10 +144,6 @@ hook_post_update = '''
 let g:dein#plugin.build = 'make'
 '''
 hook_add = '''
-let g:auto_color_switcher#command={
-    \ 'light': 'colorscheme xcodelight',
-    \ 'dark' : 'colorscheme xcodedark'
-    \}
 '''
 
 [[plugins]]
@@ -200,3 +196,12 @@ let g:eskk#large_dictionary = {'path': "~/.config/eskk/jisyo", 'sorted': 1, 'enc
 
 [[plugins]]
 repo = 'kato-k/vim-sl'
+
+[[plugins]]
+repo = 'obcat/vim-hitspop'
+
+[[plugins]]
+repo = 'kjssad/quantum.vim'
+hook_add = '''
+colorscheme quantum
+'''

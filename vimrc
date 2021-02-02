@@ -28,7 +28,7 @@ set ambiwidth=double
 " インデント
 set smartindent
 
-" サーチ
+" サーチの設定
 set incsearch
 set ignorecase
 set smartcase
@@ -49,7 +49,7 @@ set shiftround
 set completeopt+=menuone,menu,preview
 set pumheight=12
 
-" Use syntax highlight
+" シンタックスハイライトを使う
 syntax enable
 
 " for command mode
@@ -80,6 +80,7 @@ set backspace=indent,eol,start
 " 保存
 cabbr w!! w !sudo tee > /dev/null %
 
+" 設定ファイルを読み込む
 function! OpenRcFiles()
   edit ~/.vim/deinrc/dein.toml
   edit ~/.vim/deinrc/dein_lazy.toml
@@ -90,14 +91,18 @@ command! Preference call OpenRcFiles()
 " <esc>の反応
 set ttimeoutlen=10
 
+" Swapを作らない + 外部の変更を取り込む
 set nobackup
 set noswapfile
 set autoread
 
+" 入力中のコマンドを表示
 set showcmd
 
+" 0の挙動を調節(借りもの)
 nnoremap <expr> 0 getline('.')[0 : col('.') - 2] =~# '^\s\+$' ? '0' : '^'
 
+" バッファの切り替え
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
 
@@ -119,9 +124,13 @@ augroup END
 " close quickfix
 au FileType qf nnoremap <silent><buffer>q :quit<CR>
 
+" introの非表示
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
+set shortmess+=I
+
+autocmd WinLeave * if &buftype == "terminal" | silent! execute "normal! i" | endif
 
 "      _      _
 "   __| | ___(_)_ __
@@ -167,10 +176,5 @@ endif
 
 " For Vue
 autocmd FileType vue syntax sync fromstart
-
-let s:colorrcpath = $HOME . "/.vim/colorrc.vim"
-if filereadable(s:colorrcpath)
-  execute "source" s:colorrcpath
-endif
 
 packadd termdebug
