@@ -74,7 +74,7 @@ let g:loaded_matchparen = 1
 [[plugins]]
 repo = 'luochen1990/rainbow'
 hook_add = '''
-let g:rainbow_active = 1
+let g:rainbow_active = 0
 '''
 
 [[plugins]]
@@ -197,3 +197,6 @@ let g:eskk#directory = "~/.config/eskk"
 let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 '''
+
+[[plugins]]
+repo = 'kato-k/vim-sl'

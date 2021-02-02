@@ -173,3 +173,4 @@ if filereadable(s:colorrcpath)
   execute "source" s:colorrcpath
 endif
 
+packadd termdebug
