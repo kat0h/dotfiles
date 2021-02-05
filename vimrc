@@ -5,6 +5,7 @@
 "      `88..8'    888   888   888   888   888     888
 ".o.    `888'     888   888   888   888   888     888   .o8
 "Y8P     `8'     o888o o888o o888o o888o d888b    `Y8bod8P'
+set nocompatible
 
 " encoding
 set encoding=utf-8
@@ -73,7 +74,6 @@ inoremap <silent><C-m> <C-g>u<C-m>
 set mouse=a
 set ttymouse=sgr
 
-set nocompatible
 set whichwrap=b,s,h,l,<,>,[,]
 set backspace=indent,eol,start
 
@@ -131,6 +131,7 @@ cnoremap <C-n> <Down>
 set shortmess+=I
 
 autocmd WinLeave * if &buftype == "terminal" | silent! execute "normal! i" | endif
+
 
 "      _      _
 "   __| | ___(_)_ __

@@ -144,6 +144,10 @@ hook_post_update = '''
 let g:dein#plugin.build = 'make'
 '''
 hook_add = '''
+let g:auto_color_switcher#command={
+    \ 'light': 'colorscheme xcodelight',
+    \ 'dark' : 'colorscheme xcodewwdc'
+    \}
 '''
 
 [[plugins]]
@@ -154,9 +158,6 @@ repo = 'arzg/vim-colors-xcode'
 
 [[plugins]]
 repo = 'thinca/vim-scouter'
-
-[[plugins]]
-repo = 'high-moctane/gaming.vim'
 
 [[plugins]]
 repo = 'skanehira/gh.vim'
@@ -202,6 +203,36 @@ repo = 'obcat/vim-hitspop'
 
 [[plugins]]
 repo = 'kjssad/quantum.vim'
+
+[[plugins]]
+repo = 'pineapplegiant/spaceduck'
+[[plugins]]
+repo = 'jeffkreeftmeijer/vim-numbertoggle'
+
+[[plugins]]
+repo = 'kato-k/vim-colorscheme-settings'
 hook_add = '''
-colorscheme quantum
+let g:colorschemes_settings#use_default_colorschemes = v:false
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-file.vim'
+hook_add = '''
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-buffer.vim'
+hook_add = '''
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+"       \ 'name': 'buffer',
+"       \ 'priority': 5,
+"       \ 'whitelist': ['*'],
+"       \ 'completor': function('asyncomplete#sources#buffer#completor'),
+"       \ }))
 '''
