@@ -225,14 +225,3 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
 '''
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-buffer.vim'
-hook_add = '''
-" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-"       \ 'name': 'buffer',
-"       \ 'priority': 5,
-"       \ 'whitelist': ['*'],
-"       \ 'completor': function('asyncomplete#sources#buffer#completor'),
-"       \ }))
-'''
