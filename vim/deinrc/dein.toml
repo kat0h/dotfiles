@@ -225,3 +225,6 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
 '''
+
+[[plugins]]
+repo = 'mmisono/viminesweeper'
