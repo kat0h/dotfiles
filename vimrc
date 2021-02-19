@@ -131,13 +131,7 @@ cnoremap <C-n> <Down>
 set shortmess+=I
 
 autocmd WinLeave * if &buftype == "terminal" | silent! execute "normal! i" | endif
-
-
-"      _      _
-"   __| | ___(_)_ __
-"  / _` |/ _ \ | '_ \ 
-" | (_| |  __/ | | | |
-"  \__,_|\___|_|_| |_|
+autocmd TerminalOpen * if &buftype == "terminal" | silent! set nobuflisted | endif
 
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
