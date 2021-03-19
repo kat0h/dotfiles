@@ -17,6 +17,7 @@ if [[ $(uname) == "Darwin" ]]; then
     export GOPATH=$HOME/.golang
     export PATH=$PATH:$GOPATH/bin
     export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
+    export PATH=$PATH:/Users/katokota/.cargo/bin
 
 fi
 

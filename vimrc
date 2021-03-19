@@ -14,7 +14,7 @@ set t_ZH=
 set termguicolors
 
 " 行番号・行のライン
-" set number
+set number
 set cursorline
 
 " ステータスライン

@@ -10,7 +10,7 @@ on_ft = ['swift']
 [[plugins]]
 repo = 'alvan/vim-closetag'
 hook_add='''
-    let g:closetag_filenames = '*.html,*.vue,*.xml'
+let g:closetag_filenames = '*.html,*.vue,*.xml'
 '''
 on_ft = ['html', 'vue', 'xml']
 
