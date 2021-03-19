@@ -14,7 +14,7 @@ repo = 'tpope/vim-surround'
 
 # 括弧の補完
 [[plugins]]
-repo = 'jiangmiao/auto-pairs'
+repo = 'cohama/lexima.vim'
 
 # 日本語ドキュメント
 [[plugins]]
@@ -25,28 +25,7 @@ set helplang=ja,en
 
 # LSP
 [[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add='''
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_completeopt = 1
-let g:lsp_text_edit_enabled = 1
-let g:lsp_diagnostics_signs_error = {'text': '💩'}
-let g:lsp_diagnostics_signs_warning = {'text': '🚨'}
-'''
-
-[[plugins]]
-repo = 'mattn/vim-lsp-settings'
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
+repo = 'neoclide/coc.nvim'
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
@@ -89,7 +68,6 @@ repo = 'haya14busa/dein-command.vim'
 [[plugins]]
 repo = 'sainnhe/forest-night'
 hook_add='''
-" colorscheme forest-night
 let g:forest_night_disable_italic_comment = 1
 '''
 
@@ -129,9 +107,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'tpope/vim-sleuth'
-
-[[plugins]]
 repo = 'mbbill/undotree'
 hook_add = '''
 nnoremap <leader>u :<C-u>UndotreeToggle<cr>
@@ -148,8 +123,9 @@ let g:dein#plugin.build = 'make'
 hook_add = '''
 let g:auto_color_switcher#command={
     \ 'light': 'colorscheme xcodelight',
-    \ 'dark' : 'colorscheme xcodewwdc'
+    \ 'dark' : 'colorscheme onedark'
     \}
+colorscheme onedark
 '''
 
 [[plugins]]
@@ -202,9 +178,6 @@ let g:eskk#large_dictionary = {'path': "~/.config/eskk/jisyo", 'sorted': 1, 'enc
 repo = 'kato-k/vim-sl'
 
 [[plugins]]
-repo = 'obcat/vim-hitspop'
-
-[[plugins]]
 repo = 'kjssad/quantum.vim'
 
 [[plugins]]
@@ -212,9 +185,6 @@ repo = 'pineapplegiant/spaceduck'
 hook_add = '''
 colorscheme spaceduck
 '''
-
-[[plugins]]
-repo = 'jeffkreeftmeijer/vim-numbertoggle'
 
 [[plugins]]
 repo = 'kato-k/vim-colorscheme-settings'
@@ -234,4 +204,32 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 '''
 
 [[plugins]]
+repo = 'mattn/ctrlp-matchfuzzy'
+
+[[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
+hook_add = '''
+let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+hook_add = '''
+nnoremap <leader>f :Fern . -drawer -toggle<CR>
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = '~/dev/vim-plugins/artify.vim9'
+
+[[plugins]]
+repo = 'sainnhe/artify.vim'
+
+[[plugins]]
+repo = '~/dev/vim-plugins/nyanko.vim'
