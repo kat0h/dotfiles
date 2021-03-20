@@ -64,7 +64,6 @@ repo = 'haya14busa/is.vim'
 [[plugins]]
 repo = 'haya14busa/dein-command.vim'
 
-#ColorScheme
 [[plugins]]
 repo = 'sainnhe/forest-night'
 hook_add='''
@@ -114,19 +113,6 @@ nnoremap <leader>u :<C-u>UndotreeToggle<cr>
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
-
-[[plugins]]
-repo = 'kato-k/vim-auto-color-switcher'
-hook_post_update = '''
-let g:dein#plugin.build = 'make'
-'''
-hook_add = '''
-let g:auto_color_switcher#command={
-    \ 'light': 'colorscheme xcodelight',
-    \ 'dark' : 'colorscheme onedark'
-    \}
-colorscheme onedark
-'''
 
 [[plugins]]
 repo = 'arcticicestudio/nord-vim'
@@ -182,9 +168,6 @@ repo = 'kjssad/quantum.vim'
 
 [[plugins]]
 repo = 'pineapplegiant/spaceduck'
-hook_add = '''
-colorscheme spaceduck
-'''
 
 [[plugins]]
 repo = 'kato-k/vim-colorscheme-settings'
@@ -233,3 +216,12 @@ repo = 'sainnhe/artify.vim'
 
 [[plugins]]
 repo = '~/dev/vim-plugins/nyanko.vim'
+
+[[plugins]]
+repo = '~/dev/vim-plugins/kuragefz'
+
+[[plugins]]
+repo = 'ulwlu/elly.vim'
+hook_add = '''
+colorscheme elly
+'''
