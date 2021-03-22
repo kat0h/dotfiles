@@ -9,5 +9,6 @@ vim .vim
 vimrc .vimrc
 zshrc .zshrc
 alacritty.yml .alacritty.yml
+emacs.d .emacs.d
 END
 
