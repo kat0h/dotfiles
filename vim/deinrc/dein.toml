@@ -12,10 +12,6 @@ repo = 'tpope/vim-repeat'
 [[plugins]]
 repo = 'tpope/vim-surround'
 
-# 括弧の補完
-[[plugins]]
-repo = 'cohama/lexima.vim'
-
 # 日本語ドキュメント
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -23,9 +19,44 @@ hook_add='''
 set helplang=ja,en
 '''
 
-# LSP
 [[plugins]]
-repo = 'neoclide/coc.nvim'
+repo = 'prabirshrestha/vim-lsp'
+hook_add='''
+if empty(globpath(&rtp, 'autoload/lsp.vim'))
+  finish
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> <f2> <plug>(lsp-rename)
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
@@ -38,9 +69,6 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
-
-[[plugins]]
-repo = 'mattn/vim-lsp-icons'
 
 [[plugins]]
 repo = 'tsuyoshicho/vim-efm-langserver-settings'
@@ -112,9 +140,6 @@ nnoremap <leader>u :<C-u>UndotreeToggle<cr>
 '''
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
-
-[[plugins]]
 repo = 'arcticicestudio/nord-vim'
 
 [[plugins]]
@@ -159,9 +184,6 @@ let g:eskk#directory = "~/.config/eskk"
 let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 '''
-
-[[plugins]]
-repo = 'kato-k/vim-sl'
 
 [[plugins]]
 repo = 'kjssad/quantum.vim'
@@ -219,6 +241,9 @@ repo = '~/dev/vim-plugins/nyanko.vim'
 
 [[plugins]]
 repo = '~/dev/vim-plugins/kuragefz'
+
+[[plugins]]
+repo = 'kato-k/hiroyuki.vim'
 
 [[plugins]]
 repo = 'ulwlu/elly.vim'

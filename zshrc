@@ -18,6 +18,7 @@ if [[ $(uname) == "Darwin" ]]; then
     export PATH=$PATH:$GOPATH/bin
     export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
     export PATH=$PATH:/Users/katokota/.cargo/bin
+    export PATH=$PATH:/usr/local/opt/llvm/bin/
 
 fi
 

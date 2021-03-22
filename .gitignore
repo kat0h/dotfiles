@@ -1,5 +1,9 @@
 .DS_Store
-HOME/.vim/bundle/*
-HOME/.vim/colors/*
-HOME/.vim/dein/*
-
+vim/bundle/*
+vim/colors/*
+vim/dein/*
+emacs.d/elpa/
+emacs.d/auto-save-list/
+emacs.d/games/
+emacs.d/url/
+emacs.d/var/
