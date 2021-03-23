@@ -26,9 +26,6 @@ set fileencoding=utf-8
 scriptencoding utf-8
 set ambiwidth=double
 
-" インデント
-set smartindent
-
 " サーチの設定
 set incsearch
 set ignorecase
