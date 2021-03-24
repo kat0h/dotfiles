@@ -32,7 +32,7 @@
 (setq user-mail-address "peony.btn@gmail.com")
 (setq user-login-name "katokota")
 (setq create-lockfiles nil)
-(setq debug-on-error t)
+;;(setq debug-on-error t)
 (setq init-file-debug t)
 (setq frame-resize-pixelwise t)
 (setq enable-recursive-minibuffers t)
@@ -52,6 +52,7 @@
 
 (define-key key-translation-map [?\C-h] [?\C-?]) ; C-hをDeleteにする
 (defalias 'yes-or-no-p 'y-or-n-p)
+(electric-pair-mode 1)
 
 ;; C-wをいい感じにする
 (defun backward-kill-word-or-kill-region ()
@@ -122,6 +123,41 @@
       :ensure t)
 
 (leaf leaf-convert
+  :ensure t)
+
+(leaf ivy
+  :ensure t
+  :custom `((ivy-use-virtual-buffers . t)
+	    (enable-recursive-minibuffers . t)
+	    (ivy-height . 30)
+	    (ivy-extra-directories . nil))
+  :config
+  (ivy-mode 1)
+  (leaf swiper
+  (global-set-key "\C-s" 'swiper)))
+
+(leaf company
+  :ensure t
+  :custom
+  (company-idle-delay . 0) ; デフォルトは0.5
+  (company-minimum-prefix-length . 3) ; デフォルトは4
+  (company-selection-wrap-around . t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (completion-ignore-case . t)
+  (company-dabbrev-downcase . nil)
+  :config
+  (company-mode))
+
+(leaf undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode t)
+  (global-set-key (kbd "M-/") 'undo-tree-redo))
+
+(leaf lsp-mode
+  :ensure t)
+(leaf lsp-ui
+  :ensure t)
+(leaf company
   :ensure t)
 
 (provide 'init)
