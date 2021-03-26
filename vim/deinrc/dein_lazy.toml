@@ -17,3 +17,10 @@ on_ft = ['html', 'vue', 'xml']
 [[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft = ['html', 'vue', 'js', 'xml', 'css']
+
+[[plugins]]
+repo = "tokorom/vim-review"
+on_ft = ['review']
+hook_add = '''
+autocmd BufEnter *.re setlocal ft=review
+'''
