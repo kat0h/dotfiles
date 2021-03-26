@@ -1,0 +1,11 @@
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+hook_add = '''
+nnoremap <leader>f :Fern . -drawer -toggle<CR>
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
