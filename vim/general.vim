@@ -56,6 +56,7 @@ set wildmode=longest:full,full
 " ターミナルの設定
 set termguicolors
 set t_ZH=
+set t_ZR=
 
 " マウスを使う
 set mouse=a
