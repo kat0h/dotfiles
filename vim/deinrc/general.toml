@@ -125,3 +125,7 @@ repo = '~/dev/vim-plugins/kuragefz'
 
 [[plugins]]
 repo = 'kato-k/hiroyuki.vim'
+
+[[plugins]]
+repo = 'thinca/vim-localrc'
+
