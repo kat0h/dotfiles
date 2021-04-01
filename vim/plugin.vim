@@ -6,11 +6,11 @@
 
 let s:rc_dir = expand("~/.vim/deinrc/")
 let s:loads = [
-            \ #{path: "color.toml", lazy: v:false},
-            \ #{path: "ferm.toml", lazy: v:false},
-            \ #{path: "general.toml", lazy: v:false},
-            \ #{path: "lsp.toml", lazy: v:false},
-            \ #{path: "dein_lazy.toml", lazy: v:true},
+            \ {"path": "color.toml", "lazy": v:false},
+            \ {"path": "ferm.toml", "lazy": v:false},
+            \ {"path": "general.toml", "lazy": v:false},
+            \ {"path": "lsp.toml", "lazy": v:false},
+            \ {"path": "dein_lazy.toml", "lazy": v:true},
             \]
 
 " Install dein.vim if there is no dein.vim

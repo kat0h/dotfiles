@@ -18,7 +18,7 @@
      ("melpa" . "https://melpa.org/packages/")
      ("org" . "https://orgmode.org/elpa/")))
  '(package-selected-packages
-   '(undo-tree use-package nyan-mode neotree lsp-ui leaf-convert ivy hydra el-get company blackout atom-one-dark-theme))
+   '(doom-modeline use-package undo-tree nyan-mode neotree lsp-ui leaf-convert ivy hydra el-get company blackout atom-one-dark-theme))
  '(show-paren-delay 0.1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
