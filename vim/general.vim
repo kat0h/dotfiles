@@ -60,7 +60,9 @@ set t_ZR=
 
 " マウスを使う
 set mouse=a
-set ttymouse=sgr
+if !has('nvim')
+    set ttymouse=sgr
+endif
 
 " 新しいバッファを開く時に警告を表示しない
 set hidden
@@ -93,7 +95,9 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 " ターミナル
 autocmd WinLeave * if &buftype == "terminal" | silent! execute "normal! i" | endif
-autocmd TerminalOpen * if &buftype == "terminal" | silent! set nobuflisted | endif
+if !has('nvim')
+    autocmd TerminalOpen * if &buftype == "terminal" | silent! set nobuflisted | endif
+endif
 
 " Introを表示しない
 set shortmess+=I

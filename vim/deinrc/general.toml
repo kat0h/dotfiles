@@ -57,11 +57,13 @@ endfunction
 
 let g:lightline = {
 \   'active': {
-\     'left': [ ['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru'] ]
+\     'left': [['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru']],
+\     'right': [['lineinfo'], ['percent'], ['suez', 'fileencoding', 'filetype']]
 \   },
 \   'component_function': {
 \     'radiru': 'radiru#playing_station',
-\     'eskk': 'L_eskk_get_mode'
+\     'eskk': 'L_eskk_get_mode',
+\     'suez': 'suez#status',
 \   },
 \ }
 '''
@@ -129,3 +131,11 @@ repo = 'kato-k/hiroyuki.vim'
 [[plugins]]
 repo = 'thinca/vim-localrc'
 
+[[plugins]]
+repo = 'skanehira/translate.vim'
+
+[[plugins]]
+repo = 'kato-k/suez.vim'
+
+[[plugins]]
+repo = 'itchyny/vim-winfix'

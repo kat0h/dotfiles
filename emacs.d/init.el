@@ -49,10 +49,18 @@
 (setq auto-save-default nil)
 (setq default-directory "~/") ; default directory
 (setq command-line-default-directory "~/")
+(setq scroll-bar-mode nil)
 
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 (define-key key-translation-map [?\C-h] [?\C-?]) ; C-hをDeleteにする
 (defalias 'yes-or-no-p 'y-or-n-p)
 (electric-pair-mode 1)
+
+(global-set-key (kbd "<left>" ) 'windmove-left)
+(global-set-key (kbd "<down>" ) 'windmove-down)
+(global-set-key (kbd "<up>"   ) 'windmove-up)
+(global-set-key (kbd "<right>") 'windmove-right)
 
 ;; C-wをいい感じにする
 (defun backward-kill-word-or-kill-region ()
@@ -159,5 +167,10 @@
   :ensure t)
 (leaf company
   :ensure t)
+
+(leaf doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode 1))
 
 (provide 'init)
