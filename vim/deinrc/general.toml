@@ -120,9 +120,6 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 '''
 
 [[plugins]]
-repo = '~/dev/vim-plugins/nyanko.vim'
-
-[[plugins]]
 repo = '~/dev/vim-plugins/kuragefz'
 
 [[plugins]]
@@ -139,3 +136,6 @@ repo = 'kato-k/suez.vim'
 
 [[plugins]]
 repo = 'itchyny/vim-winfix'
+
+[[plugins]]
+repo = 'twitvim/twitvim'
