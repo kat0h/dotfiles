@@ -27,4 +27,9 @@ colors:
     cyan:    '#95c4ce'
     white:   '#d2d4de'
 
-background_opacity: 1.0
+background_opacity: 0.75
+
+font:
+  normal:
+      family: PixelMplus12-Regular
+
