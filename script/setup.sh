@@ -2,6 +2,17 @@ function main() {
     # Main
     cd $(cd $(dirname $0); pwd) && cd ..
 
+    # Make symlinks
+    ln -s tmux.conf ~/.tmux.conf
+    ln -s vim ~/.vim
+    ln -s vimrc ~/.vimrc
+    mkdir -p ~/.config/nvim
+    ln -s vimrc ~/.config/nvim/init.vim
+    ln -s zshrc ~/.zshrc
+    mkdir -p ~/.config/alacritty
+    ln -s alacritty.yml ~/.config/alacritty/alacritty.yml
+    ln -s emacs.d ~/.emacs.d
+
     echo "The current directory is $(pwd)"
 
     # Check Platform
@@ -58,6 +69,8 @@ function install_linux() {
         pip3 install --upgrade youtube_dl
         curl -fsSL https://deno.land/x/install/install.sh | sh
         # Todo: Build Vim
+        echo "Install vim plugins"
+        echo|vim +q!
     fi
     echo
     echo "Change login shell to zsh"
