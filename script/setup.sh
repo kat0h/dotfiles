@@ -72,4 +72,10 @@ echo '[__  |___  |  |  | |__]'
 echo '___] |___  |  |__| |   '
 echo
 
+# Super Uset Check
+if [[ "$USER" != "root" ]];then
+    echo "Please run this script as special user"
+    exit
+fi
+
 main
