@@ -17,7 +17,7 @@ let s:loads = [
 if has('vim_starting')
     let s:dein_cache_home = empty($XDG_CACHE_HOME) ? expand("~/.cache") : $XDG_CACHE_HOME
     let s:dein_dir = s:dein_cache_home .. '/vim/dein'
-    let s:dein_repo_dir = s:dein_dir .. 'repos/github.com/Shougo/dein.vim'
+    let s:dein_repo_dir = s:dein_dir .. '/repos/github.com/Shougo/dein.vim'
     if !isdirectory(s:dein_repo_dir)
         call system('git clone https://github.com/Shougo/dein.vim ' .. shellescape(s:dein_repo_dir))
     endif
