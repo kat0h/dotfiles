@@ -107,3 +107,13 @@ set noequalalways
 
 " 検索件数の表示
 set shortmess-=S
+
+" 言語固有の設定
+" Vue
+function s:pre_enter_vue()
+    set autoindent
+endfunction
+augroup vuejs
+    autocmd!
+    autocmd BufEnter vue call s:pre_enter_vue()
+augroup end
