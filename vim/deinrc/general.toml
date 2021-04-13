@@ -65,6 +65,7 @@ let g:lightline = {
 \     'eskk': 'L_eskk_get_mode',
 \     'suez': 'suez#status',
 \   },
+\   'colorscheme': 'onedark',
 \ }
 '''
 
@@ -127,9 +128,20 @@ repo = 'thinca/vim-localrc'
 
 [[plugins]]
 repo = 'skanehira/translate.vim'
+hook_add = '''
+nnoremap <leader>t :Translate<CR>
+vnoremap <leader>t :Translate<CR>
+'''
 
 [[plugins]]
 repo = 'itchyny/vim-winfix'
 
 [[plugins]]
 repo = 'twitvim/twitvim'
+
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+hook_add = '''
+map ; <Plug>(clever-f-repeat-forward)
+map , <Plug>(clever-f-repeat-back)
+'''

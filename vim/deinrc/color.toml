@@ -37,6 +37,6 @@ repo = 'ulwlu/elly.vim'
 repo = 'kato-k/vim-colorscheme-settings'
 hook_add = '''
 let g:colorschemes_settings#use_default_colorschemes = v:false
-colorscheme everforest
+colorscheme onedark
 set bg=dark
 '''
