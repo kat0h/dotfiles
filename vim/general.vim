@@ -70,6 +70,7 @@ set hidden
 " Swapファイルを作らない
 set nobackup
 set noswapfile
+set nowritebackup
 
 " 外部の変更を自動で反映する
 set autoread
@@ -108,6 +109,9 @@ set noequalalways
 " 検索件数の表示
 set shortmess-=S
 
+" bombを使わない(明示的に指定)
+set nobomb
+
 " 言語固有の設定
 " Vue
 function s:pre_enter_vue()
@@ -117,3 +121,5 @@ augroup vuejs
     autocmd!
     autocmd BufEnter vue call s:pre_enter_vue()
 augroup end
+
+command! OpenDot :cd ~/dotfiles
