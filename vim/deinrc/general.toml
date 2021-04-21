@@ -1,3 +1,6 @@
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
 # 行頭行末にあるスペースを可視化
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
@@ -107,6 +110,7 @@ endif
 let g:eskk#directory = "~/.config/eskk"
 let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/jisyo", 'sorted': 1, 'encoding': 'utf-8',}
+let g:eskk#enable_completion = 0
 '''
 
 
