@@ -1,8 +1,5 @@
 let mapleader = "\<Space>"
 
-" <esc>の反応
-set ttimeoutlen=10
-
 " Undoポイントの設置
 inoremap <silent><C-w> <C-g>u<C-w>
 inoremap <silent><C-u> <C-g>u<C-u>
@@ -26,11 +23,6 @@ inoremap <C-e> <End>
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <S-Left>  <C-w><<CR>
-nnoremap <S-Right> <C-w>><CR>
-nnoremap <S-Up>    <C-w>-<CR>
-nnoremap <S-Down>  <C-w>+<CR>
-
 " Reflash terminal
 nnoremap <silent><leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:call popup_clear()<cr><c-l>
 
@@ -38,3 +30,5 @@ nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
 
 tnoremap <C-y> <c-n\><c-n>
+
+" cnoremap <expr> <esc> getcmdline() =~ "^\'<,\'>" ? "<C-c>gv" : "<C-c>"

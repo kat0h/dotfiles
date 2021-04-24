@@ -89,6 +89,8 @@ cabbr w!! w !sudo tee > /dev/null %
 " カーソルの挙動
 set whichwrap=b,s,h,l,<,>,[,]
 set backspace=indent,eol,start
+set iskeyword+=-
+set autoindent
 
 " Quickfix
 au FileType qf nnoremap <silent><buffer>q :quit<CR>
@@ -111,15 +113,5 @@ set shortmess-=S
 
 " bombを使わない(明示的に指定)
 set nobomb
-
-" 言語固有の設定
-" Vue
-function s:pre_enter_vue()
-    set autoindent
-endfunction
-augroup vuejs
-    autocmd!
-    autocmd BufEnter vue call s:pre_enter_vue()
-augroup end
 
 command! OpenDot :cd ~/dotfiles
