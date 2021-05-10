@@ -141,7 +141,7 @@ vnoremap <leader>t :Translate<CR>
 repo = 'itchyny/vim-winfix'
 
 [[plugins]]
-repo = 'twitvim/twitvim'
+repo = 'vimwiki/vimwiki'
 
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
@@ -149,3 +149,6 @@ hook_add = '''
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
 '''
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
