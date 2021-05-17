@@ -36,11 +36,13 @@ set completeopt+=menuone,menu,preview
 set pumheight=12
 
 " タブの扱い
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set softtabstop=0
 set expandtab
 set smarttab
+set smartindent
+set smartcase
 set shiftround
 
 " サーチの設定
