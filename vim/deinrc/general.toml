@@ -90,14 +90,6 @@ nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 hook_add = '''
-let g:quickrun_config = get(g:, 'quickrun_config', {})
-let g:quickrun_config._ = {
-      \ 'outputter' : 'error',
-      \ 'outputter/error/success' : 'buffer',
-      \ 'outputter/error/error'   : 'quickfix',
-      \ 'outputter/buffer/close_on_empty' : 1,
-      \ 'runner' : 'terminal',
-      \ }
 '''
 
 [[plugins]]
@@ -152,3 +144,6 @@ map , <Plug>(clever-f-repeat-back)
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
+
+[[plugins]]
+repo = 'mattn/vim-lexiv'
