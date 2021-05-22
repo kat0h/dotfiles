@@ -117,3 +117,4 @@ set shortmess-=S
 set nobomb
 
 command! OpenDot :cd ~/dotfiles
+command! DirOpen :call job_start("open .")

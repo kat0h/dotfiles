@@ -18,6 +18,7 @@ alias cls="clear"
 alias v="vim"
 alias la="ls -la"
 alias p="python3"
+alias o="open"
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
