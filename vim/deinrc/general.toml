@@ -147,3 +147,6 @@ repo = 'lambdalisue/gina.vim'
 
 [[plugins]]
 repo = 'mattn/vim-lexiv'
+
+[[plugins]]
+repo = 'twitvim/twitvim'
