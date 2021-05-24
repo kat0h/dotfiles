@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 hook_add = '''
-nnoremap <leader>f :Fern . -drawer -toggle<CR>
+nnoremap <leader>f <cmd>Fern . -drawer -toggle<CR>
 '''
 
 [[plugins]]
