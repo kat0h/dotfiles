@@ -122,11 +122,6 @@
       :ensure t
       :config (load-theme 'atom-one-dark t))
 
-(leaf nyan-mode
-      :ensure t
-      :config (nyan-mode)
-      (nyan-start-animation))
-
 (leaf neotree
       :ensure t)
 

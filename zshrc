@@ -19,6 +19,7 @@ alias v="vim"
 alias la="ls -la"
 alias p="python3"
 alias o="open"
+alias gcc="/usr/local/bin/gcc-11"
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
