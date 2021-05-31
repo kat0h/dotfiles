@@ -1,12 +1,12 @@
- " _    _ _____ _______  ______ _______
- "   \  /    |   |  |  | |_____/ |
- "    \/   __|__ |  |  | |    \_ |_____"
+"r_    _ _____ _______  ______ _______
+"   \  /    |   |  |  | |_____/ |
+"    \/   __|__ |  |  | |    \_ |_____"
 
- " Encoding 
- " ----------------------------------------------------------------------------
- " {{{
-scriptencoding utf-8
+" Encoding
+" ----------------------------------------------------------------------------
+" {{{
 set encoding=utf-8
+scriptencoding utf-8
 set fileencoding=utf-8
 set nobomb
 "}}}
@@ -46,6 +46,7 @@ Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/suda.vim'
 Plug 'liuchengxu/vista.vim'
 Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-sandwich'
@@ -64,6 +65,7 @@ Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vimwiki/vimwiki'
+Plug 'yuki-yano/fern-preview.vim'
 call plug#end()
 "}}}
 
@@ -116,8 +118,8 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch
-nnoremap <expr> N  'nN'[v:searchforward]
-nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
+nnoremap <expr> n 'Nn'[v:searchforward]
 "}}}
 " CommandLine {{{
 set wildmenu
@@ -184,11 +186,11 @@ augroup END
 tnoremap <C-y> <c-n\><c-n>
 "}}}
 " Create a new directory when the directory does not exist {{{
-function! s:auto_mkdir(dir, force)
-if !isdirectory(a:dir) && (a:force ||
-\    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+function! s:auto_mkdir(dir, force) abort
+  if !isdirectory(a:dir) && (a:force ||
+        \    input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
     call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-endif
+  endif
 endfunction
 augroup VimrcAutoMakedir
   autocmd!
@@ -213,7 +215,6 @@ vnoremap v $h
 augroup VimrcFileType
   autocmd!
   autocmd FileType vue syntax sync fromstart
-  autocmd BufNewFile,BufRead *.toml setf toml
   autocmd BufEnter *.re setlocal ft=review
 augroup END
 "}}}
@@ -239,7 +240,7 @@ inoremap <silent><expr> <c-@> coc#refresh()
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -252,7 +253,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
+function! s:show_documentation() 
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
@@ -287,6 +288,7 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 " Remap <C-f> and <C-b> for scroll float windows/popups.
+" \はいらない?
 nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
@@ -335,24 +337,24 @@ endfunction
 " LightLine {{{
 set laststatus=2
 set noshowmode
-function L_eskk_get_mode()
-    if (mode() == 'i') && eskk#is_enabled()
-        return g:eskk#statusline_mode_strings[eskk#get_mode()]
-    else
-        return ''
-    endif
+function! L_eskk_get_mode()
+  if (mode() == 'i') && eskk#is_enabled()
+    return g:eskk#statusline_mode_strings[eskk#get_mode()]
+  else
+    return ''
+  endif
 endfunction
 let g:lightline = {
-\   'active': {
-\     'left': [['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru']],
-\     'right': [['lineinfo'], ['percent'], ['fileencoding', 'filetype']]
-\   },
-\   'component_function': {
-\     'radiru': 'radiru#playing_station',
-\     'eskk': 'L_eskk_get_mode',
-\   },
-\   'colorscheme': 'dracula',
-\ }
+      \   'active': {
+        \     'left': [['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru']],
+        \     'right': [['lineinfo'], ['percent'], ['fileencoding', 'filetype']]
+        \   },
+        \   'component_function': {
+          \     'radiru': 'radiru#playing_station',
+          \     'eskk': 'L_eskk_get_mode',
+          \   },
+          \   'colorscheme': 'dracula',
+          \ }
 " }}}
 " undoTree {{{
 nnoremap <leader>u :<C-u>UndotreeToggle<cr>
@@ -362,8 +364,8 @@ nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
 "}}}
 " eskk {{{
 if !filereadable(expand('~/.config/eskk/SKK-JISYO.L'))
-    call mkdir('~/.config/eskk', 'p')
-    call system('cd ~/.config/eskk/ && wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz && gzip -d SKK-JISYO.L.gz')
+  call mkdir('~/.config/eskk', 'p')
+  call system('cd ~/.config/eskk/ && wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz && gzip -d SKK-JISYO.L.gz')
 endif
 let g:eskk#directory = "~/.config/eskk"
 let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
@@ -371,7 +373,13 @@ let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1
 let g:eskk#enable_completion = 0
 "}}}
 " ctrlp {{{
+" ファイルリストの取得にfdコマンドを使う
+" fd --hidden --execlude .git
+" if executable('files')
+" let s:fallbackcmd = 'cd %s && files -m ""'
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+" 正規表現で指定しているので ^$ 等で囲む
+" gitignoreの結果を利用すればいいかも
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "}}}
 " translate {{{
