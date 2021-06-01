@@ -1,4 +1,4 @@
-"r_    _ _____ _______  ______ _______
+" _    _ _____ _______  ______ _______
 "   \  /    |   |  |  | |_____/ |
 "    \/   __|__ |  |  | |    \_ |_____"
 
@@ -395,7 +395,11 @@ nnoremap <leader>f <cmd>Fern . -drawer -toggle<CR>
 augroup VimrcFern
   autocmd!
   autocmd FileType fern setlocal nocursorline
-augroup END
+  autocmd FileType fern nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  autocmd FileType fern nmap <silent> <buffer> P     <Plug>(fern-action-preview:auto:toggle)
+  autocmd FileType fern nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  autocmd FileType fern nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+augroup EN
 "}}}
 " Ignore Vim's standard pugin {{{
 let g:loaded_2html_plugin      = 1
