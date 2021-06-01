@@ -24,10 +24,10 @@ alias gcc="/usr/local/bin/gcc-11"
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
     export PATH=$PATH:/users/katokota/mybin
-    export GOPATH=$HOME/.golang
+    export GOPATH=i/Users/katokota/.golang
     export PATH=$PATH:$GOPATH/bin
-    export PATH=$PATH:$HONE/.nodebrew/current/bin
-    export PATH=$PATH:$HONE/.cargo/bin
+    export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
+    export PATH=$PATH:/Users/katokota/.cargo/bin
     export PATH=$PATH:/usr/local/opt/llvm/bin/
 fi
 
