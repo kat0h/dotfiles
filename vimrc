@@ -43,7 +43,6 @@ Plug 'kato-k/radiru.vim'
 Plug 'keith/swift.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-hijack.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/suda.vim'
@@ -69,7 +68,6 @@ Plug 'yuki-yano/fern-preview.vim'
 call plug#end()
 "}}}
 
-
 " Options
 " -----------------------------------------------------------------------------
 " Mapping Table-------------------------------------------------------------{{{
@@ -90,9 +88,9 @@ call plug#end()
 
 " Display {{{
 set ambiwidth=double
-set number
+" set number
 set signcolumn=number
-set termguicolors
+" set termguicolors
 set colorcolumn=80
 set t_ZH=
 set t_ZR=
@@ -157,12 +155,12 @@ set nowritebackup
 " Fold {{{
 set fillchars=fold:\ 
 set foldtext=getline(v:foldstart)
-augroup VimrcFold
-  autocmd!
-  autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
-  autocmd FileType * setlocal foldmethod=syntax
-  autocmd FileType vim setlocal foldmethod=marker
-augroup END
+" augroup VimrcFold
+"   autocmd!
+"   autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
+"   autocmd FileType * setlocal foldmethod=syntax
+"   autocmd FileType vim setlocal foldmethod=marker
+" augroup END
 "}}}
 
 " Others {{{
@@ -308,7 +306,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Mappings for CoCList
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
@@ -346,15 +344,15 @@ function! L_eskk_get_mode()
 endfunction
 let g:lightline = {
       \   'active': {
-        \     'left': [['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru']],
-        \     'right': [['lineinfo'], ['percent'], ['fileencoding', 'filetype']]
-        \   },
-        \   'component_function': {
-          \     'radiru': 'radiru#playing_station',
-          \     'eskk': 'L_eskk_get_mode',
-          \   },
-          \   'colorscheme': 'dracula',
-          \ }
+      \     'left': [['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru']],
+      \     'right': [['lineinfo'], ['percent'], ['fileencoding', 'filetype']],
+      \   },
+      \   'component_function': {
+      \     'radiru': 'radiru#playing_station',
+      \     'eskk': 'L_eskk_get_mode',
+      \   },
+      \ }
+      "\   'colorscheme': 'dracula',
 " }}}
 " undoTree {{{
 nnoremap <leader>u :<C-u>UndotreeToggle<cr>
@@ -391,6 +389,7 @@ map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
 " }}}
 " fern {{{
+let g:fern#disable_viewer_spinner = 1
 nnoremap <leader>f <cmd>Fern . -drawer -toggle<CR>
 augroup VimrcFern
   autocmd!
@@ -399,7 +398,7 @@ augroup VimrcFern
   autocmd FileType fern nmap <silent> <buffer> P     <Plug>(fern-action-preview:auto:toggle)
   autocmd FileType fern nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
   autocmd FileType fern nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
-augroup EN
+augroup END
 "}}}
 " Ignore Vim's standard pugin {{{
 let g:loaded_2html_plugin      = 1
@@ -420,7 +419,7 @@ let g:loaded_zip               = 1
 let g:loaded_zipPlugin         = 1
 "}}}
 " ColorScheme {{{
-colorscheme dracula
+" colorscheme dracula
 " }}}
 
 " EOF
