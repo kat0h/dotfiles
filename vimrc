@@ -51,7 +51,7 @@ Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-sandwich'
 Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'mattn/emmet-vim'
-Plug 'mattn/vim-lexiv'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim'
 Plug 'rhysd/clever-f.vim'
@@ -65,6 +65,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vimwiki/vimwiki'
 Plug 'yuki-yano/fern-preview.vim'
+Plug 'lambdalisue/vim-gista'
 call plug#end()
 "}}}
 
@@ -89,8 +90,8 @@ call plug#end()
 " Display {{{
 set ambiwidth=double
 " set number
-set signcolumn=number
-" set termguicolors
+" set signcolumn=number
+set termguicolors
 set colorcolumn=80
 set t_ZH=
 set t_ZR=
@@ -155,12 +156,12 @@ set nowritebackup
 " Fold {{{
 set fillchars=fold:\ 
 set foldtext=getline(v:foldstart)
-" augroup VimrcFold
-"   autocmd!
-"   autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
-"   autocmd FileType * setlocal foldmethod=syntax
-"   autocmd FileType vim setlocal foldmethod=marker
-" augroup END
+augroup VimrcFold
+  autocmd!
+  autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
+  " autocmd FileType * setlocal foldmethod=syntax
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
 "}}}
 
 " Others {{{
@@ -201,6 +202,12 @@ let mapleader = "\<Space>"
 inoremap <silent><C-a> <Home>
 inoremap <silent><C-e> <End>
 "}}}
+" Move between windows {{{
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-j> <C-w>j
+nnoremap <silent> <C-k> <C-w>k
+nnoremap <silent> <C-l> <C-w>l
+" }}}
 " Useful mappings {{{
 nnoremap <expr> 0 getline('.')[0 : col('.') - 2] =~# '^\s\+$' ? '0' : '^'
 nnoremap <silent><leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:call popup_clear()<cr><c-l>
@@ -351,8 +358,8 @@ let g:lightline = {
       \     'radiru': 'radiru#playing_station',
       \     'eskk': 'L_eskk_get_mode',
       \   },
+      \   'colorscheme': 'dracula',
       \ }
-      "\   'colorscheme': 'dracula',
 " }}}
 " undoTree {{{
 nnoremap <leader>u :<C-u>UndotreeToggle<cr>
@@ -419,7 +426,10 @@ let g:loaded_zip               = 1
 let g:loaded_zipPlugin         = 1
 "}}}
 " ColorScheme {{{
-" colorscheme dracula
+colorscheme dracula
+" }}}
+" Gista{{{
+let g:gista#client#default_username = "kato-k"
 " }}}
 
 " EOF
