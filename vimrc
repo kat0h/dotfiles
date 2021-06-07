@@ -25,13 +25,11 @@ if has('vim_starting')
   endif
   execute ":source " ..  s:plugCache .. "/plug.vim"
 endif "}}}
-
 " Install plugins {{{
 " Todo
 " [ ] Go周りのプラグイン
 call plug#begin(s:plugCache)
 Plug 'cespare/vim-toml'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'haya14busa/is.vim'
 Plug 'itchyny/lightline.vim'
@@ -46,13 +44,10 @@ Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/suda.vim'
-Plug 'liuchengxu/vista.vim'
 Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-sandwich'
-Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'mattn/emmet-vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'skanehira/translate.vim'
@@ -66,6 +61,9 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'vimwiki/vimwiki'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'lambdalisue/vim-gista'
+Plug 'gcavallanti/vim-noscrollbar'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 call plug#end()
 "}}}
 
@@ -88,7 +86,7 @@ call plug#end()
 "}}}
 
 " Display {{{
-set ambiwidth=double
+" set ambiwidth=double
 " set number
 " set signcolumn=number
 set termguicolors
@@ -110,7 +108,11 @@ set smarttab
 set softtabstop=0
 set autoindent
 set tabstop=2
-set list listchars=tab:\|\_,trail:￫,eol:↲,extends:»,precedes:«,nbsp:%
+set list listchars=trail:￫,eol:↲,extends:»,precedes:«,nbsp:%
+augroup VimrcIndent
+  autocmd!
+  autocmd FileType go setlocal noexpandtab
+augroup END
 "}}}
 " Search {{{
 set incsearch
@@ -242,10 +244,6 @@ nnoremap <silent> <leader>p :bp<CR>
 " coc {{{
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-@> coc#refresh()
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -310,63 +308,44 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 "}}}
 " LightLine {{{
 set laststatus=2
 set noshowmode
-function! L_eskk_get_mode()
+function! L_eskk_get_mode() abort
   if (mode() == 'i') && eskk#is_enabled()
     return g:eskk#statusline_mode_strings[eskk#get_mode()]
   else
     return ''
   endif
 endfunction
+function! L_scrollbar() abort
+  return winwidth(0) > 70 ? noscrollbar#statusline(15, '.', '=') : ''
+endfunction
+
 let g:lightline = {
-      \   'active': {
-      \     'left': [['mode', 'paste'], ['readonly', 'filename', 'eskk', 'modified'], ['radiru']],
-      \     'right': [['lineinfo'], ['percent'], ['fileencoding', 'filetype']],
-      \   },
-      \   'component_function': {
-      \     'radiru': 'radiru#playing_station',
-      \     'eskk': 'L_eskk_get_mode',
-      \   },
-      \   'colorscheme': 'dracula',
-      \ }
+  \  'active': {
+  \    'left': [['mode', 'paste'], ['readonly', 'modified', 'filename', 'eskk'], ['radiru']],
+  \    'right': [['scroll'], ['fileencoding', 'filetype']],
+  \  },
+  \
+  \  'inactive': {
+  \    'left': [['filename']],
+  \    'right': [['filetype']],
+  \  },
+  \
+  \  'component_function': {
+  \    'radiru': 'radiru#playing_station',
+  \    'eskk': 'L_eskk_get_mode',
+  \    'scroll': 'L_scrollbar'
+  \  },
+  \
+  \  'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+  \  'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+  \  'colorscheme': 'dracula',
+  \  }
+
 " }}}
-" undoTree {{{
-nnoremap <leader>u :<C-u>UndotreeToggle<cr>
-"}}}
-" vista {{{
-nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
-"}}}
 " eskk {{{
 if !filereadable(expand('~/.config/eskk/SKK-JISYO.L'))
   call mkdir('~/.config/eskk', 'p')
@@ -376,16 +355,6 @@ let g:eskk#directory = "~/.config/eskk"
 let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
 let g:eskk#enable_completion = 0
-"}}}
-" ctrlp {{{
-" ファイルリストの取得にfdコマンドを使う
-" fd --hidden --execlude .git
-" if executable('files')
-" let s:fallbackcmd = 'cd %s && files -m ""'
-let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
-" 正規表現で指定しているので ^$ 等で囲む
-" gitignoreの結果を利用すればいいかも
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "}}}
 " translate {{{
 nnoremap <leader>t :Translate<CR>
@@ -431,5 +400,26 @@ colorscheme dracula
 " Gista{{{
 let g:gista#client#default_username = "kato-k"
 " }}}
-
+" Gina{{{
+cabbrev git Gina
+" }}}
+" fzf-preview{{{
+nmap <Leader>g [fzf-p]
+xmap <Leader>g [fzf-p]
+nnoremap <silent> [fzf-p]p :<C-u>FzfPreviewFromResourcesRpc project_mru git<CR>
+nnoremap <silent> [fzf-p]gs :<C-u>FzfPreviewGitStatusRpc<CR>
+nnoremap <silent> [fzf-p]ga :<C-u>FzfPreviewGitActionsRpc<CR>
+nnoremap <silent> [fzf-p]b :<C-u>FzfPreviewBuffersRpc<CR>
+nnoremap <silent> [fzf-p]B :<C-u>FzfPreviewAllBuffersRpc<CR>
+nnoremap <silent> [fzf-p]o :<C-u>FzfPreviewFromResourcesRpc buffer project_mru<CR>
+nnoremap <silent> [fzf-p]<C-o> :<C-u>FzfPreviewJumpsRpc<CR>
+nnoremap <silent> [fzf-p]g; :<C-u>FzfPreviewChangesRpc<CR>
+nnoremap <silent> [fzf-p]/ :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> [fzf-p]* :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap [fzf-p]gr :<C-u>FzfPreviewProjectGrepRpc<Space>
+xnoremap [fzf-p]gr "sy:FzfPreviewProjectGrepRpc<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> [fzf-p]t :<C-u>FzfPreviewBufferTagsRpc<CR>
+nnoremap <silent> [fzf-p]q :<C-u>FzfPreviewQuickFixRpc<CR>
+nnoremap <silent> [fzf-p]l :<C-u>FzfPreviewLocationListRpc<CR>
+" }}}
 " EOF
