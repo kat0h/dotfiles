@@ -106,7 +106,6 @@ set smarttab
 set softtabstop=0
 set autoindent
 set tabstop=2
-set list listchars=trail:￫,eol:↲,extends:»,precedes:«,nbsp:%
 augroup VimrcIndent
   autocmd!
   autocmd FileType go setlocal noexpandtab
