@@ -61,7 +61,6 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'vimwiki/vimwiki'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'lambdalisue/vim-gista'
-Plug 'gcavallanti/vim-noscrollbar'
 call plug#end()
 "}}}
 
@@ -86,11 +85,13 @@ call plug#end()
 " Display {{{
 set ambiwidth=double
 set number
-set signcolumn=number
+set signcolumn=yes
 set termguicolors
-set colorcolumn=80
+" set colorcolumn=80
 set t_ZH=
 set t_ZR=
+set scrolloff=20
+set cursorline
 syntax enable
 "}}}
 " Complete {{{
@@ -158,7 +159,7 @@ set foldtext=getline(v:foldstart)
 augroup VimrcFold
   autocmd!
   autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
-  " autocmd FileType * setlocal foldmethod=syntax
+  autocmd FileType * setlocal foldmethod=syntax
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 "}}}
@@ -223,8 +224,12 @@ augroup VimrcFileType
 augroup END
 "}}}
 " User defined commands {{{
-command! OpenDot :cd ~/dotfiles
+command! Dotfiles :cd ~/dotfiles
 command! DirOpen :call job_start("open .")
+command! Open :call job_start("open")
+function! s:cmd_open() abort
+
+endfunction
 "}}}
 " Create undo point {{{
 inoremap <silent><C-w> <C-g>u<C-w>
@@ -304,7 +309,7 @@ command! -nargs=0 Format :call CocAction('format')
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
 "}}}
 " LightLine {{{
 set laststatus=2
@@ -316,31 +321,28 @@ function! L_eskk_get_mode() abort
     return ''
   endif
 endfunction
-function! L_scrollbar() abort
-  return winwidth(0) > 70 ? noscrollbar#statusline(15, '.', '=') : ''
-endfunction
 
 let g:lightline = {
-  \  'active': {
-  \    'left': [['mode', 'paste'], ['readonly', 'modified', 'filename', 'eskk'], ['radiru']],
-  \    'right': [['scroll'], ['fileencoding', 'filetype']],
-  \  },
-  \
-  \  'inactive': {
-  \    'left': [['filename']],
-  \    'right': [['filetype']],
-  \  },
-  \
-  \  'component_function': {
-  \    'radiru': 'radiru#playing_station',
-  \    'eskk': 'L_eskk_get_mode',
-  \    'scroll': 'L_scrollbar'
-  \  },
-  \
-  \  'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-  \  'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
-  \  'colorscheme': 'dracula',
-  \  }
+      \  'active': {
+        \    'left': [['mode', 'paste'], ['readonly', 'modified', 'filename', 'eskk'], ['radiru']],
+        \    'right': [['scroll'], ['fileencoding', 'filetype']],
+        \  },
+        \
+        \  'inactive': {
+          \    'left': [['filename']],
+          \    'right': [['filetype']],
+          \  },
+          \
+          \  'component_function': {
+            \    'radiru': 'radiru#playing_station',
+            \    'eskk': 'L_eskk_get_mode',
+            \    'scroll': 'L_scrollbar'
+            \  },
+            \
+            \  'colorscheme': 'dracula',
+            \  }
+            "\  'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+            "\  'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
 
 " }}}
 " eskk {{{
@@ -367,8 +369,8 @@ nnoremap <leader>f <cmd>Fern . -drawer -toggle<CR>
 augroup VimrcFern
   autocmd!
   autocmd FileType fern setlocal nocursorline
-  autocmd FileType fern nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
-  autocmd FileType fern nmap <silent> <buffer> P     <Plug>(fern-action-preview:auto:toggle)
+  autocmd FileType fern nmap <silent> <buffer> p <Plug>(fern-action-preview:toggle)
+  autocmd FileType fern nmap <silent> <buffer> P <Plug>(fern-action-preview:auto:toggle)
   autocmd FileType fern nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
   autocmd FileType fern nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
 augroup END
@@ -400,4 +402,3 @@ let g:gista#client#default_username = "kato-k"
 " Gina{{{
 cabbrev git Gina
 " }}}
-" EOF
