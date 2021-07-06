@@ -21,18 +21,20 @@ alias p="python3"
 alias o="open"
 alias gcc="/usr/local/bin/gcc-11"
 
+export EDITOR=vim
+
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:/users/katokota/mybin
-    export GOPATH=/Users/katokota/.golang
-    export PATH=$PATH:$GOPATH/bin
-    export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
-    export PATH=$PATH:/Users/katokota/.cargo/bin
-    export PATH=$PATH:/usr/local/opt/llvm/bin/
+  export PATH=$PATH:/users/katokota/mybin
+  export GOPATH=/Users/katokota/.golang
+  export PATH=$PATH:$GOPATH/bin
+  export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
+  export PATH=$PATH:/Users/katokota/.cargo/bin
+  export PATH=$PATH:/usr/local/opt/llvm/bin/
 fi
 
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # zsh-completionsを利用する Github => zsh-completions
@@ -49,5 +51,6 @@ zstyle ':completion:*:options' description 'yes'
 
 # Start Tmux if zsh is started for the first time
 if [ $SHLVL = 1 ]; then
-    tmux
+  tmux a
+  tmux
 fi
