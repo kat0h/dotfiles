@@ -1,4 +1,5 @@
 # Option
+bindkey -e
 setopt correct
 setopt no_tify
 setopt auto_cd
@@ -20,8 +21,6 @@ alias la="ls -la"
 alias p="python3"
 alias o="open"
 alias gcc="/usr/local/bin/gcc-11"
-
-export EDITOR=vim
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -49,8 +48,3 @@ zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
 
-# Start Tmux if zsh is started for the first time
-if [ $SHLVL = 1 ]; then
-  tmux a
-  tmux
-fi
