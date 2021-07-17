@@ -8,3 +8,4 @@ ln -s zshrc ~/.zshrc
 mkdir -p ~/.config/alacritty
 ln -s alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -s emacs.d ~/.emacs.d
+ln -s profile ~/.zprofile
