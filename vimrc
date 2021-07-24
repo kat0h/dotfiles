@@ -93,12 +93,12 @@ call plug#end()
 set ambiwidth=double
 set number
 set signcolumn=yes
-set termguicolors
-set t_ZH=
-set t_ZR=
-set scrolloff=20
-" set cursorline
 syntax enable
+set termguicolors
+" set t_ZH=
+" set t_ZR=
+" set scrolloff=20
+" set cursorline
 "}}}
 " Complete {{{
 set completeopt+=menuone,menu,preview
@@ -165,8 +165,8 @@ set foldtext=getline(v:foldstart)
 augroup VimrcFold
   autocmd!
   autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
-  autocmd FileType * setlocal foldmethod=syntax
-  autocmd FileType vim setlocal foldmethod=marker
+  " autocmd FileType * setlocal foldmethod=syntax
+  " autocmd FileType vim setlocal foldmethod=marker
 augroup END
 "}}}
 
@@ -227,6 +227,7 @@ nnoremap <silent><leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<
 nnoremap <silent>j gj
 nnoremap <silent>k gk
 vnoremap v $h
+inoremap <expr> j getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
 "}}}
 "}}}
 " FileType {{{
@@ -301,24 +302,23 @@ function! L_eskk_get_mode() abort
 endfunction
 
 let g:lightline = {
-      \  'active': {
-        \    'left': [['mode', 'paste'], ['readonly', 'modified', 'filename', 'eskk'], ['radiru']],
-        \    'right': [['scroll'], ['fileencoding', 'filetype']],
-        \  },
-        \
-        \  'inactive': {
-          \    'left': [['filename']],
-          \    'right': [['filetype']],
-          \  },
-          \
-          \  'component_function': {
-            \    'radiru': 'radiru#playing_station',
-            \    'eskk': 'L_eskk_get_mode',
-            \    'scroll': 'L_scrollbar'
-            \  },
-            \
-            \  'colorscheme': 'dracula',
-            \  }
+\  'active': {
+\    'left': [['mode', 'paste'], ['readonly', 'modified', 'filename', 'eskk'], ['radiru']],
+\    'right': [['scroll'], ['fileencoding', 'filetype']],
+\  },
+\
+\  'inactive': {
+\    'left': [['filename']],
+\    'right': [['filetype']],
+\  },
+\
+\  'component_function': {
+\    'radiru': 'radiru#playing_station',
+\    'eskk': 'L_eskk_get_mode',
+\    'scroll': 'L_scrollbar'
+\  },
+\  'colorscheme': 'dracula',
+\  }
             "\  'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
             "\  'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
 

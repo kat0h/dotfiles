@@ -31,6 +31,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export PATH=$PATH:/Users/katokota/.cargo/bin
   export PATH=$PATH:/usr/local/opt/llvm/bin/
 fi
+export LANG=ja_JP.UTF-8
 
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
