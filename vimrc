@@ -30,7 +30,6 @@ endif "}}}
 call plug#begin(s:plugCache)
 Plug 'cespare/vim-toml'
 Plug 'dracula/vim'
-Plug 'haya14busa/is.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'itchyny/vim-winfix'
@@ -64,9 +63,7 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'vimwiki/vimwiki'
 Plug 'yuki-yano/fern-preview.vim'
-Plug 'lambdalisue/vim-gista'
 Plug 'kato-k/cica-support.vim'
 call plug#end()
 "}}}
@@ -95,8 +92,8 @@ set number
 set signcolumn=yes
 syntax enable
 set termguicolors
-" set t_ZH=
-" set t_ZR=
+set t_ZH=
+set t_ZR=
 " set scrolloff=20
 " set cursorline
 "}}}
@@ -125,6 +122,7 @@ set smartcase
 set hlsearch
 nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <Esc><Esc> <Cmd>nohlsearch<Cr>
 "}}}
 " CommandLine {{{
 set wildmenu
@@ -240,10 +238,7 @@ augroup END
 " User defined commands {{{
 command! Dotfiles :cd ~/dotfiles
 command! DirOpen :call job_start("open .")
-command! Open :call job_start("open")
-function! s:cmd_open() abort
-
-endfunction
+command! -nargs=1 -complete=file Open :call system("open".." '<args>'")
 "}}}
 " Create undo point {{{
 inoremap <silent><C-w> <C-g>u<C-w>
@@ -283,6 +278,12 @@ smap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Tab
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() . "\<cr>" : "\<cr>"
+
+nnoremap <expr> <C-]> len(taglist(expand("<cword>")))?"<C-]>":":LspDefinition<CR>"
+
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
     \ 'allowlist': ['*'],
@@ -319,8 +320,6 @@ let g:lightline = {
 \  },
 \  'colorscheme': 'dracula',
 \  }
-            "\  'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-            "\  'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
 
 " }}}
 " eskk {{{
@@ -331,7 +330,6 @@ endif
 let g:eskk#directory = "~/.config/eskk"
 let g:eskk#dictionary = { 'path': "~/.config/eskk/my_jisyo", 'sorted': 1, 'encoding': 'utf-8',}
 let g:eskk#large_dictionary = {'path': "~/.config/eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp',}
-" let g:eskk#enable_completion = 0
 "}}}
 " translate {{{
 nnoremap <leader>t :Translate<CR>
@@ -374,9 +372,6 @@ let g:loaded_zipPlugin         = 1
 "}}}
 " ColorScheme {{{
 colorscheme dracula
-" }}}
-" Gista{{{
-let g:gista#client#default_username = "kato-k"
 " }}}
 " Gina{{{
 cabbrev git Gina
