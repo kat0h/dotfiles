@@ -63,6 +63,7 @@ Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'yuki-yano/fern-preview.vim'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 call plug#end()
 "}}}
 
