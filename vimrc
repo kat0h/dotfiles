@@ -33,7 +33,6 @@ Plug 'dracula/vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'itchyny/vim-winfix'
-Plug 'kato-k/hiroyuki.vim'
 Plug 'kato-k/radiru.vim'
 Plug 'keith/swift.vim'
 Plug 'lambdalisue/fern-git-status.vim'
@@ -64,7 +63,7 @@ Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'yuki-yano/fern-preview.vim'
-Plug 'kato-k/cica-support.vim'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 call plug#end()
 "}}}
 
