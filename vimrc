@@ -1,6 +1,6 @@
 " _    _ _____ _______  ______ _______
 "   \  /    |   |  |  | |_____/ |
-"    \/   __|__ |  |  | |    \_ |_____"
+"    \/   __|__ |  |  | |    \_ |_____
 "
 
 " Encoding
@@ -62,8 +62,12 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'yuki-yano/fern-preview.vim'
-Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'kato-k/fern-preview.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'gelguy/wilder.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'mhinz/vim-sayonara'
 call plug#end()
 "}}}
 
@@ -88,11 +92,12 @@ call plug#end()
 " Display {{{
 set ambiwidth=double
 set number
-set signcolumn=yes
+" set signcolumn=yes
 syntax enable
 set termguicolors
 set t_ZH=
 set t_ZR=
+set t_ut=
 " set scrolloff=20
 " set cursorline
 "}}}
@@ -125,7 +130,7 @@ nnoremap <Esc><Esc> <Cmd>nohlsearch<Cr>
 "}}}
 " CommandLine {{{
 set wildmenu
-set wildmode=longest,list,full
+" set wildmode=longest,list,full
 cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-e> <End>
@@ -257,7 +262,7 @@ if empty(globpath(&rtp, 'autoload/lsp.vim'))
 endif
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
+  " setlocal signcolumn=yes
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> <f2> <plug>(lsp-rename)
 endfunction
@@ -278,6 +283,7 @@ imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 nnoremap <expr> <C-]> len(taglist(expand("<cword>")))?"<C-]>":":LspDefinition<CR>"
+nnoremap <leader>F :LspDocumentFormat<CR>
 
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
@@ -308,12 +314,12 @@ let g:lightline = {
 \    'right': [['filetype']],
 \  },
 \
+\  'colorscheme': 'dracula',
 \  'component_function': {
 \    'radiru': 'radiru#playing_station',
 \    'eskk': 'L_eskk_get_mode',
 \    'scroll': 'L_scrollbar'
 \  },
-\  'colorscheme': 'dracula',
 \  }
 
 " }}}
@@ -337,14 +343,17 @@ map , <Plug>(clever-f-repeat-back)
 " fern {{{
 let g:fern#disable_viewer_spinner = 1
 nnoremap <leader>f <cmd>Fern . -drawer -toggle<CR>
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent><expr> <buffer> <C-d> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:down:half)":"<C-d>"
+  nmap <silent><expr> <buffer> <C-u> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:up:half)":"<C-u>"
+endfunction
 augroup VimrcFern
   autocmd!
   autocmd FileType fern setlocal nocursorline
   autocmd FileType fern setlocal nonumber
-  autocmd FileType fern nmap <silent> <buffer> p <Plug>(fern-action-preview:toggle)
-  autocmd FileType fern nmap <silent> <buffer> P <Plug>(fern-action-preview:auto:toggle)
-  autocmd FileType fern nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
-  autocmd FileType fern nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+  autocmd FileType fern call s:fern_settings()
 augroup END
 "}}}
 " Ignore Vim's standard pugin {{{
@@ -370,4 +379,15 @@ colorscheme dracula
 " }}}
 " Gina{{{
 cabbrev git Gina
+" }}}
+" wilder.nvim {{{
+call wilder#setup({
+      \ 'modes': [':', '/', '?'],
+      \ 'next_key': '<C-n>',
+      \ 'previous_key': '<C-p>',
+      \ 'accept_key': '<Tab>',
+      \ })
+call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ }))
 " }}}
