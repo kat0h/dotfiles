@@ -36,8 +36,9 @@ Plug 'itchyny/vim-winfix'
 Plug 'kato-k/radiru.vim'
 Plug 'keith/swift.vim'
 Plug 'lambdalisue/fern-git-status.vim'
-Plug 'lambdalisue/fern-hijack.vim'
+" Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern.vim'
+Plug 'kato-k/fern-preview.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'luochen1990/rainbow'
@@ -62,11 +63,14 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'kato-k/fern-preview.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'gelguy/wilder.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'rhysd/vim-healthcheck'
+Plug 'kat0h/dps-file.vim'
+" Plug 'mattn/vim-treesitter'
 " Plug 'mhinz/vim-sayonara'
 call plug#end()
 "}}}
@@ -253,6 +257,19 @@ inoremap <silent><C-m> <C-g>u<C-m>
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
 "}}}
+" get redirect url {{{
+function! GetRedirectUrl(url) abort
+  let r = system('curl -w "%{redirect_url}" -s -o /dev/null ' .. shellescape(a:url))
+  if r == ""
+    return a:url
+  endif
+  return r
+endfunction
+vnoremap r c<C-r>=GetRedirectUrl(@")<CR><esc>
+
+
+"https://deno.land/x/denops_std/batch/mod.ts"
+" }}}
 
 " Plugin Options
 " -----------------------------------------------------------------------------
@@ -291,6 +308,27 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
+
+function s:change_ts_ls() abort
+  if finddir('node_modules', expand('%:p:h') . ';') ==# ''
+    if exists('g:lsp_settings_filetype_typescript') &&
+          \(g:lsp_settings_filetype_typescript->index('typescript-language-server') != -1)
+      call timer_start(100, {-> (execute("LspStopServer typescript-language-server"))})
+    endif
+    let g:lsp_settings_filetype_typescript = ['deno']
+  else
+    if exists('g:lsp_settings_filetype_typescript') &&
+          \(g:lsp_settings_filetype_typescript->index('deno') != -1)
+      call timer_start(100, {-> (execute("LspStopServer deno"))})
+    endif
+    let g:lsp_settings_filetype_typescript = ['typescript-language-server']
+  endif
+endfunction
+
+augroup VimrcLspFt
+  autocmd!
+  autocmd BufReadPre *.js,*.ts,*.jsx,*.tsx :call s:change_ts_ls()
+augroup END
 "}}}
 " LightLine {{{
 set laststatus=2
@@ -383,8 +421,8 @@ cabbrev git Gina
 " wilder.nvim {{{
 call wilder#setup({
       \ 'modes': [':', '/', '?'],
-      \ 'next_key': '<C-n>',
-      \ 'previous_key': '<C-p>',
+      \ 'next_key': '<C-f>',
+      \ 'previous_key': '<C-b>',
       \ 'accept_key': '<Tab>',
       \ })
 call wilder#set_option('renderer', wilder#popupmenu_renderer({
