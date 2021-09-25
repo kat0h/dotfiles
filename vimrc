@@ -63,17 +63,22 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'gelguy/wilder.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rhysd/vim-healthcheck'
 Plug 'kat0h/dps-file.vim'
-" Plug 'mattn/vim-treesitter'
-" Plug 'mhinz/vim-sayonara'
+Plug 'mhinz/vim-sayonara'
+Plug 'kannokanno/previm'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'gamoutatsumi/dps-ghosttext.vim'
 call plug#end()
 "}}}
+
+" plugin sandbox
+let g:previm_open_cmd = 'open -a safari'
 
 " Options
 " -----------------------------------------------------------------------------
@@ -165,16 +170,6 @@ set noswapfile
 set nobackup
 set nowritebackup
 "}}}
-" Fold {{{
-set fillchars=fold:\ 
-set foldtext=getline(v:foldstart)
-augroup VimrcFold
-  autocmd!
-  autocmd ColorScheme * highlight! Folded guifg='#9ba4bf' guibg='#282A36'
-  " autocmd FileType * setlocal foldmethod=syntax
-  " autocmd FileType vim setlocal foldmethod=marker
-augroup END
-"}}}
 
 " Others {{{
 set ttimeoutlen=10
@@ -245,6 +240,7 @@ augroup END
 "}}}
 " User defined commands {{{
 command! Dotfiles :cd ~/dotfiles
+command! VIM e ~/.vimrc
 command! DirOpen :call job_start("open .")
 command! -nargs=1 -complete=file Open :call system("open".." '<args>'")
 "}}}
@@ -333,7 +329,7 @@ augroup END
 " LightLine {{{
 set laststatus=2
 set noshowmode
-function! L_eskk_get_mode() abort
+function! LightlineEskkGetMode() abort
   if (mode() == 'i') && eskk#is_enabled()
     return g:eskk#statusline_mode_strings[eskk#get_mode()]
   else
@@ -352,11 +348,11 @@ let g:lightline = {
 \    'right': [['filetype']],
 \  },
 \
-\  'colorscheme': 'dracula',
+"\  'colorscheme': 'dracula',
 \  'component_function': {
 \    'radiru': 'radiru#playing_station',
-\    'eskk': 'L_eskk_get_mode',
-\    'scroll': 'L_scrollbar'
+\    'eskk': 'LightlineEskkGetMode',
+\    'lfilename': 'LightlineFilename'
 \  },
 \  }
 
@@ -429,3 +425,9 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
       \ 'highlighter': wilder#basic_highlighter(),
       \ }))
 " }}}
+" ranbow.vim {{{
+let g:rainbow_active = 1
+" }}}
+
+set runtimepath^=/Users/katokota/dev/kato-k/dps-mdpreview
+" set runtimepath^=/Users/katokota/dev/kato-k/dps-monaco
