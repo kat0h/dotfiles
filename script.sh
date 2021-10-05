@@ -6,9 +6,10 @@ do
 	done <<END
 tmux.conf .tmux.conf
 vim .vim
+vimrc ~/.config/nvim/init.vim
 vimrc .vimrc
-vimrc .config/nvim/init.vim
 zshrc .zshrc
-alacritty.yml .alacritty.yml
+alacritty.yml ~/.config/alacritty.yml
 emacs.d .emacs.d
+youtube-dl .config/youtube-dl
 END
