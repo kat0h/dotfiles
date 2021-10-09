@@ -1,0 +1,106 @@
+# ==============================================================================
+# Others
+[[plugins]]
+repo = 'kat0h/radiru.vim'
+on_cmd = ['RadiruPlay', 'RadiruPlayStop']
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+hook_add = 'cabbrev git Gina'
+on_cmd = 'Gina'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+on_cmd = 'QuickRun'
+
+[[plugins]]
+repo = 'mhinz/vim-sayonara'
+on_cmd = 'Sayonara'
+
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+on_map = [';', ',']
+hook_add = '''
+map ; <Plug>(clever-f-repeat-forward)
+map , <Plug>(clever-f-repeat-back)
+'''
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+on_cmd = 'Translate'
+hook_add = '''
+nnoremap <leader>t :Translate<CR>
+vnoremap <leader>t :Translate<CR>
+'''
+
+
+# ==============================================================================
+# Fern.vim
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+on_cmd = ['Fern', 'FernDo']
+depends = ['fern-git-status.vim', 'fern-preview.vim']
+hook_source = '''
+let g:fern#disable_viewer_spinner = 1
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent><expr> <buffer> <C-d> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:down:half)":"<C-d>"
+  nmap <silent><expr> <buffer> <C-u> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:up:half)":"<C-u>"
+endfunction
+augroup VimrcFern
+  autocmd!
+  autocmd FileType fern setlocal nocursorline
+  autocmd FileType fern setlocal nonumber
+  autocmd FileType fern call s:fern_settings()
+augroup END
+'''
+hook_add = '''
+nnoremap <leader>f :Fern . -drawer -toggle<CR>
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'kat0h/fern-preview.vim'
+
+# ==============================================================================
+# denops.vim
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+depends = 'denops.vim'
+hook_source = '''
+if !filereadable(expand('~/.config/skk/SKK-JISYO.L'))
+  call mkdir(expand('~/.config/skk'), 'p')
+  call system('cd ~/.config/skk && wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz && gzip -d SKK-JISYO.L.gz')
+endif
+
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
+
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+        \ "globalJisyo": expand("~/.config/skk/SKK-JISYO.L"),
+        \ "markerHenkan": "✋",
+        \ "markerHenkanSelect": "✊"
+        \})
+endfunction
+autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+'''
+
+[[plugins]]
+repo = 'gamoutatsumi/dps-ghosttext.vim'
+depends = 'denops.vim'
+on_cmd = 'GhostStart'
+
+[[plugins]]
+repo = 'kat0h/bufpreview.vim'
+depends = 'denops.vim'
+on_cmd = ['PreviewMarkdown', 'PreviewMarkdownClose', 'PreviewMarkdownToggle']

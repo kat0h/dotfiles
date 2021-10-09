@@ -1,7 +1,6 @@
 .DS_Store
 vim/bundle/*
 vim/colors/*
-vim/dein/*
 emacs.d/elpa/
 emacs.d/auto-save-list/
 emacs.d/games/
