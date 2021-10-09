@@ -1,0 +1,95 @@
+[[plugins]]
+repo = 'sainnhe/everforest'
+hook_add = '''
+set background=light
+autocmd VimEnter * nested colorscheme everforest
+'''
+
+# =============================================================================
+# Others
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_source = '''
+let g:rainbow_active = 1
+'''
+
+# [[plugins]]
+# repo = 'rakr/vim-one'
+# hook_add = '''
+# set background=light
+# autocmd VimEnter * nested colorscheme one
+# '''
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+merged = 0
+hook_add = '''
+set helplang=ja,en
+augroup VimrcHelp
+  autocmd!
+  autocmd FileType help nnoremap <buffer><Return> <C-]>
+  autocmd FileType help nnoremap <buffer><BS> <C-o>
+  autocmd FileType help nnoremap <buffer>q <C-w>q
+augroup END
+'''
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+set laststatus=2
+set noshowmode
+
+function! LightlineSkkGetMode() abort
+  let l:mode = skkeleton#mode()
+  if l:mode == ''
+    return 'Aa'
+  elseif l:mode == 'hira'
+    return 'あ'
+  elseif l:mode == 'kata'
+    return 'ア'
+  endif
+endfunction
+
+let g:lightline = {
+\  'active': {
+\    'left': [['mode', 'paste'], ['readonly', 'modified', 'filename'], ['skk' ,'radiru']],
+\    'right': [['scroll'], ['fileencoding', 'filetype']],
+\  },
+\
+\  'inactive': {
+\    'left': [['filename']],
+\    'right': [['filetype']],
+\  },
+\  'colorscheme': 'one',
+\  'component_function': {
+\    'radiru': 'radiru#playing_station',
+\    'skk': 'LightlineSkkGetMode',
+\    'lfilename': 'LightlineFilename'
+\  },
+\}
+'''
+
+[[plugins]]
+repo = 'tyru/caw.vim'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
+
+# ==============================================================================
+# Filetype
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
