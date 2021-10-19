@@ -2,7 +2,7 @@
 repo = 'prabirshrestha/vim-lsp'
 depends = ['vim-lsp-settings']
 on_event = 'InsertEnter'
-on_add = '''
+hook_add = '''
 function s:change_ts_ls() abort
   if finddir('node_modules', expand('%:p:h') . ';') ==# ''
     if exists('g:lsp_settings_filetype_typescript') &&
@@ -23,8 +23,6 @@ augroup VimrcLspFt
   autocmd!
   autocmd BufReadPre *.js,*.ts,*.jsx,*.tsx :call s:change_ts_ls()
 augroup END
-'''
-hook_source = '''
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   " setlocal signcolumn=yes
@@ -35,6 +33,8 @@ augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+'''
+hook_source = '''
 command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1

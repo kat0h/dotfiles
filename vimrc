@@ -86,6 +86,13 @@ cnoremap <C-f> <Right>
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 
+inoremap <C-a> <Home>
+inoremap <C-b> <Left>
+inoremap <C-e> <End>
+inoremap <C-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+
 " 便利なウィンドウ移動
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
@@ -124,15 +131,15 @@ inoremap <silent><C-m> <C-g>u<C-m>
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
 
-" Vueは全行ハイライト
+" 全行ハイライト
 augroup VimrcFileType
   autocmd!
   autocmd FileType vue syntax sync fromstart
+  autocmd FileType html syntax sync fromstart
 augroup END
 
 " シュッと開くやつ
-command! Dotfiles :cd ~/dotfiles
-command! VIM e ~/.vimrc
+command! VIM e ~/.vimrc | cd ~/dotfiles
 command! -nargs=1 -complete=file Open :call system("open".." '<args>'")
 
 " denoでシュッとリダイレクト先を探す
@@ -144,6 +151,15 @@ function! GetRedirectUrl(url) abort
   return r
 endfunction
 vnoremap r c<C-r>=GetRedirectUrl(@")<CR><esc>
+
+let s:cell = [
+      \]
+let s:cellwidths = []
+for i in s:cell
+  let s:c = char2nr(i[0])
+  call add(s:cellwidths, [s:c, s:c, i[1]])
+endfor
+call setcellwidths(s:cellwidths)
 
 " 使ってないんだからオフにしたっていいよね
 let g:loaded_2html_plugin      = 1
@@ -190,7 +206,7 @@ if dein#load_state(s:dein_dir)
 endif
 
 " インストールしていないプラグインをチェック
-if has('vim_starting') && dein#check_install()
+if has('vim_starting') && dein#check_install() && v:false
   call dein#install()
 endif
 
