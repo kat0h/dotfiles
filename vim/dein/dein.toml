@@ -1,9 +1,7 @@
+# うまく動かないので仕方なく
 [[plugins]]
-repo = 'sainnhe/everforest'
-hook_add = '''
-set background=light
-autocmd VimEnter * nested colorscheme everforest
-'''
+repo = 'lambdalisue/fern-git-status.vim'
+on_source = 'fern.vim'
 
 # =============================================================================
 # Others
@@ -11,9 +9,26 @@ autocmd VimEnter * nested colorscheme everforest
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
+repo = 'tyru/open-browser.vim'
+
+[[plugins]]
 repo = 'luochen1990/rainbow'
 hook_source = '''
 let g:rainbow_active = 1
+'''
+
+# [[plugins]]
+# repo = 'sainnhe/everforest'
+# hook_add = '''
+# set background=light
+# autocmd VimEnter * nested colorscheme everforest
+# '''
+
+[[plugins]]
+repo = 'arzg/vim-colors-xcode'
+hook_add = '''
+set background=dark
+autocmd VimEnter * nested colorscheme xcodedarkhc
 '''
 
 # [[plugins]]
@@ -72,6 +87,8 @@ let g:lightline = {
 \    'skk': 'LightlineSkkGetMode',
 \    'lfilename': 'LightlineFilename'
 \  },
+\ 'subseparator': { 'left': "\ue0bd ", 'right': "" },
+\ 'separator': { 'left': "\ue0bc ", 'right': "" },
 \}
 '''
 

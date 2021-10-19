@@ -19,7 +19,7 @@ on_cmd = 'Sayonara'
 
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
-on_map = [';', ',']
+on_map = ['f', 'F', 't', 'T']
 hook_add = '''
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
@@ -40,31 +40,47 @@ vnoremap <leader>t :Translate<CR>
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 on_cmd = ['Fern', 'FernDo']
-depends = ['fern-git-status.vim', 'fern-preview.vim']
+depends =  ['fern-git-status.vim', 'fern-preview.vim', 'fern-renderer-nerdfont.vim']
 hook_source = '''
 let g:fern#disable_viewer_spinner = 1
+augroup VimrcFern
+  autocmd!
+  " autocmd FileType fern setlocal nocursorline
+  autocmd FileType fern setlocal nonumber
+  autocmd FileType fern call s:fern_settings()
+augroup END
 function! s:fern_settings() abort
   nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
   nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
   nmap <silent><expr> <buffer> <C-d> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:down:half)":"<C-d>"
   nmap <silent><expr> <buffer> <C-u> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:up:half)":"<C-u>"
 endfunction
-augroup VimrcFern
-  autocmd!
-  autocmd FileType fern setlocal nocursorline
-  autocmd FileType fern setlocal nonumber
-  autocmd FileType fern call s:fern_settings()
-augroup END
 '''
 hook_add = '''
 nnoremap <leader>f :Fern . -drawer -toggle<CR>
 '''
 
 [[plugins]]
-repo = 'lambdalisue/fern-git-status.vim'
+repo = 'kat0h/fern-preview.vim'
+on_source = 'fern.vim'
 
 [[plugins]]
-repo = 'kat0h/fern-preview.vim'
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+on_source = 'fern.vim'
+depends = ['nerdfont.vim', 'glyph-palette.vim']
+hook_source = '''
+let g:fern#renderer = "nerdfont"
+augroup my-glyph-palette
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+augroup END
+'''
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/glyph-palette.vim'
 
 # ==============================================================================
 # denops.vim
@@ -101,6 +117,8 @@ depends = 'denops.vim'
 on_cmd = 'GhostStart'
 
 [[plugins]]
-repo = 'kat0h/bufpreview.vim'
+repo = '~/dev/kato-k/dps-mdpreview'
 depends = 'denops.vim'
 on_cmd = ['PreviewMarkdown', 'PreviewMarkdownClose', 'PreviewMarkdownToggle']
+hook_add = '''
+'''
