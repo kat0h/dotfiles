@@ -4,7 +4,8 @@ on_event = ['InsertEnter']
 depends = ['denops.vim']
 hook_source = '''
 call ddc#custom#patch_global({
-      \ 'backspaceCompletion': v:true
+      \ 'backspaceCompletion': v:true,
+      \ 'minAutoCompleteLength': 1
       \ })
 
 " ソース・マッチャー・ソーターを追加

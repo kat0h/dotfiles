@@ -1,8 +1,3 @@
-# うまく動かないので仕方なく
-[[plugins]]
-repo = 'lambdalisue/fern-git-status.vim'
-on_source = 'fern.vim'
-
 # =============================================================================
 # Others
 [[plugins]]
@@ -12,23 +7,10 @@ repo = 'bronson/vim-trailing-whitespace'
 repo = 'tyru/open-browser.vim'
 
 [[plugins]]
-repo = 'luochen1990/rainbow'
-hook_source = '''
-let g:rainbow_active = 1
-'''
-
-# [[plugins]]
-# repo = 'sainnhe/everforest'
-# hook_add = '''
-# set background=light
-# autocmd VimEnter * nested colorscheme everforest
-# '''
-
-[[plugins]]
-repo = 'arzg/vim-colors-xcode'
+repo = 'sainnhe/everforest'
 hook_add = '''
 set background=dark
-autocmd VimEnter * nested colorscheme xcodedarkhc
+autocmd VimEnter * nested colorscheme everforest
 '''
 
 # [[plugins]]
