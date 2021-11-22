@@ -2,24 +2,19 @@
 # Others
 [[plugins]]
 repo = 'kat0h/radiru.vim'
-on_cmd = ['RadiruPlay', 'RadiruPlayStop']
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
 hook_add = 'cabbrev git Gina'
-on_cmd = 'Gina'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-on_cmd = 'QuickRun'
 
 [[plugins]]
 repo = 'mhinz/vim-sayonara'
-on_cmd = 'Sayonara'
 
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
-on_map = ['f', 'F', 't', 'T']
 hook_add = '''
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
@@ -27,7 +22,6 @@ map , <Plug>(clever-f-repeat-back)
 
 [[plugins]]
 repo = 'skanehira/translate.vim'
-on_cmd = 'Translate'
 hook_add = '''
 nnoremap <leader>t :Translate<CR>
 vnoremap <leader>t :Translate<CR>
@@ -39,9 +33,7 @@ vnoremap <leader>t :Translate<CR>
 
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
-on_cmd = ['Fern', 'FernDo']
-depends =  ['fern-git-status.vim', 'fern-preview.vim', 'fern-renderer-nerdfont.vim']
-hook_source = '''
+hook_add = '''
 let g:fern#disable_viewer_spinner = 1
 augroup VimrcFern
   autocmd!
@@ -55,21 +47,17 @@ function! s:fern_settings() abort
   nmap <silent><expr> <buffer> <C-d> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:down:half)":"<C-d>"
   nmap <silent><expr> <buffer> <C-u> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:up:half)":"<C-u>"
 endfunction
-'''
-hook_add = '''
 nnoremap <leader>f :Fern . -drawer -toggle<CR>
 '''
 
 [[plugins]]
 repo = 'kat0h/fern-preview.vim'
-on_source = 'fern.vim'
 
 [[plugins]]
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-on_source = 'fern.vim'
-depends = ['nerdfont.vim', 'glyph-palette.vim']
-hook_source = '''
+hook_add = '''
 let g:fern#renderer = "nerdfont"
+let g:fern#renderer#nerdfont#padding = "  "
 augroup my-glyph-palette
   autocmd! *
   autocmd FileType fern call glyph_palette#apply()
@@ -92,7 +80,7 @@ hook_add = '''
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 depends = 'denops.vim'
-hook_source = '''
+hook_add = '''
 if !filereadable(expand('~/.config/skk/SKK-JISYO.L'))
   call mkdir(expand('~/.config/skk'), 'p')
   call system('cd ~/.config/skk && wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz && gzip -d SKK-JISYO.L.gz')

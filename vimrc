@@ -152,14 +152,16 @@ function! GetRedirectUrl(url) abort
 endfunction
 vnoremap r c<C-r>=GetRedirectUrl(@")<CR><esc>
 
+if !has('nvim')
 let s:cell = [
       \]
 let s:cellwidths = []
-for i in s:cell
-  let s:c = char2nr(i[0])
-  call add(s:cellwidths, [s:c, s:c, i[1]])
-endfor
-call setcellwidths(s:cellwidths)
+  for i in s:cell
+    let s:c = char2nr(i[0])
+    call add(s:cellwidths, [s:c, s:c, i[1]])
+  endfor
+  call setcellwidths(s:cellwidths)
+endif
 
 " 使ってないんだからオフにしたっていいよね
 let g:loaded_2html_plugin      = 1
@@ -194,9 +196,10 @@ if dein#load_state(s:dein_dir)
   call dein#add(s:dein_repo_dir)
 
   call dein#load_toml(expand('~/.vim/dein/dein.toml'))
-  call dein#load_toml(expand('~/.vim/dein/deinlazy.toml'), {'lazy': v:true})
-  call dein#load_toml(expand('~/.vim/dein/deinlsp.toml'), {'lazy': v:true})
-  call dein#load_toml(expand('~/.vim/dein/deinddc.toml'), {'lazy': v:true})
+  call dein#load_toml(expand('~/.vim/dein/deinlazy.toml'))
+  call dein#load_toml(expand('~/.vim/dein/deinlsp.toml'))
+  call dein#load_toml(expand('~/.vim/dein/deinddc.toml'))
+  call dein#load_toml(expand('~/.vim/dein/color.toml'))
   if has('nvim')
     call dein#load_toml(expand('~/.vim/dein/deinnvim.toml'))
   endif
@@ -206,7 +209,7 @@ if dein#load_state(s:dein_dir)
 endif
 
 " インストールしていないプラグインをチェック
-if has('vim_starting') && dein#check_install() && v:false
+if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
 
