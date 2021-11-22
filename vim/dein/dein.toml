@@ -7,20 +7,6 @@ repo = 'bronson/vim-trailing-whitespace'
 repo = 'tyru/open-browser.vim'
 
 [[plugins]]
-repo = 'sainnhe/everforest'
-hook_add = '''
-set background=dark
-autocmd VimEnter * nested colorscheme everforest
-'''
-
-# [[plugins]]
-# repo = 'rakr/vim-one'
-# hook_add = '''
-# set background=light
-# autocmd VimEnter * nested colorscheme one
-# '''
-
-[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 merged = 0
 hook_add = '''
@@ -69,8 +55,6 @@ let g:lightline = {
 \    'skk': 'LightlineSkkGetMode',
 \    'lfilename': 'LightlineFilename'
 \  },
-\ 'subseparator': { 'left': "\ue0bd ", 'right': "" },
-\ 'separator': { 'left': "\ue0bc ", 'right': "" },
 \}
 '''
 

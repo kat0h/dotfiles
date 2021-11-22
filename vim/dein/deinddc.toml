@@ -1,11 +1,9 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-on_event = ['InsertEnter']
-depends = ['denops.vim']
-hook_source = '''
+hook_add = '''
 call ddc#custom#patch_global({
       \ 'backspaceCompletion': v:true,
-      \ 'minAutoCompleteLength': 1
+      \ 'minAutoCompleteLength': 2,
       \ })
 
 " ソース・マッチャー・ソーターを追加
@@ -17,7 +15,8 @@ call ddc#custom#patch_global('sources', [
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank']
+      \   'sorters': ['sorter_rank'],
+      \   'forceCompletionPattern': '\.',
       \ },
       \ 'vim-lsp': {
       \   'matchers': ['matcher_head'],
@@ -49,26 +48,23 @@ inoremap <silent><expr> <TAB>
 \ '<TAB>' : ddc#map#manual_complete()
 inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 
+inoremap <expr><cr> pumvisible() ? '<c-y>' : '<cr>'
+
 " 有効化
 call ddc#enable()
 '''
 
 [[plugins]]
 repo = 'shun/ddc-vim-lsp'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
-on_source = 'ddc.vim'
