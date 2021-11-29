@@ -3,33 +3,35 @@ repo = 'Shougo/ddc.vim'
 hook_add = '''
 call ddc#custom#patch_global({
       \ 'backspaceCompletion': v:true,
-      \ 'minAutoCompleteLength': 2,
       \ })
 
 " ソース・マッチャー・ソーターを追加
 call ddc#custom#patch_global('sources', [
-      \ 'around',
       \ 'vim-lsp',
       \ 'file',
+      \ 'around',
       \ ])
+
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'matchers': ['matcher_head'],
       \   'sorters': ['sorter_rank'],
       \   'forceCompletionPattern': '\.',
       \ },
-      \ 'vim-lsp': {
-      \   'matchers': ['matcher_head'],
-      \   'mark': ' ',
-      \ },
       \ })
 
-" ソースの目印
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'minAutoCompleteLength': 1,
       \ },
-      \ 'around': {'mark': ' '},
+      \ })
+
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'vim-lsp': {
+      \   'matchers': ['matcher_head'],
+      \   'mark': ' ',
+      \   'dup': v:true,
+      \ },
       \ })
 
 call ddc#custom#patch_global('sourceOptions', {
@@ -40,6 +42,10 @@ call ddc#custom#patch_global('sourceOptions', {
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \})
+
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'around': {'mark': ' '},
+      \ })
 
 " <Tab>で順繰り
 inoremap <silent><expr> <TAB>
