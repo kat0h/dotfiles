@@ -49,7 +49,7 @@ endif
 " 外でのファイル変更を自動適用
 set autoread
 " バックスペースの挙動
-set backspace=indent,start
+set backspace=indent,start,eol
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 " Windowサイズの自動調節をオフ
@@ -140,6 +140,7 @@ augroup END
 
 " シュッと開くやつ
 command! VIM e ~/.vimrc | cd ~/dotfiles
+command! Playground e ~/dotfiles/playground.vim
 command! -nargs=1 -complete=file Open :call system("open".." '<args>'")
 
 " denoでシュッとリダイレクト先を探す
@@ -216,3 +217,5 @@ endif
 " 後処理
 filetype plugin indent on
 syntax enable
+
+call execute("source " . expand("~/dotfiles/playground.vim"))

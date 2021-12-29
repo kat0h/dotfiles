@@ -25,8 +25,8 @@ alias gcc="/usr/local/bin/gcc-11"
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
   export PATH=$PATH:/users/katokota/mybin
-  export GOPATH=/Users/katokota/.golang
-  export PATH=$PATH:$GOPATH/bin
+  # export GOPATH=/Users/katokota/.golang
+  export PATH=$PATH:/Users/katokota/.golang/bin
   export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
   export PATH=$PATH:/Users/katokota/.cargo/bin
   export PATH=$PATH:/usr/local/opt/llvm/bin/
@@ -50,5 +50,3 @@ zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
