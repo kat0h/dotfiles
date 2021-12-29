@@ -47,7 +47,7 @@ function! s:fern_settings() abort
   nmap <silent><expr> <buffer> <C-d> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:down:half)":"<C-d>"
   nmap <silent><expr> <buffer> <C-u> fern_preview#is_win_visible()?"<Plug>(fern-action-preview:scroll:up:half)":"<C-u>"
 endfunction
-nnoremap <leader>f :Fern . -drawer -toggle<CR>
+nnoremap <silent><leader>f :Fern . -drawer -toggle<CR>
 '''
 
 [[plugins]]
@@ -75,8 +75,8 @@ repo = 'lambdalisue/glyph-palette.vim'
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 hook_add = '''
-let g:denops#debug = 1
-let g:denops#type_check = 1
+let g:denops#debug = 0
+let g:denops#type_check = 0
 '''
 
 [[plugins]]
@@ -104,7 +104,7 @@ autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 repo = 'gamoutatsumi/dps-ghosttext.vim'
 
 [[plugins]]
-# repo = 'kat0h/bufpreview.vim'
-repo = '~/dev/kato-k/dps-mdpreview'
+repo = 'kat0h/bufpreview.vim'
+# repo = '~/dev/kato-k/dps-mdpreview'
 hook_add = '''
 '''

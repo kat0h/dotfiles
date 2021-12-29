@@ -12,10 +12,18 @@ call ddc#custom#patch_global('sources', [
       \ 'around',
       \ ])
 
+
+call ddc#custom#patch_global('sourceOptions', {
+  \   '_': {
+  \     'matchers': ['matcher_fuzzy'],
+  \     'sorters': ['sorter_fuzzy'],
+  \     'ignoreCase': v:true,
+  \   }
+  \ })
+  "\     'converters': ['converter_fuzzy'],
+
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
-      \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank'],
       \   'forceCompletionPattern': '\.',
       \ },
       \ })
@@ -74,3 +82,6 @@ repo = 'Shougo/ddc-matcher_head'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
