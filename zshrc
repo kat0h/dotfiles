@@ -27,15 +27,18 @@ fi
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
-  export PATH=$PATH:/users/katokota/mybin
+  export PATH=$PATH:$HOME/mybin
   # export GOPATH=/Users/katokota/.golang
-  export PATH=$PATH:/Users/katokota/.golang/bin
-  export PATH=$PATH:/Users/katokota/.nodebrew/current/bin
-  export PATH=$PATH:/Users/katokota/.cargo/bin
+  export PATH=$PATH:$HOME/.golang/bin
+  export PATH=$PATH:$HOME/.nodebrew/current/bin
+  export PATH=$PATH:$HOME/.cargo/bin
   export PATH=$PATH:/usr/local/opt/llvm/bin/
-  export PATH="/Users/katokota/.deno/bin:$PATH"
+  export PATH="$HOME/.deno/bin:$PATH"
   export PATH="/usr/local/opt/llvm/bin:$PATH"
   export PATH="/usr/local/opt/ruby/bin:$PATH"
+else
+  export DENO_INSTALL="$deno_install"
+  export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
