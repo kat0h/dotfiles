@@ -1,4 +1,5 @@
 # Option
+export LANG=ja_JP.UTF-8
 bindkey -e
 setopt correct
 setopt no_tify
@@ -15,12 +16,14 @@ precmd () { vcs_info }
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'
 
-alias cls="clear"
-alias v="vim"
 alias la="ls -la"
 alias p="python3"
 alias o="open"
-alias gcc="/usr/local/bin/gcc-11"
+
+# define open command if xdg-open is exsits
+if type xdg-open > /dev/null; then
+	alias open='xdg-open'
+fi
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -31,22 +34,10 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export PATH=$PATH:/Users/katokota/.cargo/bin
   export PATH=$PATH:/usr/local/opt/llvm/bin/
   export PATH="/Users/katokota/.deno/bin:$PATH"
+  export PATH="/usr/local/opt/llvm/bin:$PATH"
+  export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
-export LANG=ja_JP.UTF-8
 
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-# zsh-completionsを利用する Github => zsh-completions
-fpath=(~/.zsh-completions $fpath)
-autoload -U compinit && compinit # 補完機能の強化
-zstyle ':completion:*:default' menu select=2
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
-zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
-zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
-zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
-zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
-zstyle ':completion:*:options' description 'yes'
-
