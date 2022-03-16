@@ -139,8 +139,7 @@ augroup VimrcFileType
 augroup END
 
 " シュッと開くやつ
-command! VIM e ~/.vimrc | cd ~/dotfiles
-command! Playground e ~/dotfiles/playground.vim
+command! VIM silent e ~/.vimrc | cd ~/dotfiles
 command! -nargs=1 -complete=file Open :call system("open".." '<args>'")
 
 " denoでシュッとリダイレクト先を探す
@@ -197,7 +196,6 @@ if dein#load_state(s:dein_dir)
   call dein#add(s:dein_repo_dir)
 
   call dein#load_toml(expand('~/.vim/dein/dein.toml'))
-  call dein#load_toml(expand('~/.vim/dein/deinlazy.toml'))
   call dein#load_toml(expand('~/.vim/dein/deinlsp.toml'))
   call dein#load_toml(expand('~/.vim/dein/deinddc.toml'))
   call dein#load_toml(expand('~/.vim/dein/color.toml'))
@@ -217,5 +215,3 @@ endif
 " 後処理
 filetype plugin indent on
 syntax enable
-
-call execute("source " . expand("~/dotfiles/playground.vim"))

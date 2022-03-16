@@ -4,15 +4,12 @@ hook_add = '''
 call ddc#custom#patch_global({
       \ 'backspaceCompletion': v:true,
       \ })
-
 " ソース・マッチャー・ソーターを追加
 call ddc#custom#patch_global('sources', [
       \ 'vim-lsp',
       \ 'file',
       \ 'around',
       \ ])
-
-
 call ddc#custom#patch_global('sourceOptions', {
   \   '_': {
   \     'matchers': ['matcher_fuzzy'],
@@ -21,19 +18,16 @@ call ddc#custom#patch_global('sourceOptions', {
   \   }
   \ })
   "\     'converters': ['converter_fuzzy'],
-
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'forceCompletionPattern': '\.',
       \ },
       \ })
-
 call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'minAutoCompleteLength': 1,
       \ },
       \ })
-
 call ddc#custom#patch_global('sourceOptions', {
       \ 'vim-lsp': {
       \   'matchers': ['matcher_head'],
@@ -41,7 +35,6 @@ call ddc#custom#patch_global('sourceOptions', {
       \   'dup': v:true,
       \ },
       \ })
-
 call ddc#custom#patch_global('sourceOptions', {
       \ 'file': {
       \   'mark': ' ',
@@ -50,38 +43,28 @@ call ddc#custom#patch_global('sourceOptions', {
       \   'forceCompletionPattern': '\S/\S*'
       \ },
       \})
-
 call ddc#custom#patch_global('sourceOptions', {
       \ 'around': {'mark': ' '},
       \ })
-
 " <Tab>で順繰り
 inoremap <silent><expr> <TAB>
 \ pumvisible() ? '<C-n>' :
 \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
 \ '<TAB>' : ddc#map#manual_complete()
 inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-
 inoremap <expr><cr> pumvisible() ? '<c-y>' : '<cr>'
-
 " 有効化
 call ddc#enable()
 '''
-
 [[plugins]]
 repo = 'shun/ddc-vim-lsp'
-
 [[plugins]]
 repo = 'Shougo/ddc-around'
-
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
-
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
-
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
-
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
