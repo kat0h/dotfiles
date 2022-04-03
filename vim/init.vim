@@ -1,0 +1,1 @@
+/Users/katokota/dotfiles/vimrc
