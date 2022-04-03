@@ -28,14 +28,18 @@ fi
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
   export PATH=$PATH:$HOME/mybin
-  # export GOPATH=/Users/katokota/.golang
-  export PATH=$PATH:$HOME/.golang/bin
-  export PATH=$PATH:$HOME/.nodebrew/current/bin
-  export PATH=$PATH:$HOME/.cargo/bin
-  export PATH=$PATH:/usr/local/opt/llvm/bin/
+  # deno
   export PATH="$HOME/.deno/bin:$PATH"
-  export PATH="/usr/local/opt/llvm/bin:$PATH"
+  # ruby
   export PATH="/usr/local/opt/ruby/bin:$PATH"
+  # llvm
+  function llvm (){
+    export PATH="/usr/local/opt/llvm/bin:$PATH"
+    export LDFLAGS="-L/usr/local/opt/llvm/lib"
+    export CPPFLAGS="-I/usr/local/opt/llvm/include"
+    unset -f llvm
+  }
+# other os
 else
   export DENO_INSTALL="$deno_install"
   export PATH="$DENO_INSTALL/bin:$PATH"
@@ -44,3 +48,4 @@ fi
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+export PATH="/usr/local/sbin:$PATH"

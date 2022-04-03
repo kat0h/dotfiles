@@ -180,38 +180,10 @@ let g:loaded_vimballPlugin     = 1
 let g:loaded_zip               = 1
 let g:loaded_zipPlugin         = 1
 
-" dein.vimを自動インストール
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-let s:vimornvim = has('nvim') ? '/nvim' : '/vim'
-let s:dein_dir = s:cache_home . '/dein' . s:vimornvim
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+if !filereadable(expand("~/.vim/autoload/jetpack.vim"))
+  call system('curl -fLo ~/.vim/autoload/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/autoload/jetpack.vim')
 endif
-let &runtimepath = s:dein_repo_dir .",". &runtimepath
+let g:jetpack#optimization = 1
 
-" プラグインのロード
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-  call dein#add(s:dein_repo_dir)
-
-  call dein#load_toml(expand('~/.vim/dein/dein.toml'))
-  call dein#load_toml(expand('~/.vim/dein/deinlsp.toml'))
-  call dein#load_toml(expand('~/.vim/dein/deinddc.toml'))
-  call dein#load_toml(expand('~/.vim/dein/color.toml'))
-  if has('nvim')
-    call dein#load_toml(expand('~/.vim/dein/deinnvim.toml'))
-  endif
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-" インストールしていないプラグインをチェック
-if has('vim_starting') && dein#check_install()
-  call dein#install()
-endif
-
-" 後処理
-filetype plugin indent on
-syntax enable
+source ~/.vim/plugin_install.vim
+source ~/.vim/plugin_setting.vim

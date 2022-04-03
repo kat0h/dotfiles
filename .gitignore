@@ -8,3 +8,5 @@ emacs.d/url/
 emacs.d/var/
 emacs.d/tutorial/
 .netwhist
+vim/autoload/*
+vim/pack/*
