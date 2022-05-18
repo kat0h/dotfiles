@@ -1,15 +1,19 @@
 " Gina
+" ==============================================================================
 cabbrev git Gina
 
 " clever-f
+" ==============================================================================
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
 
 " translate.vim
+" ==============================================================================
 nnoremap <leader>t :Translate<CR>
 vnoremap <leader>t :Translate<CR>
 
 " vimdoc-ja
+" ==============================================================================
 set helplang=ja,en
 augroup VimrcHelp
   autocmd!
@@ -19,6 +23,7 @@ augroup VimrcHelp
 augroup END
 
 " lightline
+" ==============================================================================
 set laststatus=2
 set noshowmode
 function! LightlineSkkGetMode() abort
@@ -41,7 +46,6 @@ let g:lightline = {
 \    'left': [['filename']],
 \    'right': [['filetype']],
 \  },
-\  'colorscheme': 'one',
 \  'component_function': {
 \    'radiru': 'radiru#playing_station',
 \    'skk': 'LightlineSkkGetMode',
@@ -50,16 +54,15 @@ let g:lightline = {
 \}
 
 
-" emmet.vim
-let g:user_emmet_leader_key='<c-x>'
-
 " fern vim
+" ==============================================================================
 let g:fern#disable_viewer_spinner = 1
 augroup VimrcFern
   autocmd!
   " autocmd FileType fern setlocal nocursorline
   autocmd FileType fern setlocal nonumber
   autocmd FileType fern call s:fern_settings()
+  autocmd FileType fern nnoremap <buffer>CD <Plug>(fern-action-cd)
 augroup END
 function! s:fern_settings() abort
   nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
@@ -80,6 +83,7 @@ let g:denops#debug = 0
 let g:denops#type_check = 0
 
 " skkeleten
+" ==============================================================================
 if !filereadable(expand('~/.config/skk/SKK-JISYO.L'))
   call mkdir(expand('~/.config/skk'), 'p')
   call system('cd ~/.config/skk && wget http://openlab.jp/skk/dic/SKK-JISYO.L.gz && gzip -d SKK-JISYO.L.gz')
@@ -94,9 +98,12 @@ endfunction
 autocmd User skkeleton-initialize-pre call s:skkeleton_init()
 
 " colorscheme
+" ==============================================================================
 colorscheme nightfly
 let g:lightline['colorscheme'] = 'nightfly'
 
+" ddc.vim
+" ==============================================================================
 call ddc#custom#patch_global({
       \ 'backspaceCompletion': v:true,
       \ })
@@ -145,10 +152,11 @@ inoremap <silent><expr> <TAB>
 \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
 \ '<TAB>' : ddc#map#manual_complete()
 inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-inoremap <expr><cr> pumvisible() ? '<c-y>' : '<cr>'
+" inoremap <expr><cr> pumvisible() ? '<c-y>' : '<cr>'
 call ddc#enable()
 
 " LSP
+" ==============================================================================
 function s:change_ts_ls() abort
   if finddir('node_modules', expand('%:p:h') . ';') ==# ''
     if exists('g:lsp_settings_filetype_typescript') &&
@@ -170,7 +178,6 @@ augroup VimrcLspFt
 augroup END
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
-  " setlocal signcolumn=yes
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> <f2> <plug>(lsp-rename)
 endfunction
@@ -185,4 +192,77 @@ let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
 
+" ddu.vim
+" ==============================================================================
+" let s:ddu_patch_global = {}
+" let s:ddu_patch_global.uiParams = {}
+" let s:ddu_patch_global.sourceOptions = {}
+" let s:ddu_patch_global.filterParams = {}
+" let s:ddu_patch_global.kindOptions = {}
+" 
+" let s:ddu_patch_global.ui = 'ff'
+" let s:ddu_patch_global.uiParams.ff = {
+"  \'startFilter': v:true,
+"  \'prompt': '> ',
+"  \'split': v:false ? 'floating' : 'horizontal',
+"\}
+" 
+" let s:ddu_patch_global.sources = [
+"  \{'name': 'file_rec'},
+"  \{'name': 'action'},
+"  \{'name': 'source'},
+"  \{'name': 'help'},
+"\]
+" let s:ddu_patch_global.sourceOptions._ = {
+"  \'matchers': ['matcher_fuse'],
+"\}
+" 
+" let s:ddu_patch_global.filterParams.matcher_fuse = {
+"  \'threshold': 0.8,
+"  \'highlightMatched': 'Title',
+"\}
+" 
+" let s:ddu_patch_global.kindOptions.file = {
+"  \'defaultAction': 'open',
+"\}
+" let s:ddu_patch_global.kindOptions.action = {
+"  \'defaultAction': 'do',
+"\}
+" 
+" 
+" call ddu#custom#patch_global(s:ddu_patch_global)
+" 
+" "ddu-key-setting
+" autocmd FileType ddu-ff call s:ddu_my_settings()
+" function! s:ddu_my_settings() abort
+"   nnoremap <buffer><silent> <CR>
+"        \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+"   nnoremap <buffer><silent> a
+"        \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+"   nnoremap <buffer><silent> p
+"        \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+"   nnoremap <buffer><silent> i
+"        \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+"   nnoremap <buffer><silent> q
+"        \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+" endfunction
+" 
+" autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+" function! s:ddu_filter_my_settings() abort
+"   inoremap <buffer><silent> <CR>
+"  \ <Esc><Cmd>close<CR>
+"   inoremap <buffer><silent> <Esc>
+"  \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+"   nnoremap <buffer><silent> q
+"  \ <Cmd>close<CR>
+" endfunction
+" 
+" "ddu keymapping.
+" nnoremap <SID>[ug] <Nop>
+" nmap <leader><leader> <SID>[ug]
+" 
+" nnoremap <silent> <SID>[ug]f :<C-u>Ddu file_rec<CR>
+" cabbrev d Ddu
 
+" CtrlP
+nnoremap <silent><leader>p :CtrlP . -drawer -toggle<CR>
