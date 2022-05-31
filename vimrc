@@ -26,11 +26,8 @@ set smarttab
 set softtabstop=0
 set autoindent
 set tabstop=2
-" go言語の時だけタブの挙動を変更
-augroup VimrcIndent
-  autocmd!
-  autocmd FileType go setlocal noexpandtab
-augroup END
+set list
+set listchars=tab:>.,trail:_
 
 set incsearch
 set ignorecase
