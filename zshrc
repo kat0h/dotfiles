@@ -14,7 +14,7 @@ zstyle ':vcs_info:*' formats "%{${fg[yellow]}%}< %{${fg[blue]}%}%b%{${reset_colo
 zstyle ':vcs_info:*' actionformats "%{${fg[yellow]}%}< %{${fg[blue]}%}%b|%a%{${reset_color}%}"
 precmd () { vcs_info }
 setopt prompt_subst
-RPROMPT='${vcs_info_msg_0_}'
+RPROMPT='${vcs_info_msg_0_}'"%{${fg[yellow]}%} < %{${fg[blue]}%}%D{%F %T}%{${reset_color}%}"
 
 alias la="ls -la"
 alias p="python3"
