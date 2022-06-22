@@ -54,7 +54,7 @@ set noequalalways
 set shortmess+=I
 set shortmess+=c
 
-" Swap Fileは作らない
+" Swap Fileを作らない
 set noswapfile
 set nobackup
 set nowritebackup
