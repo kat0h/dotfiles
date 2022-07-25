@@ -20,6 +20,8 @@ alias la="ls -la"
 alias p="python3"
 alias o="open"
 
+alias ghrepo='cd $(ghq list --full-path | fzf)'
+
 # define open command if xdg-open is exsits
 if type xdg-open > /dev/null; then
 	alias open='xdg-open'
@@ -49,3 +51,5 @@ if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$HOME/dotfiles/bin:$PATH"
