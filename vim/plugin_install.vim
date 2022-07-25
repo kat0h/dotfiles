@@ -37,7 +37,6 @@ Jetpack 'prabirshrestha/vim-lsp'
 Jetpack 'kat0h/vim-lsp-settings'
 Jetpack 'hrsh7th/vim-vsnip'
 Jetpack 'hrsh7th/vim-vsnip-integ'
-Jetpack 'kat0h/bufpreview.vim'
 Jetpack 'Shougo/ddu.vim'
 Jetpack 'vim-denops/denops.vim'
 " Jetpack 'Shougo/ddu-ui-ff'
@@ -52,3 +51,5 @@ Jetpack 'vim-denops/denops.vim'
 Jetpack 'ctrlpvim/ctrlp.vim'
 
 call jetpack#end()
+
+set runtimepath^=~/dev/ghq/github.com/kat0h/bufpreview.vim
