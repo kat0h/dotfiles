@@ -27,7 +27,6 @@ c.cmd([
   "clang",
   "curl",
   "wget",
-  "hoge"
 ])
 
 dfm.use(s, c, r);
