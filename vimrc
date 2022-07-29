@@ -179,6 +179,7 @@ let g:loaded_zipPlugin         = 1
 
 if !filereadable(expand("~/.vim/autoload/jetpack.vim"))
   call system('curl -fLo ~/.vim/autoload/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/autoload/jetpack.vim')
+  let s:jetpack_sync = 1
 endif
 let g:jetpack#optimization = 0
 
