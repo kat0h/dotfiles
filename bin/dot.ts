@@ -12,9 +12,12 @@ const dfm = new Dfm({
 const links: [string, string][] = [
   ["zshrc", "~/.zshrc"],
   ["tmux.conf", "~/.tmux.conf"],
+
   ["vimrc", "~/.vimrc"],
   ["vim", "~/.vim"],
+
   ["config/alacritty", "~/.config/alacritty"],
+  ["config/nvim", "~/.config/nvim"]
 ];
 
 const cmds: string[] = [
