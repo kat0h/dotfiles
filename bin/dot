@@ -1,6 +1,6 @@
-#!/usr/bin/env deno run -A
-import Dfm from "../../dev/dfm/mod.ts";
-import { CmdCheck, Symlink, Repository } from "../../dev/dfm/plugin/mod.ts";
+#!/usr/bin/env -S deno run -A
+import Dfm from "https://deno.land/x/dfm@v0.7/mod.ts";
+import { CmdCheck, Symlink, Repository } from "https://deno.land/x/dfm@v0.7/plugin/mod.ts";
 import { fromFileUrl } from "https://deno.land/std@0.149.0/path/mod.ts"
 
 const dfm = new Dfm({
