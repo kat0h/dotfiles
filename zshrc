@@ -29,11 +29,6 @@ fi
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
-  export PATH=$PATH:$HOME/mybin
-  # deno
-  export PATH="$HOME/.deno/bin:$PATH"
-  # ruby
-  export PATH="/usr/local/opt/ruby/bin:$PATH"
   # llvm
   function llvm (){
     export PATH="/usr/local/opt/llvm/bin:$PATH"
@@ -41,10 +36,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export CPPFLAGS="-I/usr/local/opt/llvm/include"
     unset -f llvm
   }
-# other os
-else
-  export DENO_INSTALL="$HOME/.deno"
-  export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
@@ -53,3 +44,5 @@ fi
 export PATH="/usr/local/sbin:$PATH"
 
 export PATH="$HOME/dotfiles/bin:$PATH"
+
+source "$HOME/.cache/env"
