@@ -43,7 +43,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   }
 # other os
 else
-  export DENO_INSTALL="$deno_install"
+  export DENO_INSTALL="$HOME/.deno"
   export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
