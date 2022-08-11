@@ -39,6 +39,7 @@ if (os() == "darwin") {
 
 } else if (os() == "linux") {
   path = path.concat([
+    "~/.cargo/bin"
   ])
 }
 
@@ -54,4 +55,3 @@ dfm.use(
 );
 dfm.end();
 // vim:filetype=typescript
-
