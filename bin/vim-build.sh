@@ -13,4 +13,5 @@ else
   cd $BUILD_PATH && git clone https://github.com/vim/vim
 fi
 
+make clean
 cd $BUILD_PATH/vim && make $MAKEFLAGS && sudo make install
