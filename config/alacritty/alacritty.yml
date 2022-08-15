@@ -32,3 +32,5 @@ font:
   normal:
       family: Cica
 
+window:
+  opacity: 0.99
