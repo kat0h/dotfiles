@@ -14,7 +14,7 @@ Jetpack 'itchyny/lightline.vim'
 Jetpack 'tyru/caw.vim'
 Jetpack 'machakann/vim-sandwich'
 Jetpack 'pangloss/vim-javascript'
-Jetpack 'jiangmiao/auto-pairs'
+" Jetpack 'jiangmiao/auto-pairs'
 Jetpack 'cespare/vim-toml'
 Jetpack 'lambdalisue/fern.vim'
 Jetpack 'mattn/vim-lsp-settings'
@@ -49,6 +49,8 @@ Jetpack 'vim-denops/denops.vim'
 " Jetpack 'matsui54/ddu-source-help'
 " Jetpack 'kuuote/ddu-filter-fuse'
 Jetpack 'ctrlpvim/ctrlp.vim'
+Jetpack 'thinca/vim-prettyprint'
+Jetpack 'kyoh86/vim-ripgrep'
 
 call jetpack#end()
 

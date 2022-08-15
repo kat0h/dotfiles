@@ -266,3 +266,7 @@ let g:lsp_text_edit_enabled = 1
 
 " CtrlP
 nnoremap <silent><leader>p :CtrlP . -drawer -toggle<CR>
+
+" Ripgrep
+command! -nargs=* -complete=file Rg :call ripgrep#search(<q-args>)
+cabbrev rg Rg
