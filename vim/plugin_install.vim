@@ -1,5 +1,4 @@
-call jetpack#begin(expand('~/.cache/jetpack'))
-
+call jetpack#begin(g:plugin_cache_dir)
 Jetpack 'kat0h/radiru.vim'
 Jetpack 'lambdalisue/gina.vim'
 Jetpack 'thinca/vim-quickrun'
@@ -14,7 +13,6 @@ Jetpack 'itchyny/lightline.vim'
 Jetpack 'tyru/caw.vim'
 Jetpack 'machakann/vim-sandwich'
 Jetpack 'pangloss/vim-javascript'
-" Jetpack 'jiangmiao/auto-pairs'
 Jetpack 'cespare/vim-toml'
 Jetpack 'lambdalisue/fern.vim'
 Jetpack 'mattn/vim-lsp-settings'
@@ -39,19 +37,15 @@ Jetpack 'hrsh7th/vim-vsnip'
 Jetpack 'hrsh7th/vim-vsnip-integ'
 Jetpack 'Shougo/ddu.vim'
 Jetpack 'vim-denops/denops.vim'
-" Jetpack 'Shougo/ddu-ui-ff'
-" Jetpack 'Shougo/ddu-source-file_rec'
-" Jetpack 'Shougo/ddu-filter-matcher_substring'
-" Jetpack 'Shougo/ddu-commands.vim'
-" Jetpack 'Shougo/ddu-kind-file'
-" Jetpack 'Shougo/ddu-source-action'
-" Jetpack '4513echo/ddu-source-source'
-" Jetpack 'matsui54/ddu-source-help'
-" Jetpack 'kuuote/ddu-filter-fuse'
 Jetpack 'ctrlpvim/ctrlp.vim'
 Jetpack 'thinca/vim-prettyprint'
 Jetpack 'kyoh86/vim-ripgrep'
-
+Jetpack 'tani/glance-vim'
 call jetpack#end()
 
-set runtimepath^=~/dev/ghq/github.com/kat0h/bufpreview.vim
+for name in jetpack#names()
+  if !jetpack#tap(name)
+    call jetpack#sync()
+    quitall!
+  endif
+endfor

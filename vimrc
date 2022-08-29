@@ -56,6 +56,7 @@ set nobackup
 set nowritebackup
 
 set ttimeoutlen=10
+set belloff=all
 
 
 " 使ってないんだからオフにしたっていいよね
@@ -75,15 +76,9 @@ let g:loaded_vimballPlugin     = 1
 let g:loaded_zip               = 1
 let g:loaded_zipPlugin         = 1
 
+source ~/.vim/jetpack_install.vim
+source ~/.vim/plugin_install.vim
+
 source ~/.vim/keymap.vim
 source ~/.vim/utils.vim
-
-" Broken
-" if !filereadable(expand("~/.vim/autoload/jetpack.vim"))
-"   call system('curl -fLo ~/.vim/autoload/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/autoload/jetpack.vim')
-"   let s:jetpack_sync = 1
-" endif
-" let g:jetpack#optimization = 0
-
-source ~/.vim/plugin_install.vim
 source ~/.vim/plugin_setting.vim

@@ -13,4 +13,3 @@ augroup VimrcAutoMakedir
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
 augroup END
 
-
