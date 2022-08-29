@@ -270,3 +270,7 @@ nnoremap <silent><leader>p :CtrlP . -drawer -toggle<CR>
 " Ripgrep
 command! -nargs=* -complete=file Rg :call ripgrep#search(<q-args>)
 cabbrev rg Rg
+
+" Glance
+let g:glance#stylesheet = '@import url("https://cdn.jsdelivr.net/npm/water.css@2/out/water.css");'
+let g:glance#markdown_breaks = v:true
