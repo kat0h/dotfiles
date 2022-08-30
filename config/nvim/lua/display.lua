@@ -1,6 +1,6 @@
 -- scrollbar
 local colors = require("tokyonight.colors").setup()
-require("scrollbar").setup{
+require("scrollbar").setup {
   show_in_active_only = true,
   handle = {
     color = "#3b4261",

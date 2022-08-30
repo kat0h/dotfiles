@@ -7,5 +7,5 @@ require('keybind')
 require('statusline')
 require('display')
 require('filer')
-require('others')
+require('lsp')
 vim.cmd 'source ~/.vim/keymap.vim'

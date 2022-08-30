@@ -30,6 +30,7 @@ const cmds: string[] = [
 
 let path: string[] = [
   "~/.deno/bin",
+  '~/.cargo/env',
 ]
 
 if (os() == "darwin") {
@@ -42,7 +43,6 @@ if (os() == "darwin") {
 
 } else if (os() == "linux") {
   path = path.concat([
-    "~/.cargo/bin"
   ])
 }
 
