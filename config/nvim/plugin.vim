@@ -22,7 +22,6 @@ Jetpack 'kyazdani42/nvim-tree.lua'
 " Display
 Jetpack 'folke/tokyonight.nvim'
 Jetpack 'tamton-aquib/zone.nvim'
-Jetpack 'lukas-reineke/indent-blankline.nvim'
 
 " scrollbar
 Jetpack 'petertriho/nvim-scrollbar'
