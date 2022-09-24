@@ -41,6 +41,7 @@ Jetpack 'ctrlpvim/ctrlp.vim'
 Jetpack 'thinca/vim-prettyprint'
 Jetpack 'kyoh86/vim-ripgrep'
 Jetpack 'tani/glance-vim'
+Jetpack 'kat0h/bufpreview.vim'
 call jetpack#end()
 
 for name in jetpack#names()
