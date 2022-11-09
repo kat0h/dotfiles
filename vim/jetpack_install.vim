@@ -12,4 +12,5 @@ if !filereadable(s:jetpackfile)
   call system(printf('curl -fsSLo %s --create-dirs %s', s:jetpackfile, s:jetpackurl))
   quit
 endif
+
 execute("set runtimepath^=" .. s:manage_cache_dir)
