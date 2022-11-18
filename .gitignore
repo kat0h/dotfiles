@@ -11,3 +11,4 @@ emacs.d/eln-cache/
 .netwhist
 vim/autoload/*
 vim/pack/*
+config/nvim/luarc.json
