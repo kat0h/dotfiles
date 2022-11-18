@@ -1,4 +1,5 @@
 -- install vim-jetpack if it isn't exist
+
 local fn = vim.fn
 local jetpackfile = fn.stdpath('data') .. '/site/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'
 local jetpackurl = 'https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim'
@@ -17,6 +18,7 @@ require('jetpack.packer').startup(function (use)
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
   use 'glepnir/lspsaga.nvim'
+  use 'folke/neodev.nvim'
 
   -- nvim-cmp
   use 'hrsh7th/nvim-cmp'
@@ -49,6 +51,7 @@ require('jetpack.packer').startup(function (use)
   use 'delphinus/emcl.nvim'
   use 'windwp/nvim-autopairs'
   use 'monaqa/dial.nvim'
+  use 'machakann/vim-sandwich'
 
   -- Git
   use 'TimUntersberger/neogit'
