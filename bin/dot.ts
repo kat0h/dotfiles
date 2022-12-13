@@ -37,7 +37,9 @@ if (os() == "darwin") {
   path = path.concat([
 
     "~/mybin",
-    "/usr/local/opt/ruby/bin"
+    "/usr/local/opt/ruby/bin",
+    // Mac標準のコマンドを書き換える
+    "/usr/local/opt/bison/bin"
 
   ])
 

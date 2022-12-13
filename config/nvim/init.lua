@@ -37,6 +37,7 @@ require('jetpack.packer').startup(function (use)
   -- Display
   use 'folke/tokyonight.nvim'
   use 'tamton-aquib/zone.nvim'
+  use {'kat0h/bufpreview.vim', run = 'deno task prepare' }
 
   -- scrollbar
   use 'petertriho/nvim-scrollbar'
@@ -56,8 +57,9 @@ require('jetpack.packer').startup(function (use)
   -- Git
   use 'TimUntersberger/neogit'
 
-  -- Lua library
+  -- library
   use 'nvim-lua/plenary.nvim'
+  use 'vim-denops/denops.vim'
 end)
 
 
