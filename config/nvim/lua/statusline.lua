@@ -38,4 +38,4 @@ require('lualine').setup {
   extensions = {}
 }
 
-vim.opt.laststatus = 3
+-- vim.opt.laststatus = 3
