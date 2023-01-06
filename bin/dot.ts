@@ -1,8 +1,8 @@
 #!/usr/bin/env -S deno run -A
-import Dfm from "../../dev/dfm/mod.ts";
-import { Shell, Repository, Symlink } from "../../dev/dfm/plugin/mod.ts";
+import Dfm from "https://deno.land/x/dfm@v0.10/mod.ts";
+import { Shell, Repository, Symlink } from "https://deno.land/x/dfm@v0.10/plugin/mod.ts";
+import { os } from "https://deno.land/x/dfm@v0.10/util/mod.ts";
 import { fromFileUrl } from "https://deno.land/std@0.149.0/path/mod.ts";
-import { os } from "../../dev/dfm/util/mod.ts";
 
 const dfm = new Dfm({
   dotfilesDir: "~/dotfiles",
