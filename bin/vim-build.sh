@@ -2,7 +2,7 @@
 
 BUILD_PATH=$HOME/.cache/build
 mkdir -p $BUILD_PATH
-MAKEFLAGS=-j$[$(grep cpu.cores /proc/cpuinfo | sort -u | sed 's/[^0-9]//g') + 1]
+MAKEFLAGS=-j`nproc`
 
 sudo apt update && yes | sudo apt upgrade
 yes | sudo apt install git gettext libtinfo-dev libacl1-dev libgpm-dev
