@@ -75,4 +75,5 @@ require('statusline')
 require('display')
 require('filer')
 require('lsp')
+require('telescope')
 vim.cmd 'source ~/.vim/keymap.vim'
