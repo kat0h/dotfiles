@@ -19,6 +19,7 @@ require('jetpack.packer').startup(function (use)
   use 'williamboman/mason-lspconfig.nvim'
   use 'glepnir/lspsaga.nvim'
   use 'folke/neodev.nvim'
+  use 'j-hui/fidget.nvim'
 
   -- nvim-cmp
   use 'hrsh7th/nvim-cmp'

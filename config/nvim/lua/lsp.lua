@@ -106,3 +106,5 @@ require('lspconfig')['rust_analyzer'].setup {
 }
 
 require('hlslens').setup()
+
+require('fidget').setup()
