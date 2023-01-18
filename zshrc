@@ -16,6 +16,9 @@ precmd () { vcs_info }
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'"%{${fg[yellow]}%} < %{${fg[blue]}%}%D{%F %T}%{${reset_color}%}"
 
+autoload -U compinit
+compinit
+
 alias la="ls -la"
 alias p="python3"
 alias o="open"
