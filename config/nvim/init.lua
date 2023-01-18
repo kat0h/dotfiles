@@ -58,6 +58,9 @@ require('jetpack.packer').startup(function (use)
   -- Git
   use 'TimUntersberger/neogit'
 
+  -- Telescope
+  use 'nvim-telescope/telescope.nvim'
+
   -- library
   use 'nvim-lua/plenary.nvim'
   use 'vim-denops/denops.vim'
@@ -73,4 +76,5 @@ require('statusline')
 require('display')
 require('filer')
 require('lsp')
+require('telescope')
 vim.cmd 'source ~/.vim/keymap.vim'

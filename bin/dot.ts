@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run -A
-import Dfm from "https://deno.land/x/dfm@v0.10/mod.ts";
-import { Shell, Repository, Symlink } from "https://deno.land/x/dfm@v0.10/plugin/mod.ts";
-import { os } from "https://deno.land/x/dfm@v0.10/util/mod.ts";
+import Dfm from "https://deno.land/x/dfm@v0.11/mod.ts";
+import { Shell, Repository, Symlink } from "https://deno.land/x/dfm@v0.11/plugin/mod.ts";
+import { os } from "https://deno.land/x/dfm@v0.11/util/mod.ts";
 import { fromFileUrl } from "https://deno.land/std@0.149.0/path/mod.ts";
 
 const dfm = new Dfm({
@@ -30,7 +30,7 @@ const cmds: string[] = [
 
 let path: string[] = [
   "~/.deno/bin",
-  '~/.cargo/env',
+  "~/.cargo/env",
 ]
 
 if (os() == "darwin") {
@@ -45,6 +45,7 @@ if (os() == "darwin") {
 
 } else if (os() == "linux") {
   path = path.concat([
+    "~/dotfiles/bin"
   ])
 }
 
