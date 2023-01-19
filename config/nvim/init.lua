@@ -39,6 +39,8 @@ require('jetpack.packer').startup(function (use)
   use 'folke/tokyonight.nvim'
   use 'tamton-aquib/zone.nvim'
   use {'kat0h/bufpreview.vim', run = 'deno task prepare' }
+  use 'simrat39/symbols-outline.nvim'
+  use 'lewis6991/gitsigns.nvim'
 
   -- scrollbar
   use 'petertriho/nvim-scrollbar'
@@ -54,6 +56,8 @@ require('jetpack.packer').startup(function (use)
   use 'windwp/nvim-autopairs'
   use 'monaqa/dial.nvim'
   use 'machakann/vim-sandwich'
+  use 'numToStr/Comment.nvim'
+  use 'vim-skk/skkeleton'
 
   -- Git
   use 'TimUntersberger/neogit'
@@ -64,6 +68,10 @@ require('jetpack.packer').startup(function (use)
   -- library
   use 'nvim-lua/plenary.nvim'
   use 'vim-denops/denops.vim'
+  use 'vim-denops/denops.vim'
+
+  -- Vimdoc ja
+  use 'vim-jp/vimdoc-ja'
 end)
 
 
