@@ -49,3 +49,5 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/dotfiles/bin:$PATH"
 
 source "$HOME/.cache/env"
+
+eval "$(nodenv init -)"
