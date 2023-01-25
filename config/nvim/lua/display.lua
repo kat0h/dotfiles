@@ -68,13 +68,16 @@ require("scrollbar").setup {
   },
 }
 
+require('gitsigns').setup()
+
 require("scrollbar.handlers.search").setup({
   calm_dowm = true,
   nearest_only = true,
 })
 
+require("scrollbar.handlers.gitsigns").setup()
+
 -- outline
 require("symbols-outline").setup()
 
 -- Git gutter
-require('gitsigns').setup()
