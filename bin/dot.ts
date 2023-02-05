@@ -9,7 +9,7 @@ const dfm = new Dfm({
   dfmFilePath: fromFileUrl(import.meta.url),
 });
 
-const links: [string, string][] = [
+let links: [string, string][] = [
   ["zshrc", "~/.zshrc"],
   ["tmux.conf", "~/.tmux.conf"],
 
@@ -19,6 +19,14 @@ const links: [string, string][] = [
   ["config/alacritty", "~/.config/alacritty"],
   ["config/nvim", "~/.config/nvim"]
 ];
+
+if (os() == "linux") {
+  links = links.concat([
+    ["config/libskk", "~/.config/libskk"],
+    ["config/sway", "~/.config/sway"],
+    // ["bin/swayon", "/usr/local/bin/swayon"]
+  ])
+}
 
 const cmds: string[] = [
   "vim",
