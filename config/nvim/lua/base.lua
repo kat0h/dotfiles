@@ -37,3 +37,10 @@ vim.opt.wildignore:append { '*/node_modules/*' }
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append { 'r' }
+
+-- clipboard
+vim.cmd[[
+if has('linux')
+  set clipboard+=unnamedplus
+endif
+]]
