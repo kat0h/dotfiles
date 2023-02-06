@@ -1,5 +1,5 @@
 # Default config for sway
-#
+
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
@@ -9,7 +9,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $mod Mod4
+set $mod Mod1
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -20,56 +20,33 @@ set $term konsole
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu dmenu_path | wofi -d | xargs swaymsg exec --
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /usr/share/wallpapers/Elarun/contents/images/2560x1600.png fill
 # デフォルトのディスプレイ
 # 外部ディスプレイの設定はwdisplayを使う
 output eDP-1 scale 1.25
 
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+# フォント
+font pango:.Hiragino Kaku Gothic Interface 10
+
+# Volume/Brightness Bar
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
 ### Input configuration
 #
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 input * {
     xkb_options "ctrl:swapcaps"
 }
 
 input type:pointer {
     accel_profile flat
-    pointer_accel 0.0
+    pointer_accel 0.2
     scroll_factor 0.5
 }
 
@@ -77,11 +54,19 @@ input type:touchpad {
     tap enabled
     natural_scroll enabled
     accel_profile adaptive
-    pointer_accel 0
-    scroll_factor 0.3
+    pointer_accel 0.3
+    scroll_factor 0.5
     click_method none
 }
 
+
+### Bar
+#
+# Waybar:
+#
+bar {
+  swaybar_command waybar
+}
 
 ### Key bindings
 #
@@ -94,7 +79,7 @@ input type:touchpad {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+space exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -123,15 +108,16 @@ input type:touchpad {
     bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+    set $win_mov 50px
+    bindsym $mod+Shift+$left move left $win_mov
+    bindsym $mod+Shift+$down move down $win_mov
+    bindsym $mod+Shift+$up move up $win_mov
+    bindsym $mod+Shift+$right move right $win_mov
     # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    bindsym $mod+Shift+Left move left $win_mov
+    bindsym $mod+Shift+Down move down $win_mov
+    bindsym $mod+Shift+Up move up $win_mov
+    bindsym $mod+Shift+Right move right $win_mov
 #
 # Workspaces:
 #
@@ -180,7 +166,7 @@ input type:touchpad {
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    bindsym $mod+Control+space focus mode_toggle
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -200,20 +186,21 @@ input type:touchpad {
 # Resizing containers:
 #
 mode "resize" {
+    set $res 60px
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 40px
-    bindsym $down resize grow height 40px
-    bindsym $up resize shrink height 40px
-    bindsym $right resize grow width 40px
+    bindsym $left resize shrink width $res
+    bindsym $down resize grow height $res
+    bindsym $up resize shrink height $res
+    bindsym $right resize grow width $res
 
     # Ditto, with arrow keys
-    bindsym Left resize shrink width 40px
-    bindsym Down resize grow height 40px
-    bindsym Up resize shrink height 40px
-    bindsym Right resize grow width 40px
+    bindsym Left resize shrink width $res
+    bindsym Down resize grow height $res
+    bindsym Up resize shrink height $res
+    bindsym Right resize grow width $res
 
     # Return to default mode
     bindsym Return mode "default"
@@ -222,28 +209,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
-#
 # Volume Control
 #
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | awk 'NR==1{print substr($5, 1, length($5)-1)}' > $WOBSOCK
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl get-sink-volume @DEFAULT_SINK@ | awk 'NR==1{print substr($5, 1, length($5)-1)}' > $WOBSOCK
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 # あとまわし
 # bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SINK@ toggle
@@ -251,11 +220,11 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 #
 # Display light control
 #
-bindsym XF86MonBrightnessUp exec light -A 10
-bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp exec light -A 10 && light | sed 's/\..*//' > $WOBSOCK
+bindsym XF86MonBrightnessDown exec light -U 10 && light | sed 's/\..*//' > $WOBSOCK
 
 # gaps
-gaps inner 5
+gaps inner 10
 
 # IME
 exec fcitx5
