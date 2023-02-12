@@ -26,6 +26,7 @@ if (os() == "linux") {
     ["config/sway", "~/.config/sway"],
     // ["config/electron-flags.conf", "~/.config/electron-flags.conf"]
     // ["bin/swayon", "/usr/local/bin/swayon"]
+    ["config/waybar", "~/.config/waybar"],
   ])
 }
 
