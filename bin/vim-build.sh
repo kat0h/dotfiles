@@ -4,8 +4,8 @@ BUILD_PATH=$HOME/.cache/build
 mkdir -p $BUILD_PATH
 MAKEFLAGS=-j`nproc`
 
-# sudo apt update && yes | sudo apt upgrade
-# yes | sudo apt install git gettext libtinfo-dev libacl1-dev libgpm-dev
+sudo apt update && yes | sudo apt upgrade
+yes | sudo apt install git gettext libtinfo-dev libacl1-dev libgpm-dev
 
 if [ -e $BUILD_PATH/vim ]; then
   cd $BUILD_PATH && git pull

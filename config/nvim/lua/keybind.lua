@@ -26,6 +26,7 @@ cmap <C-j> <Plug>(skkeleton-toggle)
 function! s:skkeleton_init() abort
   call skkeleton#config({
         \ "globalJisyo": expand("~/.config/skk/SKK-JISYO.L"),
+        \ "eggLikeNewline": v:true,
         \})
 endfunction
 autocmd User skkeleton-initialize-pre call s:skkeleton_init()

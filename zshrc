@@ -50,4 +50,5 @@ export PATH="$HOME/dotfiles/bin:$PATH"
 
 source "$HOME/.cache/env"
 
-eval "$(nodenv init -)"
+# eval "$(nodenv init -)"
+source $HOME/.cargo/env
