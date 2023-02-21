@@ -8,10 +8,18 @@ export QT_QPA_PLATFORM=wayland
 export QT_QPA_PLATFORMTHEME=qt5ct
 export GDK_BACKEND=wayland
 
+export XCURSOR_THEME=Bibata-Modern-Classic
+export XCURSOR_SIZE=24
+
+export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export XMODIFIERS=@im=fcitx5
+export SDL_IM_MODULE=fcitx5
+
 # export GDK_DPI_SCALE=1.5
 # export QT_SCALE_FACTOR=1.5
 export MOZ_ENABLE_WAYLAND=1
-export WINIT_UNIX_BACKEND=x11
+# export WINIT_UNIX_BACKEND=x11
 export EDITOR=nvim
 
 exec sway
