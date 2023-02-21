@@ -55,7 +55,8 @@ if (os() == "darwin") {
 
 } else if (os() == "linux") {
   path = path.concat([
-    "~/dotfiles/bin"
+    "~/dotfiles/bin",
+    "~/dotfiles/bin/sway"
   ])
 }
 
