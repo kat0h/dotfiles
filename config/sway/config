@@ -61,6 +61,11 @@ input type:touchpad {
     click_method none
 }
 
+input type:keyboard {
+  repeat_rate 60
+  repeat_delay 250
+}
+
 
 ### Bar
 #
@@ -222,11 +227,11 @@ bindsym XF86AudioMute exec pamixer -t && ~/dotfiles/bin/nowvol > $WOBSOCK
 #
 # Display light control
 #
-bindsym XF86MonBrightnessUp exec light -A 10 && light | sed 's/\..*//' > $WOBSOCK
-bindsym XF86MonBrightnessDown exec light -U 10 && light | sed 's/\..*//' > $WOBSOCK
+bindsym XF86MonBrightnessUp exec light -A 5 && light | sed 's/\..*//' > $WOBSOCK
+bindsym XF86MonBrightnessDown exec light -U 5 && light | sed 's/\..*//' > $WOBSOCK
 
 # gaps
-gaps inner 10
+# gaps inner 10
 default_border pixel
 
 # IME
