@@ -99,7 +99,21 @@ bar {
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    set $Locker swaylock && sleep 1
+    set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+    mode "$mode_system" {
+        bindsym l exec --no-startup-id $Locker, mode "default"
+        bindsym e exec --no-startup-id swaymsg exit, mode "default"
+        bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+        bindsym r exec --no-startup-id systemctl reboot, mode "default"
+        bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+
+    bindsym $mod+Shift+e mode "$mode_system"
 #
 # Moving around:
 #
@@ -231,13 +245,20 @@ bindsym XF86MonBrightnessUp exec light -A 5 && light | sed 's/\..*//' > $WOBSOCK
 bindsym XF86MonBrightnessDown exec light -U 5 && light | sed 's/\..*//' > $WOBSOCK
 
 # gaps
-# gaps inner 10
+gaps inner 10
 default_border pixel
 
 # IME
 exec fcitx5
+# Vim as IME
+for_window [app_id="Vim IME"] {
+  floating enable
+  resize set 600 300
+}
+bindsym Shift+Return exec ~/dotfiles/bin/vim2clip
 
 # Kwallet
 exec /usr/lib/pam_kwallet_init
 
 include /etc/sway/config.d/*
+
