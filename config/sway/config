@@ -9,7 +9,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $mod Mod1
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -246,7 +246,7 @@ bindsym XF86MonBrightnessDown exec light -U 5 && light | sed 's/\..*//' > $WOBSO
 
 # gaps
 gaps inner 10
-default_border pixel
+default_border pixel 4
 
 # IME
 exec fcitx5
@@ -260,5 +260,26 @@ bindsym Shift+Return exec ~/dotfiles/bin/vim2clip
 # Kwallet
 exec /usr/lib/pam_kwallet_init
 
-include /etc/sway/config.d/*
+# 色設定
+# i3wm全体の色
+set $bg           #1C1E27
+set $fg           #CACACC
+set $darkred      #D95882
+set $red          #E4436F
+set $darkgreen    #68DDC4
+set $green        #24E39D
+set $darkyellow   #E8AEAA
+set $yellow       #EDA685
+set $darkblue     #64A4BF
+set $blue         #2095B4
+set $darkmagenta  #B382CF
+set $darkcyan     #54AEB8
+set $cyan         #00A5AF
+set $darkwhite    #CACACC
+set $white        #CACACA
+set $darkgrey     #6C6F93
+# class                     border      background      text        indicator       child_border
+client.focused              $bg         $darkgrey       $fg         $darkblue         $cyan
+client.unfocused            $bg         $bg             $fg         $darkblue         $bg
 
+include /etc/sway/config.d/*
