@@ -38,6 +38,9 @@ vim.opt.wildignore:append { '*/node_modules/*' }
 -- Add asterisks in block comments
 vim.opt.formatoptions:append { 'r' }
 
+-- Disable Intro
+vim.opt.shortmess:append("I")
+
 -- clipboard
 vim.cmd[[
 if has('linux')
