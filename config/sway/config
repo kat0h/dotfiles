@@ -260,6 +260,9 @@ bindsym Shift+Return exec ~/dotfiles/bin/vim2clip
 # Kwallet
 exec /usr/lib/pam_kwallet_init
 
+# Thunar
+exec thunar --daemon
+
 # 色設定
 # i3wm全体の色
 set $bg           #1C1E27
