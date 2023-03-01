@@ -1,1 +1,1 @@
-swaymsg exec thunar
+swaymsg exec "thunar $@"
