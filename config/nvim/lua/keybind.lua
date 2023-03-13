@@ -23,11 +23,10 @@ if !filereadable(expand('~/.config/skk/SKK-JISYO.L'))
 endif
 imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
-function! s:skkeleton_init() abort
-  call skkeleton#config({
-        \ "globalJisyo": expand("~/.config/skk/SKK-JISYO.L"),
-        \ "eggLikeNewline": v:true,
-        \})
-endfunction
-autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+call skkeleton#config({
+      \ "globalJisyo": expand("~/.config/skk/SKK-JISYO.L"),
+      \ "eggLikeNewline": v:true,
+      \})
 ]]
+
+require'skkeleton_indicator'.setup{}

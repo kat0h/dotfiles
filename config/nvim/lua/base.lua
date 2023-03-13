@@ -31,7 +31,7 @@ vim.opt.tabstop = 2
 
 -- others
 vim.opt.shell = 'zsh'
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.path:append { '**' }
 vim.opt.wildignore:append { '*/node_modules/*' }
 
