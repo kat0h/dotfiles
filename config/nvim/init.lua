@@ -58,6 +58,7 @@ require('jetpack.packer').startup(function (use)
   use 'machakann/vim-sandwich'
   use 'numToStr/Comment.nvim'
   use 'vim-skk/skkeleton'
+  use 'delphinus/skkeleton_indicator.nvim'
 
   -- Git
   use 'TimUntersberger/neogit'
