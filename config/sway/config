@@ -5,6 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 # sway起動前に設定するべき項目は/usr/local/bin/swayonにある
+include /etc/sway/config.d/*
 
 ### Variables
 #
@@ -27,8 +28,8 @@ set $menu dmenu_path | wofi -d | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-# output * bg /usr/share/wallpapers/Elarun/contents/images/2560x1600.png fill
+output * bg ~/Pictures/wallpaper.jpg fill
+# output * bg ~/Pictures/wallpaper.jpg fill
 # デフォルトのディスプレイ
 # 外部ディスプレイの設定はwdisplayを使う
 output eDP-1 scale 1.3
@@ -246,7 +247,7 @@ bindsym XF86MonBrightnessDown exec light -U 5 && light | sed 's/\..*//' > $WOBSO
 
 # gaps
 gaps inner 10
-default_border pixel 4
+default_border pixel 2
 
 # IME
 exec fcitx5
@@ -285,4 +286,3 @@ set $darkgrey     #6C6F93
 client.focused              $bg         $darkgrey       $fg         $darkblue         $cyan
 client.unfocused            $bg         $bg             $fg         $darkblue         $bg
 
-include /etc/sway/config.d/*
