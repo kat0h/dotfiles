@@ -55,7 +55,8 @@ if (os() == "darwin") {
 } else if (os() == "linux") {
   path = path.concat([
     "~/dotfiles/bin",
-    "~/dotfiles/bin/sway"
+    "~/dotfiles/bin/sway",
+    "~/.local/share/gem/ruby/3.0.0/bin",
   ])
 }
 
