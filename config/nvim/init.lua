@@ -73,6 +73,7 @@ require('jetpack.packer').startup(function (use)
 
   -- Vimdoc ja
   use 'vim-jp/vimdoc-ja'
+  use 'kat0h/bufpreview.vim'
 end)
 
 
