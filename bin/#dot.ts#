@@ -11,9 +11,7 @@ const dfm = new Dfm({
 
 let links: [string, string][] = [
   ["zshrc", "~/.zshrc"],
-  ["tmux.conf", "~/.tmux.conf"],
-
-  ["vimrc", "~/.vimrc"],
+vimrc", "~/.vimrc"],
   ["vim", "~/.vim"],
 
   ["config/alacritty", "~/.config/alacritty"],
@@ -40,12 +38,12 @@ const cmds: string[] = [
 let path: string[] = [
   "~/.deno/bin",
   "~/.cargo/env",
-  "~/mybin",
 ]
 
 if (os() == "darwin") {
   path = path.concat([
 
+    "~/mybin",
     "/usr/local/opt/ruby/bin",
     // Mac標準のコマンドを書き換える
     "/usr/local/opt/bison/bin"

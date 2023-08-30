@@ -73,7 +73,7 @@ input type:keyboard {
 # Waybar:
 #
 bar {
-  swaybar_command waybar
+  swaybar_command swaybar
 }
 
 ### Key bindings
