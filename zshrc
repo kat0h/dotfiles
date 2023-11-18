@@ -51,14 +51,8 @@ export PATH="$HOME/dotfiles/bin:$PATH"
 source "$HOME/.cache/env"
 
 # eval "$(nodenv init -)"
-source $HOME/.cargo/env
+# source $HOME/.cargo/env
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
-
-if [[ ! -n $TMUX ]]; then
-  exec tmux new-session
-fi
+# if [[ ! -n $TMUX ]]; then
+#   tmux new-session
+# fi
