@@ -1,3 +1,5 @@
+require('base')
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -13,6 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
+    "folke/lazy.nvim",
+  },
+  {
     'nvim-lua/plenary.nvim',
   },
   {
@@ -23,6 +28,11 @@ require("lazy").setup({
     config = function()
       vim.cmd[[colorscheme tokyonight]]
     end,
+  },
+  {
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    event = 'LspAttach'
   },
   {
     'williamboman/mason-lspconfig.nvim',
@@ -606,10 +616,8 @@ require("lazy").setup({
       neogit.setup {}
     end
   },
-
 })
 
 -- set formatoptions-=c formatoptions-=r formatoptions-=o
-require('base')
 require('highlights')
 vim.cmd 'source ~/.vim/keymap.vim'

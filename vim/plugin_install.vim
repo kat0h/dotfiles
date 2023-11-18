@@ -1,4 +1,5 @@
 call jetpack#begin(g:plugin_cache_dir)
+Jetpack 'tani/vim-jetpack'
 Jetpack 'kat0h/radiru.vim'
 Jetpack 'lambdalisue/gina.vim'
 Jetpack 'thinca/vim-quickrun'

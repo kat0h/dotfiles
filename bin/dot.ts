@@ -20,14 +20,14 @@ let links: [string, string][] = [
   ["config/nvim", "~/.config/nvim"]
 ];
 
-if (os() == "linux") {
-  links = links.concat([
-    ["config/libskk", "~/.config/libskk"],
-    ["config/sway", "~/.config/sway"],
+// if (os() == "linux") {
+  // links = links.concat([
+    // ["config/libskk", "~/.config/libskk"],
+    // ["config/sway", "~/.config/sway"],
     // ["bin/swayon", "/usr/local/bin/swayon"]
-    ["config/waybar", "~/.config/waybar"],
-  ])
-}
+    // ["config/waybar", "~/.config/waybar"],
+ //  ])
+// }
 
 const cmds: string[] = [
   "vim",
