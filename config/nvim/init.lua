@@ -18,6 +18,9 @@ require("lazy").setup({
     "folke/lazy.nvim",
   },
   {
+    'https://github.com/thinca/vim-quickrun',
+  },
+  {
     'nvim-lua/plenary.nvim',
   },
   {
@@ -26,7 +29,7 @@ require("lazy").setup({
     priority = 1000,
     opts = {},
     config = function()
-      vim.cmd[[colorscheme tokyonight]]
+      vim.cmd [[colorscheme tokyonight]]
     end,
   },
   {
@@ -50,6 +53,8 @@ require("lazy").setup({
       require('mason').setup()
 
       require('mason-lspconfig').setup_handlers({ function(server)
+        local node_root_dir = require('lspconfig').util.root_pattern("package.json")
+        local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
         local opt = {
           -- -- Function executed when the LSP server startup
           -- on_attach = function(client, bufnr)
@@ -58,9 +63,44 @@ require("lazy").setup({
           --   vim.cmd 'autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)'
           -- end,
           capabilities = require('cmp_nvim_lsp').default_capabilities(
-          vim.lsp.protocol.make_client_capabilities()
+            vim.lsp.protocol.make_client_capabilities()
           )
         }
+
+
+        if server_name == "tsserver" then
+          if not is_node_repo then
+            return
+          end
+
+          opt.root_dir = node_root_dir
+        elseif server_name == "eslint" then
+          if not is_node_repo then
+            return
+          end
+
+          opt.root_dir = node_root_dir
+        elseif server_name == "denols" then
+          if is_node_repo then
+            return
+          end
+
+          opt.root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
+          opt.init_options = {
+            lint = true,
+            unstable = true,
+            suggest = {
+              imports = {
+                hosts = {
+                  ["https://deno.land"] = true,
+                  ["https://cdn.nest.land"] = true,
+                  ["https://crux.land"] = true
+                }
+              }
+            }
+          }
+        end
+
         require('lspconfig')[server].setup(opt)
         require('lspconfig')['rust_analyzer'].setup {
           on_attach = on_attach,
@@ -96,7 +136,7 @@ require("lazy").setup({
       vim.keymap.set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {})
       -- LSP handlers
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+        vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
       )
       -- Reference highlight
       vim.cmd [[
@@ -110,8 +150,6 @@ require("lazy").setup({
       autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
       augroup END
       ]]
-
-
     end
   },
   {
@@ -163,7 +201,6 @@ require("lazy").setup({
           { name = "cmdline" },
         },
       })
-
     end
   },
   {
@@ -184,7 +221,7 @@ require("lazy").setup({
           dotfiles = true,
         },
       })
-      vim.cmd[[
+      vim.cmd [[
       set splitright
       ]]
     end
@@ -403,7 +440,7 @@ require("lazy").setup({
         function()
           return '▊'
         end,
-        color = { fg = colors.blue }, -- Sets highlighting of component
+        color = { fg = colors.blue },      -- Sets highlighting of component
         padding = { left = 0, right = 1 }, -- We don't need space before this
       }
 
@@ -499,7 +536,7 @@ require("lazy").setup({
 
       -- Add components to right sections
       ins_right {
-        'o:encoding', -- option component same as &encoding in viml
+        'o:encoding',       -- option component same as &encoding in viml
         fmt = string.upper, -- I'm not sure why it's upper case either ;)
         cond = conditions.hide_in_width,
         color = { fg = colors.green, gui = 'bold' },
@@ -600,7 +637,7 @@ require("lazy").setup({
     dependencies = { 'vim-skk/skkeleton' },
     event = "InsertEnter",
     config = function()
-      require('skkeleton_indicator').setup{}
+      require('skkeleton_indicator').setup {}
     end
   },
   {

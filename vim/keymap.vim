@@ -14,8 +14,8 @@ inoremap <C-a> <Home>
 inoremap <C-b> <Left>
 inoremap <C-e> <End>
 inoremap <C-f> <Right>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
+" inoremap <C-n> <Down>
+" inoremap <C-p> <Up>
 
 " 便利なウィンドウ移動
 nnoremap <silent> <C-h> <C-w>h

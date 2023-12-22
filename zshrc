@@ -22,8 +22,10 @@ compinit
 alias la="ls -la"
 alias p="python3"
 alias o="open"
+alias n="nvim"
 
 alias ghrepo='cd $(ghq list --full-path | fzf)'
+alias open='xdg-open'
 
 # define open command if xdg-open is exsits
 if type xdg-open > /dev/null; then
@@ -56,3 +58,10 @@ source "$HOME/.cache/env"
 # if [[ ! -n $TMUX ]]; then
 #   tmux new-session
 # fi
+
+# bun completions
+[ -s "/home/kat0h/.bun/_bun" ] && source "/home/kat0h/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
