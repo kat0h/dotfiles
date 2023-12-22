@@ -58,6 +58,7 @@ set nowritebackup
 set ttimeoutlen=10
 set belloff=all
 
+set updatetime=300
 
 " 使ってないんだからオフにしたっていいよね
 let g:loaded_2html_plugin      = 1
@@ -76,9 +77,9 @@ let g:loaded_vimballPlugin     = 1
 let g:loaded_zip               = 1
 let g:loaded_zipPlugin         = 1
 
-" source ~/.vim/jetpack_install.vim
-" source ~/.vim/plugin_install.vim
-" 
-" source ~/.vim/keymap.vim
-" source ~/.vim/utils.vim
-" source ~/.vim/plugin_setting.vim
+source ~/.vim/jetpack_install.vim
+source ~/.vim/plugin_install.vim
+
+source ~/.vim/keymap.vim
+source ~/.vim/utils.vim
+source ~/.vim/plugin_setting.vim

@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -A
+#!/usr/bin/env -S deno run -A --ext ts
 import Dfm from "https://deno.land/x/dfm@v0.11/mod.ts";
 import { Shell, Repository, Symlink } from "https://deno.land/x/dfm@v0.11/plugin/mod.ts";
 import { os } from "https://deno.land/x/dfm@v0.11/util/mod.ts";
@@ -9,7 +9,7 @@ const dfm = new Dfm({
   dfmFilePath: fromFileUrl(import.meta.url),
 });
 
-let links: [string, string][] = [
+const links: [string, string][] = [
   ["zshrc", "~/.zshrc"],
   ["tmux.conf", "~/.tmux.conf"],
 
@@ -41,6 +41,7 @@ let path: string[] = [
   "~/.deno/bin",
   "~/.cargo/env",
   "~/mybin",
+  "~/.bun/bin"
 ]
 
 if (os() == "darwin") {
