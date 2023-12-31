@@ -65,3 +65,6 @@ source "$HOME/.cache/env"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# asdf
+. /opt/asdf-vm/asdf.sh
