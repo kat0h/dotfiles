@@ -653,6 +653,12 @@ require("lazy").setup({
       neogit.setup {}
     end
   },
+  {
+    "tamago324/vim-browsersync",
+    dependencies = {
+      "tyru/open-browser.vim"
+    },
+  }
 })
 
 -- set formatoptions-=c formatoptions-=r formatoptions-=o
