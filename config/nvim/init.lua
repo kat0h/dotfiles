@@ -220,6 +220,9 @@ require("lazy").setup({
         filters = {
           dotfiles = true,
         },
+        diagnostics = {
+          enable = true,
+        }
       })
       vim.cmd [[
       set splitright
