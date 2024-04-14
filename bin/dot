@@ -59,6 +59,7 @@ if (os() == "darwin") {
     "~/dotfiles/bin/sway",
     "~/.local/share/gem/ruby/3.0.0/bin",
     "/home/kat0h/.local/share/gem/ruby/3.0.0/bin",
+    "/home/kat0h/.platformio/penv/bin",
   ])
 }
 
