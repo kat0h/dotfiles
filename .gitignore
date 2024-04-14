@@ -12,3 +12,4 @@ emacs.d/eln-cache/
 vim/autoload/*
 vim/pack/*
 config/nvim/.luarc.json
+config/nvim/lazy-lock.json
