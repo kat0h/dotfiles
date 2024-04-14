@@ -18,7 +18,8 @@ const links: [string, string][] = [
   ["vim", "~/.vim"],
 
   ["config/alacritty", "~/.config/alacritty"],
-  ["config/nvim", "~/.config/nvim"]
+  ["config/nvim", "~/.config/nvim"],
+  ["config/hypr", "~/.config/hypr"]
 ];
 
 // if (os() == "linux") {
