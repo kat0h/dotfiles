@@ -624,7 +624,7 @@ require("lazy").setup({
         imap <C-j> <Plug>(skkeleton-toggle)
         cmap <C-j> <Plug>(skkeleton-toggle)
         call skkeleton#config({
-          \ "globalJisyo": expand("~/.config/skk/SKK-JISYO.L"),
+          \ "globalDictionaries": [expand("~/.config/skk/SKK-JISYO.L")],
           \ "eggLikeNewline": v:true,
           \})
 
