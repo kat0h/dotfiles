@@ -12,6 +12,7 @@ const dfm = new Dfm({
 const links: [string, string][] = [
   ["zshrc", "~/.zshrc"],
   ["tmux.conf", "~/.tmux.conf"],
+  ["gitconfig", "~/.gitconfig"],
 
   ["vimrc", "~/.vimrc"],
   ["vim", "~/.vim"],
