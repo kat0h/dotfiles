@@ -68,3 +68,16 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # asdf
 . /opt/asdf-vm/asdf.sh
+
+export HISTFILE="$HOME/.zsh_history"
+setopt share_history
+# メモリに保存される履歴の件数
+export HISTSIZE=1000
+# 履歴ファイルに保存される履歴の件数
+export SAVEHIST=100000
+# 重複を記録しない
+setopt hist_ignore_dups
+# ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
+setopt hist_ignore_all_dups
+# 余分な空白は詰めて記録
+setopt hist_reduce_blanks
