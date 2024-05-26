@@ -42,9 +42,11 @@ const cmds: string[] = [
 let path: string[] = [
   "~/.deno/bin",
   "~/.cargo/env",
+  "~/.cargo/bin",
   "~/mybin",
-  "~/.bun/bin"
-]
+  "~/.bun/bin",
+  "/opt/nvim-linux64/bin"
+];
 
 if (os() == "darwin") {
   path = path.concat([

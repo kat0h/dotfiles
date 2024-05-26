@@ -67,7 +67,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # asdf
-. /opt/asdf-vm/asdf.sh
+. $HOME/.asdf/asdf.sh
 
 export HISTFILE="$HOME/.zsh_history"
 setopt share_history
