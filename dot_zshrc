@@ -69,6 +69,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # asdf
 . $HOME/.asdf/asdf.sh
 
+export EDITOR=nvim
+
 export HISTFILE="$HOME/.zsh_history"
 setopt share_history
 # メモリに保存される履歴の件数
