@@ -5,7 +5,7 @@ import { os } from "https://deno.land/x/dfm@v0.11/util/mod.ts";
 import { fromFileUrl } from "https://deno.land/std@0.149.0/path/mod.ts";
 
 const dfm = new Dfm({
-  dotfilesDir: "~/dotfiles",
+  dotfilesDir: "~/.local/share/chezmoi/old",
   dfmFilePath: fromFileUrl(import.meta.url),
 });
 

@@ -1,11 +1,20 @@
 # Default config for sway
-
+#
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
 
-# sway起動前に設定するべき項目は/usr/local/bin/swayonにある
-include /etc/sway/config.d/*
+# exec commands
+
+exec --no-startup-id waybar
+exec --no-startup-id nm-applet
+exec --no-startup-id dunst
+exec --no-startup-id fcitx5 -d
+exec --no-startup-id autotiling
+exec --no-startup-id spotifyd
+exec --no-startup-id blueman-applet
+exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
+for_window [app_id="blueman-manager"] floating enable
 
 ### Variables
 #
@@ -17,63 +26,63 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty
+set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | wofi -d | xargs swaymsg exec --
-# set $menu j4-dmenu-desktop --dmenu='wofi -d'
-# set $menu qdbus org.kde.krunner /App display
+set $menu dmenu_path | wmenu | xargs swaymsg exec --
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/wallpaper.jpg fill
-# output * bg ~/Pictures/wallpaper.jpg fill
-# デフォルトのディスプレイ
-# 外部ディスプレイの設定はwdisplayを使う
-output eDP-1 scale 1.3
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-# フォント
-# font pango:.Hiragino Kaku Gothic Interface 10
+output eDP-1 scale 1.25
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
 
-# Volume/Brightness Bar
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
 #
-input * {
-    xkb_options "ctrl:swapcaps"
-}
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 
-input type:pointer {
-    accel_profile flat
-    pointer_accel 0.2
-    scroll_factor 0.5
+input type:keyboard {
+	xkb_options "ctrl:swapcaps
+	repeat_delay 300
+	repeat_rate 50
 }
 
 input type:touchpad {
     tap enabled
+    dwt enabled
     natural_scroll enabled
-    accel_profile adaptive
-    pointer_accel 0.3
-    scroll_factor 0.5
-    click_method none
-}
-
-input type:keyboard {
-  repeat_rate 60
-  repeat_delay 250
-}
-
-
-### Bar
-#
-# Waybar:
-#
-bar {
-  swaybar_command swaybar
+    pointer_accel 0.5
 }
 
 ### Key bindings
@@ -87,7 +96,7 @@ bar {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+space exec $menu
+    bindsym $mod+d exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -100,21 +109,8 @@ bar {
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    set $Locker swaylock && sleep 1
-    set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
-    mode "$mode_system" {
-        bindsym l exec --no-startup-id $Locker, mode "default"
-        bindsym e exec --no-startup-id swaymsg exit, mode "default"
-        bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
-        bindsym r exec --no-startup-id systemctl reboot, mode "default"
-        bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-    }
-
-    bindsym $mod+Shift+e mode "$mode_system"
+    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec swaymsg exit
 #
 # Moving around:
 #
@@ -130,16 +126,15 @@ bar {
     bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
-    set $win_mov 50px
-    bindsym $mod+Shift+$left move left $win_mov
-    bindsym $mod+Shift+$down move down $win_mov
-    bindsym $mod+Shift+$up move up $win_mov
-    bindsym $mod+Shift+$right move right $win_mov
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
     # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left $win_mov
-    bindsym $mod+Shift+Down move down $win_mov
-    bindsym $mod+Shift+Up move up $win_mov
-    bindsym $mod+Shift+Right move right $win_mov
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
 #
 # Workspaces:
 #
@@ -177,18 +172,18 @@ bar {
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    # bindsym $mod+s layout stacking
+    # bindsym $mod+w layout tabbed
+    # bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    # bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+Control+space focus mode_toggle
+    # bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -208,21 +203,20 @@ bar {
 # Resizing containers:
 #
 mode "resize" {
-    set $res 60px
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width $res
-    bindsym $down resize grow height $res
-    bindsym $up resize shrink height $res
-    bindsym $right resize grow width $res
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
 
     # Ditto, with arrow keys
-    bindsym Left resize shrink width $res
-    bindsym Down resize grow height $res
-    bindsym Up resize shrink height $res
-    bindsym Right resize grow width $res
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
 
     # Return to default mode
     bindsym Return mode "default"
@@ -230,59 +224,20 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Volume Control
-#
-bindsym XF86AudioRaiseVolume exec pamixer -i 5 && ~/dotfiles/bin/nowvol > $WOBSOCK
-bindsym XF86AudioLowerVolume exec pamixer -d 5 && ~/dotfiles/bin/nowvol > $WOBSOCK
-bindsym XF86AudioMute exec pamixer -t && ~/dotfiles/bin/nowvol > $WOBSOCK
-# あとまわし
-# bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SINK@ toggle
+# Sound
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
-#
-# Display light control
-#
-bindsym XF86MonBrightnessUp exec light -A 5 && light | sed 's/\..*//' > $WOBSOCK
-bindsym XF86MonBrightnessDown exec light -U 5 && light | sed 's/\..*//' > $WOBSOCK
+# brightness
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-# gaps
-gaps inner 10
-default_border pixel 2
+exec firefox
+exec $term
 
-# IME
-exec fcitx5
-# Vim as IME
-for_window [app_id="Vim IME"] {
-  floating enable
-  resize set 600 300
-}
-bindsym Shift+Return exec ~/dotfiles/bin/vim2clip
-
-# Kwallet
-exec /usr/lib/pam_kwallet_init
-
-# Thunar
-exec thunar --daemon
-
-# 色設定
-# i3wm全体の色
-set $bg           #1C1E27
-set $fg           #CACACC
-set $darkred      #D95882
-set $red          #E4436F
-set $darkgreen    #68DDC4
-set $green        #24E39D
-set $darkyellow   #E8AEAA
-set $yellow       #EDA685
-set $darkblue     #64A4BF
-set $blue         #2095B4
-set $darkmagenta  #B382CF
-set $darkcyan     #54AEB8
-set $cyan         #00A5AF
-set $darkwhite    #CACACC
-set $white        #CACACA
-set $darkgrey     #6C6F93
-# class                     border      background      text        indicator       child_border
-client.focused              $bg         $darkgrey       $fg         $darkblue         $cyan
-client.unfocused            $bg         $bg             $fg         $darkblue         $bg
-
+include /etc/sway/config.d/*

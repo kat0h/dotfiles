@@ -1,1 +1,0 @@
-neovimに一発でexecutableにするコマンドを生やす

@@ -60,3 +60,9 @@ vim.opt.shortmess:append("I")
 if vim.bool_fn.has('linux') then
   vim.opt.clipboard:append{'unnamedplus'}
 end
+
+-- ambiwidth
+vim.fn.setcellwidths({
+  {57520, 57523, 1}, -- lualineのセパレーター
+  {9661, 9661, 2},   -- ▼▽
+})

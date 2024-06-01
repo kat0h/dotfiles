@@ -1,0 +1,4 @@
+#!/bin/sh
+sudo mv /etc/NetworkManager/conf.d/nm.conf.tmp /etc/NetworkManager/conf.d/nm.conf \
+&& sudo systemctl restart NetworkManager
+
