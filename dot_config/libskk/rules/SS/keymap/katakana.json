@@ -4,7 +4,9 @@
     ],
     "define": {
         "keymap": {
-            ";": "start-preedit-no-delete"
+            ";": "start-preedit-no-delete",
+            "l": null,
+            "\": null
         }
     }
 }
