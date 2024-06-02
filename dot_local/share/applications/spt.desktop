@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=spotify-tui
+GenericName=Spotify client for terminal
+Comment=Listen spotify
+Icon=spotify
+Exec=spt
+Terminal=true
+Categories=Audio
+Keywords=music;spotify
