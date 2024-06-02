@@ -27,8 +27,9 @@ alias n="nvim"
 alias ghrepo='cd $(ghq list --full-path | fzf)'
 alias open='xdg-open'
 
-alias ced="exec chezmoi cd"
 alias c="chezmoi"
+alias ccd="exec chezmoi cd"
+alias ced="chezmoi edit --watch"
 
 # define open command if xdg-open is exsits
 if type xdg-open > /dev/null; then
