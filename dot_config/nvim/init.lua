@@ -205,7 +205,7 @@ require("lazy").setup({
   },
   {
     'kyazdani42/nvim-tree.lua',
-    dev = true,
+    dev = false,
     keys = {
       { "<Space>f", "<Cmd>NvimTreeToggle<CR>", mode = "n" },
     },

@@ -8,7 +8,7 @@ setopt auto_cd
 # Prompt
 autoload -Uz colors
 colors
-PROMPT="%{${fg[blue]}%}%~%{${fg[yellow]}%} > %{${reset_color}%}"
+PROMPT="%n@%m | %{${fg[blue]}%}%~%{${fg[yellow]}%} > %{${reset_color}%}"
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats "%{${fg[yellow]}%}< %{${fg[blue]}%}%b%{${reset_color}%}"
 zstyle ':vcs_info:*' actionformats "%{${fg[yellow]}%}< %{${fg[blue]}%}%b|%a%{${reset_color}%}"
@@ -26,6 +26,9 @@ alias n="nvim"
 
 alias ghrepo='cd $(ghq list --full-path | fzf)'
 alias open='xdg-open'
+
+alias ced="exec chezmoi cd"
+alias c="chezmoi"
 
 # define open command if xdg-open is exsits
 if type xdg-open > /dev/null; then
