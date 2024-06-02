@@ -66,3 +66,15 @@ vim.fn.setcellwidths({
   {57520, 57523, 1}, -- lualineのセパレーター
   {9661, 9661, 2},   -- ▼▽
 })
+
+-- 初回ファイルを開いたときに，そのファイルのディレクトリにcdする
+
+function vim.g.get_start_directory()
+  if vim.fn.argc() > 0 then
+    return vim.fn.fnamemodify(vim.fn.argv()[1], ":p:h")
+  end
+  return vim.fn.getcwd()
+end
+if vim.bool_fn.has("vim_starting") then
+  vim.cmd.cd(vim.g.get_start_directory())
+end

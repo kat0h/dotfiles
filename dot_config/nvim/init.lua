@@ -205,6 +205,7 @@ require("lazy").setup({
   },
   {
     'kyazdani42/nvim-tree.lua',
+    dev = true,
     keys = {
       { "<Space>f", "<Cmd>NvimTreeToggle<CR>", mode = "n" },
     },
@@ -352,7 +353,6 @@ require("lazy").setup({
     'nvim-lualine/lualine.nvim',
     config = function()
       -- vim.opt.laststatus = 3
-      local lualine = require('lualine')
       require('lualine').setup {
         options = {
           icons_enabled = true,
@@ -393,7 +393,6 @@ require("lazy").setup({
         inactive_winbar = {},
         extensions = {}
       }
-      lualine.setup()
     end
   },
   {
@@ -418,7 +417,7 @@ require("lazy").setup({
   {
     'numToStr/Comment.nvim',
     config = function()
-      require('Comment').setup {}
+      require('Comment').setup()
     end
   },
   {
@@ -457,6 +456,10 @@ require("lazy").setup({
       require('skkeleton_indicator').setup {}
     end
   },
+}, {
+  dev = {
+    path = "~"
+  }
 })
 
 -- set formatoptions-=c formatoptions-=r formatoptions-=o
