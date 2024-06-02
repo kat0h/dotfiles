@@ -32,6 +32,9 @@ if type xdg-open > /dev/null; then
 	alias open='xdg-open'
 fi
 
+alias hsleep='swaylock&;systemctl suspend'
+alias hibernate='swaylock&;systemctl hibernate'
+
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
   # llvm
