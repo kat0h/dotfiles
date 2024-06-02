@@ -2,7 +2,7 @@
 Name=Visual Studio Code
 Comment=Code Editing. Refined.
 GenericName=Text Editor
-Exec=/usr/bin/code %F
+Exec=/usr/bin/code --ozone-platform=wayland --gtk-version=4 --enable-wayland-ime %F
 Icon=visual-studio-code
 Type=Application
 StartupNotify=false
@@ -14,5 +14,5 @@ Keywords=vscode;
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=/usr/bin/code --new-window --ozone-platform=wayland --gtk-version=4 --enable-wayland-ime  %F
+Exec=/usr/bin/code --new-window --ozone-platform=wayland --gtk-version=4 --enable-wayland-ime %F
 Icon=visual-studio-code
