@@ -8,7 +8,7 @@ setopt auto_cd
 # Prompt
 autoload -Uz colors
 colors
-PROMPT="%n@%m | %{${fg[blue]}%}%~%{${fg[yellow]}%} > %{${reset_color}%}"
+PROMPT="%{${fg[blue]}%}%n@%m %{${fg[yellow]}%}| %{${fg[blue]}%}%~%{${fg[yellow]}%} > %{${reset_color}%}"
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats "%{${fg[yellow]}%}< %{${fg[blue]}%}%b%{${reset_color}%}"
 zstyle ':vcs_info:*' actionformats "%{${fg[yellow]}%}< %{${fg[blue]}%}%b|%a%{${reset_color}%}"
