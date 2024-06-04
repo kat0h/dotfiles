@@ -11,10 +11,11 @@ exec --no-startup-id nm-applet
 exec --no-startup-id dunst
 exec --no-startup-id fcitx5 -d
 exec --no-startup-id autotiling
-exec --no-startup-id spotifyd
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
 for_window [app_id="blueman-manager"] floating enable
+exec --no-startup-id wl-paste --type text --watch cliphist store
+exec --no-startup-id wl-paste --type image --watch cliphist store
 
 ### Variables
 #
@@ -30,7 +31,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | wmenu | xargs swaymsg exec --
+set $menu wofi -n --show drun
 
 ### Output configuration
 #
@@ -38,6 +39,9 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 output eDP-1 scale 1.25
+
+default_border pixel
+mouse_warping container
 #
 # Example configuration:
 #
@@ -236,6 +240,12 @@ bindsym XF86AudioPrev exec playerctl previous
 # brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+# Screenshot
+bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
 
 exec firefox
 exec $term

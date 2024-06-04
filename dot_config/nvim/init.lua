@@ -456,6 +456,15 @@ require("lazy").setup({
       require('skkeleton_indicator').setup {}
     end
   },
+  {
+    'skanehira/translate.vim',
+    config = function()
+      vim.cmd[[
+        nnoremap <leader>t :Translate<CR>
+        vnoremap <leader>t :Translate<CR>
+      ]]
+    end
+  }
 }, {
   dev = {
     path = "~"

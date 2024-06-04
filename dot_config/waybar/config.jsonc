@@ -1,64 +1,65 @@
 // -*- mode: jsonc -*-
 {
-    "layer": "top",
-    "position": "top",
-    "height": 30,
+  "layer": "top",
+  "position": "top",
+  "height": 30,
     // "spacing": 4, // Gaps between modules (4px)
     "modules-left": [
-        "hyprland/workspaces"
+      "hyprland/workspaces",
+      "wlr/taskbar"
     ],
     "modules-center": [
-        "hyprland/window"
+      "hyprland/window"
     ],
     "modules-right": [
-        "pulseaudio",
+      "pulseaudio",
 
-        "cpu",
-        "temperature",
-        "memory",
-        "backlight",
+      "cpu",
+      "temperature",
+      "memory",
+      "backlight",
 
-        "battery",
+      "battery",
 
-        "clock",
-        "network",
-        "tray"
+      "clock",
+      "network",
+      "tray"
     ],
     "tray": {
-        "icon-size": 19,
-        "spacing": 10
+      "icon-size": 19,
+      "spacing": 10
     },
     "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "CPU:{usage}%",
-        "tooltip": false
+      "format": "CPU:{usage}%",
+      "tooltip": false
     },
     "memory": {
-        "format": "MEM:{}%"
+      "format": "MEM:{}%"
     },
     "temperature": {
-        "critical-threshold": 80,
-        "format": "TMP:{temperatureC}°C",
-        "format-icons": ["", "", ""]
+      "critical-threshold": 80,
+      "format": "TMP:{temperatureC}°C",
+      "format-icons": ["", "", ""]
     },
     "backlight": {
-        "format": "BL:{percent}%",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+      "format": "BL:{percent}%",
+      "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
-        "states": {
+      "states": {
             // "good": 95,
             "warning": 30,
             "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+      },
+      "format": "{capacity}% {icon}",
+      "format-full": "{capacity}% {icon}",
+      "format-charging": "{capacity}% ",
+      "format-plugged": "{capacity}% ",
+      "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
@@ -81,14 +82,17 @@
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+          "headphone": "",
+          "hands-free": "",
+          "headset": "",
+          "phone": "",
+          "portable": "",
+          "car": "",
+          "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
+    },
+    "wlr/taskbar": {
+      "on-click": "activate"
     }
 }
