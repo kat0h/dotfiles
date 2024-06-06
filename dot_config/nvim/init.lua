@@ -15,9 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "folke/lazy.nvim",
-  },
-  {
     'https://github.com/thinca/vim-quickrun',
   },
   {
