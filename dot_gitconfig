@@ -5,7 +5,7 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [user]
-	email = --get
+	email = 45391880+kat0h@users.noreply.github.com
 	name = Kota Kato
 
 [core]
