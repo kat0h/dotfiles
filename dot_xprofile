@@ -20,4 +20,16 @@ export WLR_DRM_NO_MODIFIERS=1
 # export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
+export PATH='/home/kat0h/.deno/bin':$PATH
+export PATH='/home/kat0h/.cargo/env':$PATH
+export PATH='/home/kat0h/.cargo/bin':$PATH
+export PATH='/home/kat0h/mybin':$PATH
+export PATH='/home/kat0h/.bun/bin':$PATH
+export PATH='/opt/nvim-linux64/bin':$PATH
+export PATH='/home/kat0h/dotfiles/bin':$PATH
+export PATH='/home/kat0h/dotfiles/bin/sway':$PATH
+export PATH='/home/kat0h/.local/share/gem/ruby/3.0.0/bin':$PATH
+export PATH='/home/kat0h/.local/share/gem/ruby/3.0.0/bin':$PATH
+export PATH='/home/kat0h/.platformio/penv/bin':$PATH
+
 sleep 1

@@ -235,6 +235,12 @@ require("lazy").setup({
   {
     'vim-denops/denops.vim',
     lazy = false,
+    config = function ()
+      vim.cmd[[
+        let g:denops#deno = $HOME .. "/.deno/bin/deno"
+      ]]
+    end
+
   },
   {
     'vim-jp/vimdoc-ja',
