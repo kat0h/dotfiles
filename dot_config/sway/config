@@ -1,4 +1,4 @@
-# exec --no-startup-id waybar
+exec --no-startup-id waybar -c ~/.config/waybar/sway.jsonc
 exec --no-startup-id nm-applet
 exec --no-startup-id dunst
 exec --no-startup-id fcitx5 -d
@@ -30,10 +30,6 @@ input type:touchpad {
     natural_scroll enabled
     pointer_accel 0.5
 }
-
-bar {
-}
-
 
 # Home row direction keys, like vim
 set $left h
