@@ -19,16 +19,17 @@ default_border pixel
 mouse_warping container
 
 input type:keyboard {
-  xkb_options "ctrl:swapcaps
+    xkb_options "ctrl:swapcaps
     repeat_delay 300
     repeat_rate 50
 }
 
 input type:touchpad {
-  tap enabled
+    tap enabled
     dwt enabled
     natural_scroll enabled
     pointer_accel 0.5
+    scroll_factor 0.5
 }
 
 # Home row direction keys, like vim
@@ -108,16 +109,17 @@ bindsym $mod+a focus parent
 bindsym $mod+s scratchpad show
 bindsym $mod+Shift+s move scratchpad
 
+set $respix 40px
 mode "resize" {
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+  bindsym $left resize shrink width $respix
+    bindsym $down resize grow height $respix
+    bindsym $up resize shrink height $respix
+    bindsym $right resize grow width $respix
 
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+    bindsym Left resize shrink width $respix
+    bindsym Down resize grow height $respix
+    bindsym Up resize shrink height $respix
+    bindsym Right resize grow width $respix
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
