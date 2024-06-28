@@ -1,3 +1,5 @@
+let mapleader = "\<Space>"
+
 nnoremap <expr> N 'nN'[v:searchforward]
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <Esc><Esc> :nohlsearch<Cr>

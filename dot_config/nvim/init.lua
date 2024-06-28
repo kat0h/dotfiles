@@ -1,5 +1,6 @@
 require('base')
 
+-- ~/.local/share/nvim/lazy/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -143,7 +144,7 @@ require("lazy").setup({
       highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
       augroup lsp_document_highlight
       autocmd!
-      autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
+      " autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
       autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
       augroup END
       ]]
@@ -467,6 +468,63 @@ require("lazy").setup({
         vnoremap <leader>t :Translate<CR>
       ]]
     end
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require('copilot').setup({
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            jump_prev = "[[",
+            jump_next = "]]",
+            accept = "<CR>",
+            refresh = "gr",
+            open = "<M-CR>"
+          },
+          layout = {
+            position = "bottom", -- | top | left | right
+            ratio = 0.4
+          },
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          hide_during_completion = true,
+          debounce = 75,
+          keymap = {
+            accept = "<M-l>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
+        },
+        filetypes = {
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ["."] = false,
+        },
+        copilot_node_command = 'node', -- Node.js version must be > 18.x
+        server_opts_overrides = {},
+      })
+    end
+  },
+  {
+    'ctrlpvim/ctrlp.vim'
+  },
+  {
+    'thinca/vim-partedit'
   }
 }, {
   dev = {
