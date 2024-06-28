@@ -5,7 +5,7 @@
   "height": 30,
     // "spacing": 4, // Gaps between modules (4px)
     "modules-left": [
-      "sway/workspaces",
+      "sway/workspaces"
       // "wlr/taskbar"
     ],
     "modules-center": [
