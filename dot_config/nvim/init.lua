@@ -238,7 +238,7 @@ require("lazy").setup({
     lazy = false,
     config = function ()
       vim.cmd[[
-        let g:denops#deno = $HOME .. "/.deno/bin/deno"
+        " let g:denops#deno = $HOME .. "/.deno/bin/deno"
       ]]
     end
 
