@@ -4,13 +4,13 @@ exec --no-startup-id dunst
 exec --no-startup-id fcitx5 -d
 exec --no-startup-id autotiling
 exec --no-startup-id blueman-applet
-exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
+exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
 for_window [app_id="blueman-manager"] floating enable
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
 
 set $mod Mod4
-set $term foot
+set $term kitty
 set $menu wofi -n --show drun --allow-images
 
 output eDP-1 scale 1.25
@@ -64,6 +64,7 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
 
 # Switch to workspace
 bindsym $mod+1 workspace number 1

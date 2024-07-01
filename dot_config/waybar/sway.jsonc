@@ -59,10 +59,10 @@
       "format-full": "{capacity}% {icon}",
       "format-charging": "{capacity}% ",
       "format-plugged": "{capacity}% ",
-      "format-alt": "{time} {icon}",
+      "format-alt": "{time} {icon}"
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        // "format-icons": ["", "", "", "", ""]
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
