@@ -1,9 +1,0 @@
-#!/bin/sh
-
-ISMUTE=`pamixer --get-mute | awk '{if($0=="true"){print 1}else{print 0}}'`
-VOL=`pactl get-sink-volume @DEFAULT_SINK@ | awk 'NR==1{print substr($5, 1, length($5)-1)}'`
-
-print $VOL
-if [ $ISMUTE -eq "1" ]; then
-else
-fi

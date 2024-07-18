@@ -31,6 +31,8 @@ alias c="chezmoi"
 alias ccd="exec chezmoi cd"
 alias ced="chezmoi edit --watch"
 
+alias note="nvim ~/note.md"
+
 # define open command if xdg-open is exsits
 if type xdg-open > /dev/null; then
 	alias open='xdg-open'

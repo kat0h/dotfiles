@@ -16,8 +16,8 @@ export LIBSEAT_BACKEND=logind
 
 export WLR_DRM_NO_MODIFIERS=1
 
-# export GTK_IM_MODULE=fcitx
-# export QT_IM_MODULE=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
 export PATH='/home/kat0h/.deno/bin':$PATH

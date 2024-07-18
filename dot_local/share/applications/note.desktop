@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=note
+# Icon=note
+Exec=sh -c "nvim $HOME/note.md"
+Terminal=true
