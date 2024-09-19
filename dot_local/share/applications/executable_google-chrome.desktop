@@ -6,7 +6,7 @@ Name=Google Chrome
 GenericName=Web Browser
 Comment=Access the Internet
 StartupWMClass=Google-chrome
-Exec=/usr/bin/google-chrome-stable %U --ozone-platform-hint=wayland --gtk-version=4 --enable-features=TouchpadOverscrollHistoryNavigation --enable-wayland-ime
+Exec=/usr/bin/google-chrome-stable %U --ozone-platform-hint=wayland --gtk-version=4 --enable-features=TouchpadOverscrollHistoryNavigation
 StartupNotify=true
 Terminal=false
 Icon=google-chrome
@@ -23,4 +23,4 @@ Exec=/usr/bin/google-chrome-stable --ozone-platform-hint=wayland --gtk-version=4
 [Desktop Action new-private-window]
 Name=New Incognito Window
 StartupWMClass=Google-chrome
-Exec=/usr/bin/google-chrome-stable --incognito --ozone-platform-hint=wayland --gtk-version=4 --enable-features=TouchpadOverscrollHistoryNavigation --enable-wayland-ime
+Exec=/usr/bin/google-chrome-stable --incognito --ozone-platform-hint=wayland --gtk-version=4 --enable-features=TouchpadOverscrollHistoryNavigation

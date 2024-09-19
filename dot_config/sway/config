@@ -9,17 +9,27 @@ for_window [app_id="blueman-manager"] floating enable
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
 
+exec swayidle -w \
+  timeout 300 'swaylock -f' \
+  timeout 305 'swaymsg "output * power off"' \
+  resume 'swaymsg "output * power on"' \
+  before-sleep 'swaylock -f' \
+  before-sleep 'swaymsg "output * power off"' \
+  unlock 'swaymsg "output * power on"' \
+  after-resume 'swaymsg "output * power on"' \
+  lock 'swaylock -f'
+
 set $mod Mod4
 set $term kitty
 set $menu wofi -n --show drun --allow-images
 
 output eDP-1 scale 1.25
 
-default_border pixel
+default_border pixel 3
 mouse_warping container
 
 input type:keyboard {
-    xkb_options "ctrl:swapcaps
+    xkb_options caps:ctrl_modifier
     repeat_delay 300
     repeat_rate 50
 }

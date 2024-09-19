@@ -33,6 +33,8 @@ alias ced="chezmoi edit --watch"
 
 alias note="nvim ~/note.md"
 
+alias chmox="chmod +x"
+
 # define open command if xdg-open is exsits
 if type xdg-open > /dev/null; then
 	alias open='xdg-open'

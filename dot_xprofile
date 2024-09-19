@@ -29,7 +29,7 @@ export PATH='/opt/nvim-linux64/bin':$PATH
 export PATH='/home/kat0h/dotfiles/bin':$PATH
 export PATH='/home/kat0h/dotfiles/bin/sway':$PATH
 export PATH='/home/kat0h/.local/share/gem/ruby/3.0.0/bin':$PATH
-export PATH='/home/kat0h/.local/share/gem/ruby/3.0.0/bin':$PATH
-export PATH='/home/kat0h/.platformio/penv/bin':$PATH
+# export PATH='/home/kat0h/.local/share/gem/ruby/3.0.0/bin':$PATH
+# export PATH='/home/kat0h/.platformio/penv/bin':$PATH
 
 sleep 1
