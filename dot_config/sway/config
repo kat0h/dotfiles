@@ -11,7 +11,7 @@ exec --no-startup-id wl-paste --type image --watch cliphist store
 
 exec swayidle -w \
   timeout 500 'swaymsg exec hyprlock' \
-  timeout 800 'systemctl suspend-then-hibernate' \
+  timeout 800 'sleep.sh' \
   before-sleep 'swaymsg exec hyprlock'
 
 set $mod Mod4
@@ -103,9 +103,9 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+b splith
 bindsym $mod+v splitv
 
-# bindsym $mod+s layout stacking
-# bindsym $mod+w layout tabbed
-# bindsym $mod+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
@@ -118,8 +118,8 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Move the currently focused window to the scratchpad
-bindsym $mod+s scratchpad show
-bindsym $mod+Shift+s move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
 
 set $respix 40px
 mode "resize" {

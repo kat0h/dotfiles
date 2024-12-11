@@ -56,35 +56,3 @@ inoremap <silent><C-m> <C-g>u<C-m>
 " シュッと
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>p :bp<CR>
-
-" 全行ハイライト
-augroup VimrcFileType
-  autocmd!
-  autocmd FileType vue syntax sync fromstart
-  autocmd FileType html syntax sync fromstart
-augroup END
-
-" シュッと開くやつ
-command! VIM silent e ~/.vimrc | cd ~/dotfiles
-command! -nargs=1 -complete=file Open :call system("open".." '<args>'")
-
-" denoでシュッとリダイレクト先を探す
-function! GetRedirectUrl(url) abort
-  let r = system('curl -w "%{redirect_url}" -s -o /dev/null ' .. shellescape(a:url))
-  if r == ""
-    return a:url
-  endif
-  return r
-endfunction
-vnoremap r c<C-r>=GetRedirectUrl(@")<CR><esc>
-
-if !has('nvim')
-let s:cell = [
-      \]
-let s:cellwidths = []
-  for i in s:cell
-    let s:c = char2nr(i[0])
-    call add(s:cellwidths, [s:c, s:c, i[1]])
-  endfor
-  call setcellwidths(s:cellwidths)
-endif
