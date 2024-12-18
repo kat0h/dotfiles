@@ -236,7 +236,24 @@ local lazyconfig = {
   {
     'echasnovski/mini.nvim',
     config = function()
-      require('mini.animate').setup()
+      local anim = require('mini.animate')
+      anim.setup({
+        -- cursor = {
+        --   timing = anim.gen_timing.linear()
+        -- },
+        scroll = {
+          timing = anim.gen_timing.linear({ duration = 2 })
+        },
+        -- resize = {
+        --   timing = anim.gen_timing.linear()
+        -- },
+        -- open = {
+        --   timing = anim.gen_timing.linear()
+        -- },
+        -- close = {
+        --   timing = anim.gen_timing.linear()
+        -- },
+      })
       require('mini.pairs').setup()
       vim.keymap.set({ 'i' }, '<C-h>', '<BS>', { remap = true })
       require('mini.indentscope').setup()

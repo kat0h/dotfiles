@@ -30,8 +30,8 @@
       "spacing": 10
     },
     "clock": {
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "format-alt": "{:%Y-%m-%d}"
+      "format": "{:%Y-%m-%d / %H:%M}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {
       "format": "CPU:{usage}%",
@@ -42,30 +42,21 @@
     },
     "temperature": {
       "critical-threshold": 80,
-      "format": "TMP:{temperatureC}°C",
-      "format-icons": ["", "", ""]
+      "format": "TMP:{temperatureC}°C"
     },
     "backlight": {
-      "format": "BL:{percent}%",
-      "format-icons": ["", "", "", "", "", "", "", "", ""]
+      "format": "BL:{percent}%"
     },
     "battery": {
-      "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-      },
-      "format": "{capacity}% {icon}",
-      "format-full": "{capacity}% {icon}",
-      "format-charging": "{capacity}% ",
-      "format-plugged": "{capacity}% ",
-      "format-alt": "{time} {icon}"
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        // "format-icons": ["", "", "", "", ""]
+      "interval": 1,
+      "states": { "warning": 30, "critical": 15 },
+      "format": "BAT {capacity}%",
+      "format-full": "{capacity}%",
+      "format-charging": "AC {capacity}%",
+      "format-plugged": "AC {capacity}%",
+      "format-alt": "{time}"
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid}",
         "format-ethernet": "{ipaddr}/{cidr}",
         "tooltip-format": "{ifname} via {gwaddr}",
@@ -74,22 +65,12 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-          "headphone": "",
-          "hands-free": "",
-          "headset": "",
-          "phone": "",
-          "portable": "",
-          "car": "",
-          "default": ["", "", ""]
-        },
+        "format": "VOL: {volume}% {icon} {format_source}",
+        "format-bluetooth": "VOL: {volume}% BT {format_source}",
+        "format-bluetooth-muted": "MUTE BT {format_source}",
+        "format-muted": "MUTE {format_source}",
+        "format-source": "MIC: {volume}%",
+        "format-source-muted": "MIC: MUTE",
         "on-click": "pavucontrol"
     },
     "wlr/taskbar": {
