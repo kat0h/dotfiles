@@ -15,6 +15,7 @@ vim.opt.backup = false
 -- coding
 vim.opt.smartindent = true
 vim.opt.tabstop = 2
+vim.cmd [[ autocmd FileType Makfile setlocal noexpandtab ]]
 -- display
 vim.opt.number = true
 vim.opt.inccommand = 'split'
@@ -44,7 +45,8 @@ vim.keymap.set({ 'n' }, '<C-l>', '<C-w>l')
 -- buffer
 vim.api.nvim_set_keymap('n', '[b', '<cmd>bnext<cr>', { desc = 'Previous buffer' })
 vim.api.nvim_set_keymap('n', ']b', '<cmd>bnext<cr>', { desc = 'Next buffer' })
-
+-- visual
+vim.api.nvim_set_keymap('v', 'v', '$', { desc = "$" })
 
 
 function vim.g.get_start_directory()
@@ -440,7 +442,8 @@ local lazyconfig = {
   {
     'hrsh7th/nvim-dansa',
     config = function()
-      require('dansa').setup({
+      local dansa = require('dansa')
+      dansa.setup({
         enabled = true,
         scan_offset = 100,
         cutoff_count = 5,
@@ -453,6 +456,14 @@ local lazyconfig = {
             shiftwidth = 4,
           },
         }
+      })
+      dansa.setup.filetype('make', {
+        enabled = true,
+        scan_offset = 100,
+        cutoff_count = 5,
+        default = {
+          expandtab = false,
+        },
       })
     end
   },
