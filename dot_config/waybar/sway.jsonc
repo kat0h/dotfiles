@@ -68,7 +68,7 @@
         "format": "VOL: {volume}% {icon} {format_source}",
         "format-bluetooth": "VOL: {volume}% BT {format_source}",
         "format-bluetooth-muted": "MUTE BT {format_source}",
-        "format-muted": "MUTE {format_source}",
+        "format-muted": "VOL: MUTE {format_source}",
         "format-source": "MIC: {volume}%",
         "format-source-muted": "MIC: MUTE",
         "on-click": "pavucontrol"

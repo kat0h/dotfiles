@@ -21,11 +21,19 @@ compinit
 
 alias la="ls -la"
 alias p="python3"
-alias o="open"
 alias n="nvim \$(fzf)"
 
 alias ghrepo='cd $(ghq list --full-path | fzf)'
-alias open='xdg-open'
+function o() {
+  test -e "$1" || return
+  if [ -d "$1" ]; then
+    a=$(cd -- "$1" && pwd)
+  elif [ -f "$1" ]; then
+    d="$(cd -- "$(dirname -- "$1")" && pwd)" || return
+    a="${d%/}/$(basename -- "$1")"
+  fi
+  swaymsg exec xdg-open $a
+}
 
 alias c="chezmoi"
 alias ccd="exec chezmoi cd"
@@ -34,11 +42,6 @@ alias ced="chezmoi edit --watch"
 alias note="nvim ~/note.md"
 
 alias chmox="chmod +x"
-
-# define open command if xdg-open is exsits
-if type xdg-open > /dev/null; then
-	alias open='xdg-open'
-fi
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then

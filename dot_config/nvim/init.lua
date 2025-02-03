@@ -42,6 +42,9 @@ vim.keymap.set({ 'n' }, '<C-h>', '<C-w>h')
 vim.keymap.set({ 'n' }, '<C-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<C-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<C-l>', '<C-w>l')
+vim.api.nvim_set_keymap('n', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
+vim.api.nvim_set_keymap('x', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
+vim.api.nvim_set_keymap('o', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
 -- buffer
 vim.api.nvim_set_keymap('n', '[b', '<cmd>bnext<cr>', { desc = 'Previous buffer' })
 vim.api.nvim_set_keymap('n', ']b', '<cmd>bnext<cr>', { desc = 'Next buffer' })
@@ -104,10 +107,6 @@ local lazyconfig = {
     'vim-skk/skkeleton',
     lazy = false,
     dependencies = { 'vim-denops/denops.vim', 'delphinus/skkeleton_indicator.nvim' },
-    event = 'InsertEnter',
-    keys = {
-      { '<C-j>', '<Plug>(skkeleton-toggle)', mode={'i','c'} },
-    },
     config = function()
       -- 辞書: ~/.config/skk/SKK-JISYO.L
       -- データベース: ~/.cache/skkeleton.kv
@@ -128,6 +127,7 @@ local lazyconfig = {
         eggLikeNewline = true,
         databasePath = vim.fn.expand('~/.cache/skk.db'),
       })
+      vim.keymap.set({ 'i', 'c' }, '<C-j>', '<Plug>(skkeleton-toggle)')
     end,
   },
   -- colorscheme
@@ -259,7 +259,6 @@ local lazyconfig = {
       require('mini.pairs').setup()
       vim.keymap.set({ 'i' }, '<C-h>', '<BS>', { remap = true })
       require('mini.indentscope').setup()
-      require('mini.starter').setup()
       require('mini.bracketed').setup()
     end
   },
@@ -414,8 +413,8 @@ local lazyconfig = {
     config = function()
       vim.cmd[[
         " Expand
-        imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-        smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+        "imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+        "smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 
         " Expand or jump
         imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
