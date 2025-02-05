@@ -1,0 +1,102 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: monospace,sans-serif;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces {
+    margin-right: 8px;
+    border-radius: 10px;
+    background: #383c4a;
+}
+
+#workspaces button {
+    color: #7c818c;
+    background: transparent;
+    padding: 5px;
+    font-size: 18px;
+}
+#workspaces button.persistent { color: #7c818c; font-size: 12px; }
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    border-radius: inherit;
+    color: #383c4a;
+    background: #7c818c;
+}
+#workspaces button.focused { color: white; }
+
+#mode {
+    padding-left: 16px; padding-right: 16px; border-radius: 10px; color: #ffffff; background: #383c4a;
+}
+#clock {
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #ffffff;
+    background: #383c4a;
+}
+
+#pulseaudio {
+    padding: 0 8px;
+    padding-left: 16px;
+    border-radius: 10px 0px 0px 10px;
+    color: #ffffff;
+    background: #383c4a;
+}
+
+#pulseaudio.muted {
+    color: #90b1b1;
+}
+#battery {
+    color: #ffffff;
+    padding: 0 8px;
+    background: #383c4a;
+}
+#battery.charging {
+    color: #26A65B;
+}
+#battery.warning:not(.charging) {
+    color: #ffbe61;
+}
+#battery.critical:not(.charging) {
+    color: #ff0000;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear; animation-iteration-count: infinite; animation-direction: alternate;
+}
+
+#power-profiles-daemon {
+    padding: 0 8px;
+    color: #ffffff;
+    background: #383c4a;
+}
+
+#network {
+    margin-right: 8px;
+    padding: 0 8px;
+    padding-right: 16px;
+    border-radius: 0px 10px 10px 0px;
+    color: #ffffff;
+    background: #383c4a;
+}
+
+#tray {
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #ffffff;
+    background: #383c4a;
+}
+
+@keyframes blink { to { color: #ffffff; } }

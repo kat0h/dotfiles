@@ -20,8 +20,15 @@ set $term kitty
 set $menu rofi -show drun
 
 output eDP-1 scale 1
+# output * bg #222222 solid_color
+output * background $HOME/Dropbox/Images/wallpaper/wallpaper.jpg fill
 
-default_border pixel 3
+default_border pixel 4
+client.focused          #383c4a #383c4a #ffffff #383c4a
+client.focused_inactive #2c2f3a #2c2f3a #aaaaaa #2c2f3a
+client.unfocused        #252830 #252830 #888888 #252830
+client.urgent          #ff0000 #ff0000 #ffffff #ff0000
+
 gaps inner 10
 mouse_warping container
 

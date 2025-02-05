@@ -1,0 +1,26 @@
+wallpaper="~/path/to/wallpaper"
+hyprlock_font="sans-serif bold"
+zsh_plugins_dir="/usr/share/zsh/plugins"
+
+terminal="foot"
+fileManager="thunar"
+code_editor="nvim"# vim code-oss
+menu="wofi" # to use other apps, make sure that the settings are equivalent to the settings for wofi
+mainMod="SUPER"
+
+kb_layout="jp"
+
+# color palette RRGGBB
+col_accent="ffffff"
+col_warn="ff4444"
+col_nop="888888"
+col_bg="222222"
+col_fg="ffffff"
+
+# size
+border_radius=12
+border_width=4
+gap=8
+
+# img2palette
+# magick img.png -kmeans 8 -unique-colors txt:|grep -oP '#[0-9A-F]{6}'
