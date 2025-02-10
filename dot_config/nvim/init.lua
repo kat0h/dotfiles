@@ -1,4 +1,4 @@
-vim.bool_fn = setmetatable({}, {
+vim.bool_fn = setmetatable({}, {init
   __index = function(_, key)
     return function(...)
       local v = vim.fn[key](...)
@@ -45,8 +45,8 @@ vim.keymap.set({ 'n' }, '<C-l>', '<C-w>l')
 vim.api.nvim_set_keymap('n', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
 vim.api.nvim_set_keymap('x', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
 vim.api.nvim_set_keymap('o', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
-vim.api.nvim_set_keymap('n', 'j', 'gh', {silent=true,noremap=true})
 vim.api.nvim_set_keymap('n', 'j', 'gj', {silent=true,noremap=true})
+vim.api.nvim_set_keymap('n', 'k', 'gk', {silent=true,noremap=true})
 -- buffer
 vim.api.nvim_set_keymap('n', '[b', '<cmd>bnext<cr>', { desc = 'Previous buffer' })
 vim.api.nvim_set_keymap('n', ']b', '<cmd>bnext<cr>', { desc = 'Next buffer' })
