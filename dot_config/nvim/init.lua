@@ -45,11 +45,20 @@ vim.keymap.set({ 'n' }, '<C-l>', '<C-w>l')
 vim.api.nvim_set_keymap('n', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
 vim.api.nvim_set_keymap('x', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
 vim.api.nvim_set_keymap('o', '0', "getline('.')[0:col('.')-2]=~#'^\\s\\+$'?'0':'^'", {silent = true, noremap = true, expr = true})
+vim.api.nvim_set_keymap('n', 'j', 'gh', {silent=true,noremap=true})
+vim.api.nvim_set_keymap('n', 'j', 'gj', {silent=true,noremap=true})
 -- buffer
 vim.api.nvim_set_keymap('n', '[b', '<cmd>bnext<cr>', { desc = 'Previous buffer' })
 vim.api.nvim_set_keymap('n', ']b', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 -- visual
 vim.api.nvim_set_keymap('v', 'v', '$', { desc = "$" })
+-- insert
+vim.api.nvim_set_keymap('i', '<C-f>', '<right>', {silent=true, noremap=true})
+vim.api.nvim_set_keymap('i', '<C-b>', '<left>', {silent=true, noremap=true})
+vim.api.nvim_set_keymap('i', '<C-h>', '<bs>', {silent=true, noremap=true})
+vim.api.nvim_set_keymap('i', '<C-u>', '<esc>v^di', {silent=true, noremap=true})
+vim.api.nvim_set_keymap('i', '<C-e>', '<end>', {silent=true, noremap=true})
+vim.api.nvim_set_keymap('i', '<C-a>', '<home>', {silent=true, noremap=true})
 
 
 function vim.g.get_start_directory()

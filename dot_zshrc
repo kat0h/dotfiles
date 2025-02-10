@@ -32,7 +32,7 @@ function o() {
     d="$(cd -- "$(dirname -- "$1")" && pwd)" || return
     a="${d%/}/$(basename -- "$1")"
   fi
-  swaymsg exec xdg-open $a
+  niri msg action spawn -- xdg-open $a
 }
 
 alias c="chezmoi"

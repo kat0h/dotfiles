@@ -4,7 +4,7 @@
   "position": "top",
   "margin": "10 10 0 10",
   "height": 30,
-    "modules-left": [ "hyprland/workspaces", "hyprland/mode", "hyprland/scratchpad" ],
+    "modules-left": [ "niri/workspaces" ],
     "modules-center": [ "clock" ],
     "modules-right": [ "pulseaudio", "battery", "power-profiles-daemon", "network", "tray" ],
     "tray": {

@@ -17,20 +17,21 @@ exec swayidle -w \
 
 set $mod Mod4
 set $term kitty
-set $menu rofi -show drun
+set $menu fuzzel 
 
 output eDP-1 scale 1
 # output * bg #222222 solid_color
 output * background $HOME/Dropbox/Images/wallpaper/wallpaper.jpg fill
 
 default_border pixel 4
-client.focused          #383c4a #383c4a #ffffff #383c4a
-client.focused_inactive #2c2f3a #2c2f3a #aaaaaa #2c2f3a
+client.focused          #999fb2 #999fb2 #ffffff #999fb2
+client.focused_inactive #505050 #505050 #aaaaaa #505050
 client.unfocused        #252830 #252830 #888888 #252830
 client.urgent          #ff0000 #ff0000 #ffffff #ff0000
 
 gaps inner 10
 mouse_warping container
+corner_radius 10
 
 input type:keyboard {
     xkb_options caps:ctrl_modifier
@@ -160,7 +161,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
 bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
-bindsym $mod+Shift+v exec cliphist list | rofi -show dmenu | cliphist decode | wl-copy
+bindsym $mod+Shift+v exec cliphist list | fuzzel -d | cliphist decode | wl-copy
 
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
