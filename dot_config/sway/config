@@ -21,7 +21,7 @@ set $menu fuzzel
 
 output eDP-1 scale 1
 # output * bg #222222 solid_color
-output * background $HOME/Dropbox/Images/wallpaper/wallpaper.jpg fill
+output * background $HOME/Dropbox/Images/wallpaper/wallpaper1.jpg fill
 
 default_border pixel 4
 client.focused          #999fb2 #999fb2 #ffffff #999fb2
@@ -29,9 +29,8 @@ client.focused_inactive #505050 #505050 #aaaaaa #505050
 client.unfocused        #252830 #252830 #888888 #252830
 client.urgent          #ff0000 #ff0000 #ffffff #ff0000
 
-gaps inner 10
+# gaps inner 10
 mouse_warping container
-corner_radius 10
 
 input type:keyboard {
     xkb_options caps:ctrl_modifier

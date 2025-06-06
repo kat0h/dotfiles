@@ -1,0 +1,11 @@
+# link to .config/systemd/user/niri.service.wants 
+# https://github.com/YaLTeR/niri/wiki/Example-systemd-Setup
+
+[Unit]
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=xwayland-satellite
+Restart=on-failure

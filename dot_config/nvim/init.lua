@@ -1,4 +1,4 @@
-vim.bool_fn = setmetatable({}, {init
+vim.bool_fn = setmetatable({}, {
   __index = function(_, key)
     return function(...)
       local v = vim.fn[key](...)
@@ -13,9 +13,14 @@ vim.bool_fn = setmetatable({}, {init
 })
 vim.opt.backup = false
 -- coding
-vim.opt.smartindent = true
-vim.opt.tabstop = 2
 vim.cmd [[ autocmd FileType Makfile setlocal noexpandtab ]]
+vim.cmd [[
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set noexpandtab
+set number
+]]
 -- display
 vim.opt.number = true
 vim.opt.inccommand = 'split'
@@ -447,34 +452,34 @@ local lazyconfig = {
   {
     'thinca/vim-partedit',
   },
-  {
-    'hrsh7th/nvim-dansa',
-    config = function()
-      local dansa = require('dansa')
-      dansa.setup({
-        enabled = true,
-        scan_offset = 100,
-        cutoff_count = 5,
-        default = {
-          expandtab = true,
-          space = {
-            shiftwidth = 2,
-          },
-          tab = {
-            shiftwidth = 4,
-          },
-        }
-      })
-      dansa.setup.filetype('make', {
-        enabled = true,
-        scan_offset = 100,
-        cutoff_count = 5,
-        default = {
-          expandtab = false,
-        },
-      })
-    end
-  },
+  -- {
+  --   'hrsh7th/nvim-dansa',
+  --   config = function()
+  --     local dansa = require('dansa')
+  --     dansa.setup({
+  --       enabled = true,
+  --       scan_offset = 100,
+  --       cutoff_count = 5,
+  --       default = {
+  --         expandtab = true,
+  --         space = {
+  --           shiftwidth = 2,
+  --         },
+  --         tab = {
+  --           shiftwidth = 4,
+  --         },
+  --       }
+  --     })
+  --     dansa.setup.filetype('make', {
+  --       enabled = true,
+  --       scan_offset = 100,
+  --       cutoff_count = 5,
+  --       default = {
+  --         expandtab = false,
+  --       },
+  --     })
+  --   end
+  -- },
   {
     'kana/vim-textobj-entire', -- ie ae
     dependencies = {
