@@ -337,13 +337,13 @@ local lazyconfig = {
     'williamboman/mason-lspconfig.nvim',
     dependencies = { 'neovim/nvim-lspconfig' },
     config = function()
-      require('mason-lspconfig').setup_handlers({ function(server)
-        local opt = {
-          capabilities = require('cmp_nvim_lsp')
-          .default_capabilities(vim.lsp.protocol.make_client_capabilities())
-        }
-        require('lspconfig')[server].setup(opt)
-      end })
+      -- require('mason-lspconfig').setup_handlers({ function(server)
+      --   local opt = {
+      --     capabilities = require('cmp_nvim_lsp')
+      --     .default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      --   }
+      --   require('lspconfig')[server].setup(opt)
+      -- end })
     end
   },
   {
@@ -490,8 +490,16 @@ local lazyconfig = {
   {
     'vim-jp/vimdoc-ja',
   },
+  {
+	'kat0h/bufpreview.vim',
+    dependencies = { "vim-denops/denops.vim" },
+    build = "deno task prepare",
+  }
 }
 
 require('lazy_setup')
 require('lazy').setup(lazyconfig)
 
+vim.lsp.config('*', {
+	capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})

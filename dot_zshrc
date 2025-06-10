@@ -66,9 +66,9 @@ source "$HOME/.cache/env"
 # eval "$(nodenv init -)"
 # source $HOME/.cargo/env
 
-# if [[ ! -n $TMUX ]]; then
-#   tmux new-session
-# fi
+if [ ! -n $TMUX ] && [ -n $WAYLAND_DISPLAY]; then
+  tmux new-session
+fi
 
 # bun completions
 [ -s "/home/kat0h/.bun/_bun" ] && source "/home/kat0h/.bun/_bun"
