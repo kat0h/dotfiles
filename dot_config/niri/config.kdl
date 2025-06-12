@@ -188,7 +188,6 @@ environment {
     GDK_DPI_SCALE "1"
     QT_SCALE_FACTOR "1"
     WLR_DRM_NO_MODIFIERS "1"
-    GTK_IM_MODULE "fcitx5"
     QT_IM_MODULE "fcitx5"
     XMODIFIERS "@im=fcitx5"
     GTK_USE_PORTAL "1"

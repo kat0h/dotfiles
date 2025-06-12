@@ -1,4 +1,4 @@
-# Option
+# Ortion
 # export LANG=ja_JP.UTF-8
 bindkey -e
 setopt correct
@@ -24,15 +24,20 @@ alias p="python3"
 alias n="nvim \$(fzf)"
 
 alias ghrepo='cd $(ghq list --full-path | fzf)'
+
 function o() {
-  test -e "$1" || return
-  if [ -d "$1" ]; then
-    a=$(cd -- "$1" && pwd)
-  elif [ -f "$1" ]; then
-    d="$(cd -- "$(dirname -- "$1")" && pwd)" || return
-    a="${d%/}/$(basename -- "$1")"
-  fi
-  niri msg action spawn -- xdg-open $a
+	test -e "$1" || return
+	if [ -d "$1" ]; then
+		a=$(cd -- "$1" && pwd)
+	elif [ -f "$1" ]; then
+		d="$(cd -- "$(dirname -- "$1")" && pwd)" || return
+		a="${d%/}/$(basename -- "$1")"
+	fi
+	if [[ -n "$NIRI_SOCKET" ]]; then
+		niri msg action spawn -- xdg-open $a
+	elif [[ "$XDG_CURRENT_DESKTOP" == "Hyprland" ]]; then
+		hyprctl dispatch exec xdg-open $a > /dev/null
+	fi
 }
 
 alias c="chezmoi"
@@ -45,17 +50,17 @@ alias chmox="chmod +x"
 
 # For Mac OS
 if [[ "$(uname)" == "Darwin" ]]; then
-  # llvm
-  function llvm (){
-    export PATH="/usr/local/opt/llvm/bin:$PATH"
-    export LDFLAGS="-L/usr/local/opt/llvm/lib"
-    export CPPFLAGS="-I/usr/local/opt/llvm/include"
-    unset -f llvm
-  }
+	# llvm
+	function llvm (){
+		export PATH="/usr/local/opt/llvm/bin:$PATH"
+		export LDFLAGS="-L/usr/local/opt/llvm/lib"
+		export CPPFLAGS="-I/usr/local/opt/llvm/include"
+		unset -f llvm
+	}
 fi
 
 if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 export PATH="/usr/local/sbin:$PATH"
 
@@ -98,5 +103,5 @@ setopt hist_reduce_blanks
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
 if [[ ! -n $TMUX ]] && [[ -n $WAYLAND_DISPLAY ]]; then
-  exec tmux new-session
+	exec tmux new-session
 fi
