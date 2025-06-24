@@ -44,8 +44,8 @@ alias c="chezmoi"
 alias ccd="exec chezmoi cd"
 alias ced="chezmoi edit --watch"
 
+alias fvim='nvim $(fzf)'
 alias note="nvim ~/note.md"
-
 alias chmox="chmod +x"
 
 # For Mac OS
