@@ -1,3 +1,4 @@
+// e
 // "/-" comments out the following node.
 // Check the wiki for a full description of the configuration:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
@@ -262,6 +263,16 @@ window-rule {
 window-rule {
     geometry-corner-radius 10
     clip-to-geometry true
+}
+
+window-rule {
+	match is-floating=true
+	baba-is-float true
+}
+
+layer-rule {
+	match namespace="^launcher$"
+	baba-is-float true
 }
 
 binds {
