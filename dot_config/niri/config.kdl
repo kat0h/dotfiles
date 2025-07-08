@@ -59,7 +59,8 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    focus-follows-mouse max-scroll-amount="0%"
+    // focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="20%"
 }
 
 output "eDP-1" {
@@ -78,7 +79,7 @@ layout {
     // - "always", the focused column will always be centered.
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
-    // center-focused-column "on-overflow"
+    // center-focused-column "always"
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
@@ -167,10 +168,10 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
+        left 64
+        right 64
+        top 16
+        bottom 16
     }
 }
 
@@ -267,12 +268,12 @@ window-rule {
 
 window-rule {
 	match is-floating=true
-	baba-is-float true
+	baba-is-float false
 }
 
 layer-rule {
 	match namespace="^launcher$"
-	baba-is-float true
+	baba-is-float false
 }
 
 binds {
@@ -291,7 +292,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "kitty"; }
+    Mod+Return { spawn "kitty" "tmux_attach_or_open"; }
     Mod+D { spawn "fuzzel"; }
     Mod+Shift+V { spawn "sh" "-c" "cliphist list | fuzzel -d | cliphist decode | wl-copy"; }
     Super+Alt+L { spawn "hyprlock"; }

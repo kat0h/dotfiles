@@ -81,8 +81,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# asdf
-. $HOME/.asdf/asdf.sh
 
 export EDITOR=nvim
 
@@ -102,6 +100,5 @@ setopt hist_reduce_blanks
 # https://scrapbox.io/akiroom/zsh%E3%81%A7Ctrl+w%E3%81%97%E3%81%9F%E6%99%82%E3%81%AE%E5%8D%98%E8%AA%9E%E3%81%AE%E5%8C%BA%E5%88%87%E3%82%8A%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
-if [[ ! -n $TMUX ]] && [[ -n $WAYLAND_DISPLAY ]]; then
-	exec tmux new-session
-fi
+# asdf
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
