@@ -101,4 +101,4 @@ setopt hist_reduce_blanks
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
 # asdf
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

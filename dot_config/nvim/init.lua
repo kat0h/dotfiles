@@ -165,6 +165,9 @@ local lazyconfig = {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
+      local function getWords()
+	    return tostring(vim.fn.wordcount().visual_chars or "--") .. " 文字"
+      end
       require('lualine').setup {
         options = { theme = 'catppuccin', },
         sections = {
@@ -173,7 +176,9 @@ local lazyconfig = {
           lualine_c = {'filename'},
           lualine_x = {'encoding', 'filetype'},
           lualine_y = {'progress'},
-          lualine_z = {'location'}
+          lualine_z = {
+			  { getWords },
+		  }
         },
         inactive_sections = {
           lualine_a = {},
