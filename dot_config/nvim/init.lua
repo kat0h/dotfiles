@@ -339,18 +339,33 @@ local lazyconfig = {
     end,
   },
   {
-    'williamboman/mason-lspconfig.nvim',
-    dependencies = { 'neovim/nvim-lspconfig' },
-    config = function()
-      -- require('mason-lspconfig').setup_handlers({ function(server)
-      --   local opt = {
-      --     capabilities = require('cmp_nvim_lsp')
-      --     .default_capabilities(vim.lsp.protocol.make_client_capabilities())
-      --   }
-      --   require('lspconfig')[server].setup(opt)
-      -- end })
-    end
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+        { "mason-org/mason.nvim", opts = {} },
+        "neovim/nvim-lspconfig",
+    },
   },
+  -- {
+  --   'williamboman/mason-lspconfig.nvim',
+  --   dependencies = { 'neovim/nvim-lspconfig' },
+  --   config = function()
+  -- require('mason-lspconfig').setup_handlers({ function(server)
+  --   local opt = {
+  -- 	-- -- Function executed when the LSP server startup
+  -- 	-- on_attach = function(client, bufnr)
+  -- 	--   local opts = { noremap=true, silent=true }
+  -- 	--   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- 	--   vim.cmd 'autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)'
+  -- 	-- end,
+  -- 	capabilities = require('cmp_nvim_lsp').update_capabilities(
+  -- 	  vim.lsp.protocol.make_client_capabilities()
+  -- 	)
+  --   }
+  --   require('lspconfig')[server].setup(opt)
+  -- end })
+  --   end
+  -- },
   {
     'folke/lazydev.nvim',
     ft = 'lua',
@@ -457,34 +472,34 @@ local lazyconfig = {
   {
     'thinca/vim-partedit',
   },
-  -- {
-  --   'hrsh7th/nvim-dansa',
-  --   config = function()
-  --     local dansa = require('dansa')
-  --     dansa.setup({
-  --       enabled = true,
-  --       scan_offset = 100,
-  --       cutoff_count = 5,
-  --       default = {
-  --         expandtab = true,
-  --         space = {
-  --           shiftwidth = 2,
-  --         },
-  --         tab = {
-  --           shiftwidth = 4,
-  --         },
-  --       }
-  --     })
-  --     dansa.setup.filetype('make', {
-  --       enabled = true,
-  --       scan_offset = 100,
-  --       cutoff_count = 5,
-  --       default = {
-  --         expandtab = false,
-  --       },
-  --     })
-  --   end
-  -- },
+  {
+    'hrsh7th/nvim-dansa',
+    config = function()
+      local dansa = require('dansa')
+      dansa.setup({
+        enabled = true,
+        scan_offset = 100,
+        cutoff_count = 5,
+        default = {
+          expandtab = true,
+          space = {
+            shiftwidth = 2,
+          },
+          tab = {
+            shiftwidth = 4,
+          },
+        }
+      })
+      dansa.setup.filetype('make', {
+        enabled = true,
+        scan_offset = 100,
+        cutoff_count = 5,
+        default = {
+          expandtab = false,
+        },
+      })
+    end
+  },
   {
     'kana/vim-textobj-entire', -- ie ae
     dependencies = {

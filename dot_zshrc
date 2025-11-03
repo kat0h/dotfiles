@@ -35,6 +35,8 @@ function o() {
 	fi
 	if [[ -n "$NIRI_SOCKET" ]]; then
 		niri msg action spawn -- xdg-open $a
+	elif [[ -n "$SWAYSOCK" ]]; then
+		swaymsg exec -- xdg-open $a
 	elif [[ "$XDG_CURRENT_DESKTOP" == "Hyprland" ]]; then
 		hyprctl dispatch exec xdg-open $a > /dev/null
 	fi
@@ -101,4 +103,4 @@ setopt hist_reduce_blanks
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
 # asdf
-# export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

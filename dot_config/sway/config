@@ -16,22 +16,23 @@ exec swayidle -w \
   before-sleep 'pactl set-sink-mute @DEFAULT_SINK@ true; swaymsg exec hyprlock'
 
 set $mod Mod4
-set $term kitty
+set $term kitty tmux_attach_or_open
 set $menu fuzzel 
 
 output eDP-1 scale 1
 # output * bg #222222 solid_color
-output * background $HOME/Dropbox/images/wallpaper3.jpg fill
+output * background $HOME/Dropbox/images/wallpaper5.jpg fill
 
-default_border pixel 4
+# default_border pixel 4
 client.focused          #999fb2 #999fb2 #ffffff #999fb2
 client.focused_inactive #505050 #505050 #aaaaaa #505050
 client.unfocused        #252830 #252830 #888888 #252830
 client.urgent          #ff0000 #ff0000 #ffffff #ff0000
 
-# gaps inner 10
+gaps inner 10
 mouse_warping container
 
+input * xkb_options ctrl:nocaps
 input type:keyboard {
     xkb_options caps:ctrl_modifier
     repeat_delay 300
@@ -107,6 +108,9 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+Tab       workspace next
+bindsym $mod+Shift+Tab workspace prev
 
 bindsym $mod+b splith
 bindsym $mod+v splitv
