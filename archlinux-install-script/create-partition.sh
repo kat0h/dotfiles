@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e -x
 
 # 事前条件: $BLOCKDEVICEのサイズがEFI+SWAPSIZE+ROOTよりも小さいこと
 # $BLOCKDEVICEにパーティションテーブルが存在していないこと
@@ -8,7 +8,7 @@ gecho() {
     echo -e "\033[0;32m${*}\033[0m"
 }
 
-BLOCKDEVICE='/dev/sda'
+[ "$BLOCKDEVICE" ] || ( echo "ERR: BLOCKDEVICEを指定してください" ; exit 1 ;)
 EFIUUID=$(uuidgen)
 ROOTUUID=$(uuidgen)
 SWAPUUID=$(uuidgen)

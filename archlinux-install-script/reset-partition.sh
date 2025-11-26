@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BLOCKDEVICE="/dev/sda"
+[ $BLOCKDEVICE ] || ( echo "ERR: BLOCKDEVICEを指定してください" ; exit 1 ;)
 
 umount -R /mnt
 wipefs -af "$BLOCKDEVICE"
