@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e -x
+set -x
 
 # 事前条件:
 #   64bit EFI環境で起動している
@@ -85,7 +85,7 @@ arch-chroot /mnt <<- CHROOT
   $SETUP_NETWORK
   $KILL_CAPSLOCK
   $CREATE_USER
-  rm ~/.zsh_history
+  rm /root/.bash_history
 CHROOT
 
 ESP="/mnt/boot"
