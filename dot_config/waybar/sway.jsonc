@@ -4,55 +4,62 @@
   "position": "top",
   "margin": "10 10 0 10",
   "height": 30,
-    "modules-left": [ "sway/workspaces", "sway/mode", "sway/scratchpad" ],
-    "modules-center": [ "clock" ],
-    "modules-right": [ "pulseaudio", "battery", "power-profiles-daemon", "network", "tray" ],
-    "tray": {
-      "icon-size": 19,
-      "spacing": 16
-    },
-    "clock": {
-      "format": "{:%Y-%m-%d / %H:%M}",
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-    "battery": {
-      "interval": 1,
-      "states": { "warning": 30, "critical": 15 },
-      "format": "BAT:{capacity}%",
-      "format-full": "{capacity}%",
-      "format-charging": "AC:{capacity}%",
-      "format-plugged": "AC:{capacity}%",
-      "format-alt": "{time}"
-    },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "B",
-        "performance": "P",
-        "balanced": "B",
-        "power-saver": "S"
-      }
-    },
-    "network": {
-      "format-wifi": "{essid}",
-      "format-ethernet": "{ipaddr}/{cidr}",
-      "tooltip-format": "{ifname} via {gwaddr}",
-      "format-linked": "{ifname} (No IP)",
-      "format-disconnected": "Disconnected ⚠",
-      "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-      "format": "VOL:{volume}% {format_source}",
-      "format-muted": "VOL:MUTE {format_source}",
-      "format-bluetooth": "BT:{volume}% {format_source}",
-      "format-bluetooth-muted": "BT:MUTE {format_source}",
-      "format-source": "MIC:{volume}%",
-      "format-source-muted": "MIC:MUTE",
-      "on-click": "pavucontrol"
-    },
-    "wlr/taskbar": {
-      "on-click": "activate"
+  "modules-left": [ "sway/workspaces", "sway/mode", "sway/scratchpad" ],
+  "modules-center": [ "clock" ],
+  "modules-right": [ "pulseaudio", "battery", "power-profiles-daemon", "network", "tray" ],
+  "tray": {
+    "icon-size": 19,
+    "spacing": 16
+  },
+  "clock": {
+    "format": "{:%Y-%m-%d / %H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "battery": {
+    "interval": 1,
+    "states": { "warning": 30, "critical": 15 },
+    "format": "BAT:{capacity}%",
+    "format-full": "{capacity}%",
+    "format-charging": "AC:{capacity}%",
+    "format-plugged": "AC:{capacity}%",
+    "format-alt": "{time}"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "B",
+      "performance": "P",
+      "balanced": "B",
+      "power-saver": "S"
     }
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "network": {
+    "format-wifi": "{essid}",
+    "format-ethernet": "{ipaddr}/{cidr}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": "{ifname} (No IP)",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    "format": "VOL:{volume}% {format_source}",
+    "format-muted": "VOL:MUTE {format_source}",
+    "format-bluetooth": "BT:{volume}% {format_source}",
+    "format-bluetooth-muted": "BT:MUTE {format_source}",
+    "format-source": "MIC:{volume}%",
+    "format-source-muted": "MIC:MUTE",
+    "on-click": "pavucontrol"
+  },
+  "wlr/taskbar": {
+    "on-click": "activate"
+  }
 }

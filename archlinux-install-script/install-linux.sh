@@ -85,7 +85,7 @@ arch-chroot /mnt <<- CHROOT
   $SETUP_NETWORK
   $KILL_CAPSLOCK
   $CREATE_USER
-  rm ~/.bash_history
+  rm ~/.zsh_history
 CHROOT
 
 ESP="/mnt/boot"
