@@ -54,4 +54,3 @@ chattr +C /mnt/var/log
 chattr +C /mnt/var/cache
 mount --mkdir /dev/disk/by-partuuid/"$EFIUUID" /mnt/boot
 swapon /dev/disk/by-partuuid/"$SWAPUUID"
-
