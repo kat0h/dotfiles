@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e -x
-cd $(dirname $0)
 
 # setup proxy (for dev)
 # squidのプロキシを使うなら、export http_proxy='http://your_squid_machine_ip:3128/'
@@ -29,7 +28,7 @@ fi
 if ! git rev-parse --is-inside-work-tree; then
   cd
   git clone https://github.com/kat0h/dotfiles
-  cd dotfiles
+  cd dotfiles/archlinux-install-script/device
 fi
 
 # 事前条件
