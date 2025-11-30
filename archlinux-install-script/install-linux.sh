@@ -32,7 +32,7 @@ mkdir -p /mnt/etc
 [ -e /mnt/etc/vconsole.conf ] || echo "KEYMAP=$KEYMAP" | tee /mnt/etc/vconsole.conf
 
 if [ ! -e /mnt/etc/os-release ]; then
-  pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd"
+  pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmware"
   [ -n "$INTEL_UCODE" ] && pkglist="$pkglist intel-ucode"
   pacstrap -K /mnt $pkglist
 else
