@@ -75,7 +75,7 @@ SETUP_NETWORK="(
 )"
 KILL_CAPSLOCK="(
   pacman -S keyd
-  systemctl enable --now keyd
+  systemctl enable keyd
   tee /etc/default/keyd <<- KEYD
     [ids]
     *
@@ -83,7 +83,6 @@ KILL_CAPSLOCK="(
     [main]
     capslock = leftcontrol
 KEYD
-  keyd reload
 )"
 cp /etc/systemd/network/* /mnt/etc/systemd/network
 
