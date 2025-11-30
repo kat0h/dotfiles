@@ -73,6 +73,18 @@ SETUP_NETWORK="(
   umount /etc/resolv.conf
   ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 )"
+KILL_CAPSLOCK="(
+  pacman -S keyd
+  systemctl enable --now keyd
+  tee /etc/default/keyd <<- KEYD
+    [ids]
+    *
+
+    [main]
+    capslock = leftcontrol
+KEYD
+  keyd reload
+)"
 cp /etc/systemd/network/* /mnt/etc/systemd/network
 
 arch-chroot /mnt <<- CHROOT
@@ -91,6 +103,7 @@ arch-chroot /mnt <<- CHROOT
     /etc/pacman.conf
   pacman -Syy
   $SETUP_NETWORK
+  $KILL_CAPSLOCK
 CHROOT
 
 ESP="/mnt/boot"
