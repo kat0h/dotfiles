@@ -3,7 +3,7 @@
 
 umount -R /mnt
 wipefs -af "$BLOCKDEVICE"
-swapoff "$BLOCKDEVICE"3
+swapoff "$BLOCKDEVICE"p3
 
 partprobe "$BLOCKDEVICE"
 

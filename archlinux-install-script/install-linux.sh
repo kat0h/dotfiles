@@ -7,6 +7,7 @@ set -e -x
 #   /mntにターゲットの/がマウントされている
 #   REGION HOSTNAME ROOTPASSWD KEYMAPが定義されている
 #   INTEL_UCODEが定義されている(Intel機)
+#   USERNAME USERPASS
 
 # 事後条件:
 #   /mnt下にArchLinuxがインストールされる
@@ -20,7 +21,7 @@ gecho() {
 # 64bit環境
 [ "$(cat /sys/firmware/efi/fw_platform_size)" = "64" ]  || ( echo "not 64bit UEFI"; exit 1)
 
-for v in REGION HOSTNAME ROOTPASSWD KEYMAP
+for v in REGION HOSTNAME ROOTPASSWD KEYMAP USERNAME USERPASS
 do
   [ -z "${!v}" ] && echo "$v が未定義"
 done
@@ -58,20 +59,12 @@ fi
 genfstab -U /mnt > /mnt/etc/fstab
 
 # execute user environment
-INSTALL_YAY="(
-  install () {
-    pacman -S --needed git fakeroot binutils make gcc --noconfirm
-    cd /tmp
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-  }
-  which yay || install
-)"
 SETUP_NETWORK="(
   systemctl enable systemd-networkd systemd-resolved iwd
   umount /etc/resolv.conf
   ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+  mkdir /mnt/var/lib/iwd
+  cp -r /var/lib/iwd/* /mnt/var/lib/iwd
 )"
 KILL_CAPSLOCK="(
   pacman -S keyd --noconfirm
@@ -85,6 +78,11 @@ KILL_CAPSLOCK="(
 KEYD
 )"
 cp /etc/systemd/network/* /mnt/etc/systemd/network
+CREATE_USER="(
+  useradd -m -g wheel -G input $USERNAME
+  echo $USERPASS|passwd -s $USERNAME
+  sed -i -E 's/# (Defaults env_keep \+= \"HOME\"|%wheel ALL=\(ALL:ALL\) ALL)/\1/g' /etc/sudoers
+)"
 
 arch-chroot /mnt <<- CHROOT
   ln -sf /usr/share/zoneinfo/$REGION /etc/localtime
@@ -93,6 +91,7 @@ arch-chroot /mnt <<- CHROOT
       -e 's/^#\(ja_JP.UTF-8 UTF-8\)/\1/' \
       -e 's/^#\(en_US.UTF-8 UTF-8\)/\1/' \
       /etc/locale.gen
+  locale-gen
   echo "LANG=en_US.UTF-8" > /etc/locale.conf
   echo "$HOSTNAME" > /etc/hostname
   echo "$ROOTPASSWD" | passwd -s root
@@ -103,6 +102,8 @@ arch-chroot /mnt <<- CHROOT
   pacman -Syy
   $SETUP_NETWORK
   $KILL_CAPSLOCK
+  $CREATE_USER
+  rm ~/.bash_history
 CHROOT
 
 ESP="/mnt/boot"
