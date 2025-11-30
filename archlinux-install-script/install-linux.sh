@@ -26,24 +26,6 @@ do
   [ -z "${!v}" ] && echo "$v が未定義"
 done
 
-# setup proxy (for dev)
-# squidのプロキシを使うなら、export http_proxy='http://your_squid_machine_ip:3128/'
-(
-  cd /etc/pacman.d/
-  if [ -z "$http_proxy" ]
-  then
-    sed -i \
-      -e 's/^Server/#Server/' \
-      -e '/## Japan/,/## / s/^#\(Server = https:\)/\1/' \
-      mirrorlist
-  else
-    sed -i \
-      -e 's/^Server/#Server/' \
-      -e '/## Japan/,/## / s/^#\(Server = http:\)/\1/' \
-      mirrorlist
-  fi
-)
-
 loadkeys "$KEYMAP"
 timedatectl status
 mkdir -p /mnt/etc

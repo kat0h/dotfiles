@@ -2,14 +2,31 @@
 set -e
 cd $(dirname $0)
 
-if ! command -v git >/dev/null 2>&1; then
+# setup proxy (for dev)
+# squidのプロキシを使うなら、export http_proxy='http://your_squid_machine_ip:3128/'
+(
+  cd /etc/pacman.d/
+  if [ -z "$http_proxy" ]
+  then
+    sed -i \
+      -e 's/^Server/#Server/' \
+      -e '/## Japan/,/## / s/^#\(Server = https:\)/\1/' \
+      mirrorlist
+  else
+    sed -i \
+      -e 's/^Server/#Server/' \
+      -e '/## Japan/,/## / s/^#\(Server = http:\)/\1/' \
+      mirrorlist
+  fi
+)
+
+if ! command -v git; then
   pacman -Sy
   pacman -S --noconfirm git
 fi
 
 # curlで直接実行されているなど、他のファイルが読めない環境の場合
-git rev-parse --is-inside-work-tree > /dev/null 2>&1
-if [ $? -ne 0 ]; then
+if ! git rev-parse --is-inside-work-tree; then
   cd
   git clone https://github.com/kat0h/dotfiles
   cd dotfiles
