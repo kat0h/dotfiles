@@ -60,7 +60,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 # execute user environment
 INSTALL_YAY="(
   install () {
-    pacman -S --needed git fakeroot binutils make gcc --nocomfirm
+    pacman -S --needed git fakeroot binutils make gcc --noconfirm
     cd /tmp
     git clone https://aur.archlinux.org/yay.git
     cd yay
@@ -74,9 +74,9 @@ SETUP_NETWORK="(
   ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 )"
 KILL_CAPSLOCK="(
-  pacman -S keyd --nocomfirm
+  pacman -S keyd --noconfirm
   systemctl enable keyd
-  tee /etc/default/keyd <<- KEYD
+  tee /etc/keyd/default.conf <<- KEYD
     [ids]
     *
 
