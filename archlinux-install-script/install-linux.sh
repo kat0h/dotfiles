@@ -45,8 +45,8 @@ SETUP_NETWORK="(
   systemctl enable systemd-networkd systemd-resolved iwd
   umount /etc/resolv.conf
   ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-  mkdir /mnt/var/lib/iwd
-  cp -r /var/lib/iwd/* /mnt/var/lib/iwd
+  mkdir /mnt/var/lib/iwd # 動いてる？
+  cp -r /var/lib/iwd/* /mnt/var/lib/iwd/
 )"
 KILL_CAPSLOCK="(
   pacman -S keyd --noconfirm

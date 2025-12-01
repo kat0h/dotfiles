@@ -29,7 +29,7 @@ fi
 if ! git rev-parse --is-inside-work-tree; then
   cd
   git clone https://github.com/kat0h/dotfiles
-  cd dotfilesgarchlinux-install-script/device
+  cd dotfiles/archlinux-install-script/device
 fi
 
 # 事前条件

@@ -47,8 +47,8 @@ mount -o defaults,noatime,space_cache=v2,ssd,compress-force=zstd:1,commit=120,su
 mount --mkdir -o subvol=@home           /dev/disk/by-partuuid/"$ROOTUUID" /mnt/home
 mount --mkdir -o subvol=@var_log        /dev/disk/by-partuuid/"$ROOTUUID" /mnt/var/log
 mount --mkdir -o subvol=@var_cache      /dev/disk/by-partuuid/"$ROOTUUID" /mnt/var/cache
-# mount --mkdir -o subvol=@snapshots      /dev/disk/by-partuuid/"$ROOTUUID" /mnt/.snapshots
-# mount --mkdir -o subvol=@home_snapshots /dev/disk/by-partuuid/"$ROOTUUID" /mnt/home/.snapshots
+mount --mkdir -o subvol=@snapshots      /dev/disk/by-partuuid/"$ROOTUUID" /mnt/.snapshots
+mount --mkdir -o subvol=@home_snapshots /dev/disk/by-partuuid/"$ROOTUUID" /mnt/home/.snapshots
 # logとcacheについてはCoWを無効にする
 chattr +C /mnt/var/log
 chattr +C /mnt/var/cache
