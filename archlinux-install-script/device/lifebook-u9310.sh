@@ -51,3 +51,5 @@ export INTEL_UCODE=1
 
 ../create-partition.sh
 ../install-linux.sh
+
+echo 90 | tee /sys/class/power_supply/CMB1/charge_control_end_threshold

@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e -x
+
+# don't exec this script as super user
+
+sudo pacman -Syyu --noconfirm
+pacman -S noconfirm plasma dolphin firefox konsole noto-fonts-cjk cups system-config-printer ghostscript power-profiles-daemon
+systemctl enable --now sddm
+systemctl enable --now cups
+systemctl enable --now bluetooth
+systemctl enable --now power-profiles-daemon
+
+echo "systemctl start sddm"
+
+echo "change sddm theme"
+echo "change keyboard layout"
+echo "key repeat delay 350ms rate 60 repeats/s"
+echo "change trackpad scroll factor"
