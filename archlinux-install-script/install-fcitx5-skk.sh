@@ -4,6 +4,8 @@ set -e -x
 # for KDE
 # jp106 keyboard
 
+# TODO: 現在のfcitx5の設定を再度コピーする
+
 sudo pacman -S --noconfirm --needed fcitx5-skk fcitx5-breeze fcitx5-configtool
 # Fcitx should be launched by KWin under KDE Wayland in order to use Wayland input method frontend.
 # This can improve the experience when using Fcitx on Wayland. To configure this, you need to go to
