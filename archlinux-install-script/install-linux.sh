@@ -44,7 +44,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 
 # execute user environment
 SETUP_NETWORK="(
-  systemctl enable systemd-networkd systemd-resolved iwd
+  systemctl enable systemd-networkd systemd-resolved iwd systemd-timesyncd
   umount /etc/resolv.conf
   ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
   mkdir /mnt/var/lib/iwd # 動いてる？
