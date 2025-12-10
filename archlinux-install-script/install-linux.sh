@@ -34,7 +34,8 @@ mkdir -p /mnt/etc
 [ -e /mnt/etc/vconsole.conf ] || echo "KEYMAP=$KEYMAP" | tee /mnt/etc/vconsole.conf
 
 if [ ! -e /mnt/etc/os-release ]; then
-  pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmware"
+  pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmwarew"
+  # Direct firmware load for regulatory.db failed with error -2がiwで解消された？
   [ -n "$INTEL_UCODE" ] && pkglist="$pkglist intel-ucode"
   pacstrap -K /mnt $pkglist
 else
@@ -47,6 +48,7 @@ SETUP_NETWORK="(
   systemctl enable systemd-networkd systemd-resolved iwd systemd-timesyncd
   umount /etc/resolv.conf
   ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+  # https://x.com/McbeEringi/status/1780502324496212224?s=20 UECWireless周り
   mkdir /mnt/var/lib/iwd # 動いてる？
   cp -r /var/lib/iwd/* /mnt/var/lib/iwd/
 )"
@@ -59,6 +61,7 @@ KILL_CAPSLOCK="(
 
     [main]
     capslock = leftcontrol
+    katakanahiragana = space
 KEYD
 )"
 cp /etc/systemd/network/* /mnt/etc/systemd/network

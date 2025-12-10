@@ -1068,6 +1068,9 @@ require('lazy').setup({
     dependencies = { 'vim-denops/denops.vim' },
   },
   {
+    'lambdalisue/vim-suda',
+  },
+  {
     'delphinus/emcl.nvim',
     config = function()
       require('emcl').setup()
