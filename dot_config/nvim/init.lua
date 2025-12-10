@@ -963,21 +963,31 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
+      --       require('mini.surround').setup {
+
       require('mini.surround').setup({
         custom_surroundings = {
           -- LaTeX command
           ['\\'] = {
             -- TODO: input
-            output = function ()
+            output = function()
               if vim.bo.filetype == 'tex' then
-                local cmd = MiniSurround.user_input('Command?')
-                return { left = '\\' .. cmd .. '{', right = '}'}
+                local cmd = MiniSurround.user_input 'Command?'
+                if cmd == 'begin' then
+                  local env = MiniSurround.user_input 'Environment?'
+                  return {
+                    left = '\\begin{' .. env .. '}\n',
+                    right = '\n\\end{' .. env .. '}',
+                  }
+                else
+                  return { left = '\\' .. cmd .. '{', right = '}' }
+                end
               else
                 return { left = '\\', right = '\\' }
               end
-            end
-          }
-        }
+            end,
+          },
+        },
       })
 
       -- Simple and easy statusline.
