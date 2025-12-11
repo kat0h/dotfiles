@@ -6,6 +6,8 @@ set -e -x
 #   一般ユーザでログインしていること
 #   yayがインストールされていること
 
-yay -S --noconfirm --needed github-cli btop vim neovim-nightly-bin lazygit tailscale-git openssh wget ttf-moralerspace impala btop dosfstools
+yay -S --noconfirm --needed github-cli btop vim neovim-nightly-bin lazygit tailscale-git openssh wget ttf-moralerspace impala btop dosfstools timeshift timeshift-systemd-timer
 systemctl enable --now tailscaled
+systemctl enable --now timeshift-hourly.timer
 which deno || curl -fsSL https://deno.land/install.sh | sh
+
