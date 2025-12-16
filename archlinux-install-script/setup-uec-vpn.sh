@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e -x
 
-yay -S xl2tpd libreswan ppp --needed --noconfirm
-systemctl start ipsec
+yay -S networkmanager-l2tp strongswan xl2tpd --needed
+systemctl enable --now strongswan-starter xl2tpd
 
-# https://libreswan.org/wiki/VPN_server_for_remote_clients_using_IKEv1_with_L2TP
-# /etc/ipsec.secrets
+# KDEの設定から、L2TPの設定をして接続すればOK

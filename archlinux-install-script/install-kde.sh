@@ -9,6 +9,8 @@ systemctl enable --now sddm
 systemctl enable --now cups
 systemctl enable --now bluetooth
 systemctl enable --now power-profiles-daemon
+systemctl disable systemd-networkd systemd-resolved iwd
+systemctl enable NetworkManager
 
 echo "systemctl start sddm"
 
