@@ -4,13 +4,13 @@ set -e -x
 # don't exec this script as super user
 
 sudo pacman -Syyu --noconfirm
-pacman -S noconfirm plasma dolphin firefox konsole noto-fonts-cjk cups system-config-printer ghostscript power-profiles-daemon kdegraphics-thumbnailers  packagekit-qt6 xdg-desktop-portal xdg-desktop-portal-kde
-systemctl enable --now sddm
-systemctl enable --now cups
-systemctl enable --now bluetooth
-systemctl enable --now power-profiles-daemon
-systemctl disable systemd-networkd systemd-resolved iwd
-systemctl enable NetworkManager
+pacman -S --noconfirm plasma dolphin firefox konsole noto-fonts-cjk cups system-config-printer ghostscript power-profiles-daemon kdegraphics-thumbnailers  packagekit-qt6 xdg-desktop-portal xdg-desktop-portal-kde
+sudo systemctl enable --now sddm
+sudo systemctl enable --now cups
+sudo systemctl enable --now bluetooth
+sudo systemctl enable --now power-profiles-daemon
+sudo systemctl disable systemd-networkd systemd-resolved iwd
+sudo systemctl enable NetworkManager
 
 echo "systemctl start sddm"
 
