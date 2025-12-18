@@ -156,7 +156,7 @@ HIRAGANA
     "keymap": {
       ";": "start-preedit-no-delete",
       "l": null,
-      "\\": null
+      "\\\\": null
     }
   }
 }
