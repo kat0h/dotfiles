@@ -34,7 +34,7 @@ mkdir -p /mnt/etc
 [ -e /mnt/etc/vconsole.conf ] || echo "KEYMAP=$KEYMAP" | tee /mnt/etc/vconsole.conf
 
 if [ ! -e /mnt/etc/os-release ]; then
-  pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmwarew"
+  pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmware"
   # Direct firmware load for regulatory.db failed with error -2がiwで解消された？
   [ -n "$INTEL_UCODE" ] && pkglist="$pkglist intel-ucode"
   pacstrap -K /mnt $pkglist
