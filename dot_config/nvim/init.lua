@@ -104,7 +104,7 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- Make line numbers default
+-- Make line numbers default.
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
@@ -226,6 +226,12 @@ vim.keymap.set('i', '<C-p>', '<Up>')
 vim.keymap.set('i', '<C-a>', '<Home>')
 vim.keymap.set('i', '<C-e>', '<End>')
 
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.softtabstop = -1
+vim.o.shiftwidth = 2
+vim.o.smarttab = true
+
 
 -- NOTE: 設定したい
 -- gfとgFを入れ換える
@@ -270,15 +276,7 @@ rtp:prepend(lazypath)
 --  To update plugins you can run
 --    :Lazy update
 --
--- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  {
-    'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-    config = function()
-      require('guess-indent').setup {}
-    end,
-  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -943,6 +941,22 @@ require('lazy').setup({
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
+    keys = {
+      {
+        "<leader>e",
+        function()
+          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+        end,
+        desc = "Open mini.files (Directory of Current File)",
+      },
+      {
+        "<leader>E",
+        function()
+          require("mini.files").open(vim.uv.cwd(), true)
+        end,
+        desc = "Open mini.files (cwd)",
+      },
+    },
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -969,7 +983,6 @@ require('lazy').setup({
         custom_surroundings = {
           -- LaTeX command
           ['\\'] = {
-            -- TODO: input
             output = function()
               if vim.bo.filetype == 'tex' then
                 local cmd = MiniSurround.user_input 'Command?'
@@ -1005,6 +1018,7 @@ require('lazy').setup({
         return '%2l:%-2v'
       end
 
+      require('mini.files').setup()
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -1037,9 +1051,9 @@ require('lazy').setup({
   {
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeToggle', 'NvimTreeOpen' },
-    keys = {
-      { '<leader>e', '<cmd>NvimTreeToggle<cr>', mode = 'n', desc = 'toggle [e]xplorer' },
-    },
+    -- keys = {
+    --   { '<leader>e', '<cmd>NvimTreeToggle<cr>', mode = 'n', desc = 'toggle [e]xplorer' },
+    -- },
     config = function()
       require('nvim-tree').setup()
     end,
@@ -1094,11 +1108,6 @@ require('lazy').setup({
     config = function()
       require('emcl').setup()
     end,
-  },
-  {
-    'nvim-zh/colorful-winsep.nvim',
-    config = true,
-    event = { 'WinLeave' },
   },
   {
     'Bakudankun/BackAndForward.vim',
