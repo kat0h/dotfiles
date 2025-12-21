@@ -945,18 +945,23 @@ require('lazy').setup({
       {
         "<leader>e",
         function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+          if not require('mini.files').close() then
+            require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+          end
         end,
         desc = "Open mini.files (Directory of Current File)",
       },
       {
         "<leader>E",
         function()
-          require("mini.files").open(vim.uv.cwd(), true)
+          if not require('mini.files').close() then
+            require("mini.files").open(vim.uv.cwd(), true)
+          end
         end,
         desc = "Open mini.files (cwd)",
       },
     },
+    lazy = false,
     config = function()
       -- Better Around/Inside textobjects
       --
