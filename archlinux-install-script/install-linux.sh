@@ -113,6 +113,7 @@ LOADERCONF
     options root=UUID=$ROOTUUID rootflags=subvol=/@ rw
 ARCHCONF
 }
+#TODO: resume
 if [ ! -e "$ESP"/loader/loader.conf ]; then
   install_bootloader
 else
