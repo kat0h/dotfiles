@@ -61,7 +61,7 @@ KILL_CAPSLOCK="(
 
     [main]
     capslock = leftcontrol
-    katakanahiragana = space
+    henkan = leftcontrol
 KEYD
 )"
 cp /etc/systemd/network/* /mnt/etc/systemd/network

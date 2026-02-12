@@ -141,7 +141,6 @@ METADATA
   "define": {
     "keymap": {
       ";": "start-preedit-no-delete",
-      "l": null,
       "\\": null
     }
   }
@@ -155,7 +154,6 @@ HIRAGANA
   "define": {
     "keymap": {
       ";": "start-preedit-no-delete",
-      "l": null,
       "\\\\": null
     }
   }
