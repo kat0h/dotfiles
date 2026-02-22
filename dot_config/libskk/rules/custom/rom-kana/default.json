@@ -1,9 +1,0 @@
-{
-	"include": ["default/default"],
-	"define": {
-		"rom-kana": {
-			"wh": ["x", "う"],
-			"!": ["", "！"]
-		}
-	}
-}
