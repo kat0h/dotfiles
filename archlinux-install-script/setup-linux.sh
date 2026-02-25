@@ -20,18 +20,25 @@ gecho() {
 # 64bit環境
 [ "$(cat /sys/firmware/efi/fw_platform_size)" = "64" ]  || ( echo "not 64bit UEFI"; exit 1)
 
-for v in REGION HOSTNAME ROOTPASSWD KEYMAP USERNAME USERPASS
+for v in REGION HOSTNAME ROOTPASSWD USERNAME USERPASS
 do
-  [ -z "${!v}" ] && echo "$v が未定義"
+  if [ -z "${!v}" ]
+  then
+    echo "$v が未定義"
+    exit
+  fi
 done
 
-loadkeys "$KEYMAP"
+read -p インストールを開始します\>
+
 timedatectl status
 mkdir -p /mnt/etc
 [ -e /mnt/etc/vconsole.conf ] || echo "KEYMAP=$KEYMAP" | tee /mnt/etc/vconsole.conf
 
+read -p 必須のパッケージをインストールします
 if [ ! -e /mnt/etc/os-release ]; then
   pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmware bash bash-completion"
+  [ -e /boot/intel-ucode.img ] && rm /boot/intel-ucode.img
   [ -n "$INTEL_UCODE" ] && pkglist="$pkglist intel-ucode"
   pacstrap -K /mnt $pkglist
 else
@@ -48,6 +55,7 @@ CREATE_USER="(
   sed -i -E 's/# (Defaults env_keep \+= \"HOME\"|%wheel ALL=\(ALL:ALL\) ALL)/\1/g' /etc/sudoers
 )"
 
+read -p arch-chrootします
 arch-chroot /mnt <<- CHROOT
   ln -sf /usr/share/zoneinfo/$REGION /etc/localtime
   hwclock --systohc
@@ -86,10 +94,9 @@ create_bootloader_conf () {
     linux   /vmlinuz-linux
     initrd  /initramfs-linux.img
     $( [ -n "$INTEL_UCODE" ] && printf "initrd  /intel-ucode.img\n" )
-    options root=UUID=$ROOTUUID rootflags=subvol=/@ rw "resume=UUID=$(swapon --show=UUID | tail -n 1)"
+    options root=UUID=$ROOTUUID rootflags=subvol=/@ rw resume=UUID=$(swapon --show=UUID | tail -n 1)
 ARCHCONF
 }
-#TODO: resumeをできるようにするにはSWAPのUUIDを知る必要がある。どうやって取得する?
 if [ ! -e "$ESP"/loader/loader.conf ]; then
   install_bootloader
 else
@@ -98,3 +105,4 @@ fi
 create_bootloader_conf
 
 echo Install completed. Please setup some network daemon.
+read

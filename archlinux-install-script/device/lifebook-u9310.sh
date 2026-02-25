@@ -46,7 +46,6 @@ export USERNAME
 read -p "USERPASS? > " USERPASS
 export USERPASS
 export REGION="Asia/Tokyo"
-export KEYMAP="jp106"
 export INTEL_UCODE=1
 
 ../create-partition.sh
