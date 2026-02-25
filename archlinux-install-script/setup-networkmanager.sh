@@ -1,0 +1,2 @@
+sudo pacman -S networkmanager
+sudo systemctl enable NetworkManager

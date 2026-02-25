@@ -44,6 +44,7 @@ fi
 genfstab -U /mnt > /mnt/etc/fstab
 
 # execute user environment
+# TODO: ネットワークの設定をsetup-iwd.shに任せる
 SETUP_NETWORK="(
   systemctl enable systemd-networkd systemd-resolved iwd systemd-timesyncd
   umount /etc/resolv.conf

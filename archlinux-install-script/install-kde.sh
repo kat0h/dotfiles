@@ -8,8 +8,6 @@ pacman -S --noconfirm plasma dolphin firefox konsole noto-fonts-cjk cups system-
 sudo systemctl enable --now cups
 sudo systemctl enable --now bluetooth
 sudo systemctl enable --now power-profiles-daemon
-sudo systemctl disable systemd-networkd systemd-resolved iwd
-sudo systemctl enable NetworkManager
 sudo systemctl enable --now sddm
 
 echo "systemctl start sddm"
