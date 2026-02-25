@@ -6,7 +6,7 @@ set -e -x
 #   一般ユーザでログインしていること
 #   yayがインストールされていること
 
-yay -S --noconfirm --needed github-cli btop vim neovim-nightly-bin lazygit tailscale-git openssh wget ttf-moralerspace impala btop dosfstools timeshift timeshift-systemd-timer zoxide fzf ghq deno
+yay -S --noconfirm --needed github-cli btop vim neovim-nightly-bin unzip lazygit tailscale-git openssh wget ttf-moralerspace impala btop dosfstools timeshift timeshift-systemd-timer zoxide fzf ghq deno mpv ffmpeg rclone
 sudo systemctl enable --now tailscaled
 sudo systemctl enable --now timeshift-hourly.timer
 

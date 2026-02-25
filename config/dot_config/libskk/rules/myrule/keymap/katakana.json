@@ -1,0 +1,13 @@
+{
+  "include": [
+    "default/katakana"
+  ],
+  "define": {
+    "keymap": {
+      ";": "start-preedit-no-delete",
+      "\\": null,
+      "l": null
+    }
+  }
+}
+

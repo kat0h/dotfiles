@@ -4,7 +4,7 @@ set -e -x
 # don't exec this script as super user
 
 sudo pacman -Syyu --noconfirm
-pacman -S --noconfirm plasma dolphin firefox konsole noto-fonts-cjk cups system-config-printer ghostscript power-profiles-daemon kdegraphics-thumbnailers  packagekit-qt6 xdg-desktop-portal xdg-desktop-portal-kde
+pacman -S plasma dolphin firefox konsole noto-fonts-cjk cups system-config-printer ghostscript power-profiles-daemon kdegraphics-thumbnailers  packagekit-qt6 xdg-desktop-portal xdg-desktop-portal-kde kimageformats libheif gwenview
 sudo systemctl enable --now cups
 sudo systemctl enable --now bluetooth
 sudo systemctl enable --now power-profiles-daemon

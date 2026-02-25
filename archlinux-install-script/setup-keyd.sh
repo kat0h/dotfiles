@@ -9,5 +9,6 @@ tee /etc/keyd/default.conf <<- KEYD
 
 [main]
 capslock = leftcontrol
+muhenkan = leftcontrol
 KEYD
 

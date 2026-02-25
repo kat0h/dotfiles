@@ -22,6 +22,12 @@ BASHRC="${HOME}/.bashrc"
 # zle -N ghql
 # bindkey '^g' ghql
 
+tee -a "${BASHRC}" << BASHRC_EOL
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \w]\$ '
+export EDITOR=nvim
+BASHRC_EOL
 
 sudo pacman -S zoxide ghq
 
