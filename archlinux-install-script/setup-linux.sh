@@ -77,9 +77,9 @@ arch-chroot /mnt <<- CHROOT
 CHROOT
 
 ESP="/mnt/boot"
+ROOTUUID="$(grep -oP '(?<=UUID=)[0-9a-fA-F-]+(?=.*subvol=/@)' /mnt/etc/fstab | head -n1)"
 # Install Boot Loader
 install_bootloader () {
-  ROOTUUID="$(grep -oP '(?<=UUID=)[0-9a-fA-F-]+(?=.*subvol=/@)' /mnt/etc/fstab | head -n1)"
   bootctl install --esp-path="$ESP"
   tee "$ESP"/loader/loader.conf <<- LOADERCONF
     default  arch.conf
