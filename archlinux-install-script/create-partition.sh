@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e -x
 
+# 空のディスクにLinux用のパーティションを
 # 事前条件: $BLOCKDEVICEのサイズがEFI+SWAPSIZE+ROOTよりも小さいこと
 # $BLOCKDEVICEにパーティションテーブルが存在していないこと
 

@@ -11,10 +11,7 @@ set -x
 
 # 事後条件:
 #   /mnt下にArchLinuxがインストールされる
-#   systemd-networkdによってインターネットに接続できる
 
-
-# ハイバネートから復帰する設定をする
 
 gecho() {
     echo -e "\033[0;32m${*}\033[0m"
@@ -35,7 +32,6 @@ mkdir -p /mnt/etc
 
 if [ ! -e /mnt/etc/os-release ]; then
   pkglist="base base-devel linux linux-firmware efibootmgr btrfs-progs fastfetch pacman-contrib iwd sof-firmware bash bash-completion"
-  # Direct firmware load for regulatory.db failed with error -2がiwで解消された？
   [ -n "$INTEL_UCODE" ] && pkglist="$pkglist intel-ucode"
   pacstrap -K /mnt $pkglist
 else
@@ -44,28 +40,8 @@ fi
 genfstab -U /mnt > /mnt/etc/fstab
 
 # execute user environment
-# TODO: ネットワークの設定をsetup-iwd.shに任せる
-SETUP_NETWORK="(
-  systemctl enable systemd-networkd systemd-resolved iwd systemd-timesyncd
-  umount /etc/resolv.conf
-  ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-  # https://x.com/McbeEringi/status/1780502324496212224?s=20 UECWireless周り
-  mkdir /mnt/var/lib/iwd # 動いてる？
-  cp -r /var/lib/iwd/* /mnt/var/lib/iwd/
-)"
-KILL_CAPSLOCK="(
-  pacman -S keyd --noconfirm
-  systemctl enable keyd
-  tee /etc/keyd/default.conf <<- KEYD
-    [ids]
-    *
+# TODO: ネットワークの設定
 
-    [main]
-    capslock = leftcontrol
-    henkan = leftcontrol
-KEYD
-)"
-cp /etc/systemd/network/* /mnt/etc/systemd/network
 CREATE_USER="(
   useradd -m -g wheel -G input $USERNAME
   echo $USERPASS|passwd -s $USERNAME
@@ -88,8 +64,6 @@ arch-chroot /mnt <<- CHROOT
     -e 's/^#\(Color\)/\1/' \
     /etc/pacman.conf
   pacman -Syy
-  $SETUP_NETWORK
-  $KILL_CAPSLOCK
   $CREATE_USER
   rm /root/.bash_history
 CHROOT
@@ -105,18 +79,22 @@ install_bootloader () {
     console-mode auto
     editor   no
 LOADERCONF
-
-  tee "$ESP"/loader/entries/arch.conf <<- ARCHCONF
-    title   Arch Linux
+}
+create_bootloader_conf () {
+  tee "$ESP"/loader/entries/arch-$(date -I).conf <<- ARCHCONF
+    title   Arch Linux $(date -I)
     linux   /vmlinuz-linux
     initrd  /initramfs-linux.img
     $( [ -n "$INTEL_UCODE" ] && printf "initrd  /intel-ucode.img\n" )
-    options root=UUID=$ROOTUUID rootflags=subvol=/@ rw
+    options root=UUID=$ROOTUUID rootflags=subvol=/@ rw "resume=UUID=$(swapon --show=UUID | tail -n 1)"
 ARCHCONF
 }
-#TODO: resume
+#TODO: resumeをできるようにするにはSWAPのUUIDを知る必要がある。どうやって取得する?
 if [ ! -e "$ESP"/loader/loader.conf ]; then
   install_bootloader
 else
   gecho bootloader already installed skip...
 fi
+create_bootloader_conf
+
+echo Install completed. Please setup some network daemon.
