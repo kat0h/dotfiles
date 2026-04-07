@@ -311,7 +311,12 @@ require('lazy').setup({
       },
     },
   },
-
+  {
+    dir = '~/ghq/github.com/kat0h/bufpreview.vim',
+    dependencies = { "vim-denops/denops.vim" },
+    build = "deno task prepare",
+    lazy = false,
+  },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle

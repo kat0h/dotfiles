@@ -10,5 +10,7 @@ tee /etc/keyd/default.conf <<- KEYD
 [main]
 capslock = leftcontrol
 muhenkan = leftcontrol
+hangeul = leftcontrol
+hanja = leftcontrol
 KEYD
 
