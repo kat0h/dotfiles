@@ -1103,6 +1103,10 @@ require('lazy').setup({
         eggLikeNewline = true,
         databasePath = vim.fn.expand '~/.cache/skk.db',
       }
+      vim.fn['skkeleton#register_kanatable'] ('rom', {
+        [','] = {'，', ''},
+        ['.'] = {'．', ''},
+      })
       vim.keymap.set({ 'i', 'c' }, '<C-j>', '<Plug>(skkeleton-toggle)')
     end,
   },
