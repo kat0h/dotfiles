@@ -8,9 +8,21 @@ tee /etc/keyd/default.conf <<- KEYD
 *
 
 [main]
-capslock = leftcontrol
-muhenkan = leftcontrol
-hangeul = leftcontrol
-hanja = leftcontrol
+muhenkan = layer(control)
+hangeul = overload(control, hangeul)
+hanja = overload(control, hanja)
+leftcontrol = layer(recontrol)
+capslock = layer(recontrol)
+
+[recontrol:C]
+p = up
+n = down
+f = right
+b = left
+h = backspace
+e = end
+a = home
+i = tab
+
 KEYD
 
