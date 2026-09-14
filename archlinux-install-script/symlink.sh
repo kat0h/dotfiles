@@ -5,6 +5,8 @@ cd ../config
 
 # neovim
 ln -sf $PWD/dot_config/nvim $HOME/.config/nvim
+# hyprland
+ln -sf $PWD/dot_config/hypr/hyprland.lua $HOME/.config/hypr/hyprland.lua
 # git
 ln -sf $PWD/dot_gitconfig   $HOME/.gitconfig
 # tmux
