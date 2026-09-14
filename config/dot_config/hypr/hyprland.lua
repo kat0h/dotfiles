@@ -52,6 +52,9 @@ hl.on("hyprland.start", function()
     -- KDE's Fcitx5 Wayland launcher is not started automatically in Hyprland.
     hl.exec_cmd("fcitx5 --replace -d")
     hl.exec_cmd("noctalia --daemon")
+    -- Make the portal usable when Hyprland is started without a graphical-session.target.
+    hl.exec_cmd("systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_SCALE_FACTOR")
+    hl.exec_cmd("systemctl --user start --job-mode=ignore-dependencies xdg-desktop-portal.service")
 end)
 
 
@@ -326,13 +329,6 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
 end
-
--- Keep the main workspaces visible in Noctalia's workspace indicator.
-hl.workspace_rule({ workspace = "1", monitor = "eDP-1", persistent = true, default_name = "web" })
-hl.workspace_rule({ workspace = "2", monitor = "eDP-1", persistent = true, default_name = "code" })
-hl.workspace_rule({ workspace = "3", monitor = "eDP-1", persistent = true, default_name = "chat" })
-hl.workspace_rule({ workspace = "4", monitor = "eDP-1", persistent = true, default_name = "game" })
-hl.workspace_rule({ workspace = "5", monitor = "eDP-1", persistent = true, default_name = "design" })
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
