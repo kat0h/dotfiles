@@ -53,7 +53,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("fcitx5 --replace -d")
     hl.exec_cmd("noctalia --daemon")
     -- Make the portal usable when Hyprland is started without a graphical-session.target.
-    hl.exec_cmd("systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_SCALE_FACTOR")
+    -- Keep Hyprland-only Qt variables out of the shared systemd user environment.
+    hl.exec_cmd("systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("systemctl --user start --job-mode=ignore-dependencies xdg-desktop-portal.service")
 end)
 
@@ -70,10 +71,9 @@ hl.env("XMODIFIERS", "@im=fcitx")
 -- Needed by Qt applications, especially Qt5/XWayland applications.
 hl.env("QT_IM_MODULE", "fcitx")
 hl.env("SDL_IM_MODULE", "fcitx")
--- Use qt6ct for the appearance of Qt/KDE applications.
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
--- Keep Qt UI scaling at 1x.
-hl.env("QT_SCALE_FACTOR", "1")
+-- Keep the Umbriel behavior: do not force KDE's Qt theme into this session.
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 
 
 -----------------------
@@ -103,7 +103,7 @@ hl.env("QT_SCALE_FACTOR", "1")
 hl.config({
     general = {
         gaps_in  = 5,
-        gaps_out = 10,
+        gaps_out = 5,
 
         border_size = 2,
 
@@ -224,6 +224,8 @@ hl.config({
     misc = {
         force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
         disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+        focus_on_activate       = false,
+        middle_click_paste      = true,
     },
 })
 
@@ -244,12 +246,14 @@ hl.config({
         -- RepeatDelay=350, RepeatRate=60.
         repeat_delay = 350,
         repeat_rate  = 60,
+        numlock_by_default = false,
 
         follow_mouse = 1,
 
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad = {
+            tap_to_click  = true,
             natural_scroll = true,
         },
     },
@@ -263,12 +267,6 @@ hl.gesture({
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
-hl.device({
-    name        = "epic-mouse-v1",
-    sensitivity = -0.5,
-})
-
-
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
@@ -277,16 +275,16 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local ipc = "noctalia msg "
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind("CTRL + Return", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
+local closeWindowBind = hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(ipc .. "panel-toggle session"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("ALT + TAB", hl.dsp.exec_cmd(ipc .. "window-switcher"))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
 hl.bind("ALT + Print", hl.dsp.exec_cmd(ipc .. "screenshot-annotate"))
@@ -330,9 +328,11 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
 end
 
--- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+-- Match Umbriel's official scratchpad workflow with special:magic.
+hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + SPACE",         hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + CTRL + SPACE",  hl.dsp.window.move({ workspace = "previous" }))
+hl.bind(mainMod .. " + TAB",           hl.dsp.exec_cmd("hyprctl dispatch cyclenext"))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -427,5 +427,8 @@ hl.window_rule({
     float = true,
 })
 
--- For Noctalia Color templates
+-- For Noctalia Color templates. The generated module lives in ~/.config/hypr,
+-- while this main file is managed from dotfiles, so add that path explicitly.
+local config_home = os.getenv("XDG_CONFIG_HOME") or (os.getenv("HOME") .. "/.config")
+package.path = package.path .. ";" .. config_home .. "/hypr/?.lua"
 require("noctalia").apply_theme()

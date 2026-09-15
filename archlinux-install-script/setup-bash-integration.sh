@@ -29,8 +29,6 @@ PS1='[\u@\h \w]\$ '
 export EDITOR=nvim
 BASHRC_EOL
 
-sudo pacman -S zoxide ghq
-
 # ghq/zoxide用の設定が記述されていなければ追記
 if grep -q "selected_file" "${BASHRC}"
 then
