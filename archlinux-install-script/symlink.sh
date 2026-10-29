@@ -29,5 +29,6 @@ link .config/xdg-desktop-portal/umbriel-portals.conf
 link .config/autostart/imsettings-start.desktop
 link .config/autostart/org.kde.xwaylandvideobridge.desktop
 link .config/systemd/user/xdg-desktop-portal.service
+link .config/xdg-terminals.list
 link .gitconfig
 link .tmux.conf

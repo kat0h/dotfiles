@@ -68,14 +68,7 @@ corner_radius = 20
 drag_opacity = 1.0
 
 [appearance.blur]
-enabled = true
-optimized = true
-passes = 2
-radius = 3
-noise = 0.02
-brightness = 0.9
-contrast = 0.9
-saturation = 1.1
+enabled = false
 
 [appearance.shadow]
 enabled = true
@@ -98,6 +91,10 @@ empty_above = false
 # Arrange the laptop's workspaces top-to-bottom.
 # [output.eDP-1]
 # workspace_axis = "vertical"
+
+# Its preferred mode is 60 Hz.
+[output."Dell Inc. DELL U2725QE D7S5734"]
+mode = "3840x2160@120"
 
 [keybinds]
 # Applications and Noctalia
@@ -180,19 +177,9 @@ empty_above = false
 "XF86AudioPrev" = { action = "spawn:playerctl previous", allow_when_locked = true }
 
 [[window_rule]]
-blur = true
-
-[[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
 default_floating_size_px = { width = 1080, height = 920 }
-
-[[layer_rule]]
-match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|window-switcher)$"
-blur = true
-blur_ignore_alpha = 0.5
-blur_popups = true
-blur_optimized = false
 
 [animation]
 enabled = true
