@@ -97,7 +97,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -330,6 +330,42 @@ require("lazy").setup({
 		dependencies = { "vim-denops/denops.vim" },
 		build = "deno task prepare",
 		lazy = false,
+	},
+	{ -- Render Markdown in Neovim (images need the Kitty graphics protocol)
+		"delphinus/md-render.nvim",
+		version = "*",
+		dependencies = {
+			{ "nvim-tree/nvim-web-devicons", version = "*" }, -- file type icons in code blocks
+			{ "delphinus/budoux.lua", version = "*" }, -- phrase-level line breaking for Japanese
+		},
+		config = function()
+			-- Kitty's text sizing protocol garbles and flickers the enlarged headings.
+			require("md-render.text_size").setup({ enabled = false })
+		end,
+		keys = {
+			{
+				"<leader>mp",
+				function()
+					-- :MdRender split always opens another window, so close an existing preview instead.
+					local buf = vim.api.nvim_get_current_buf()
+					local closed = false
+					for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+						local ok, state = pcall(vim.api.nvim_win_get_var, win, "md_render_state")
+						if ok and type(state) == "table" and state.mode == "render" and state.source_buf == buf then
+							vim.api.nvim_win_close(win, false)
+							closed = true
+						end
+					end
+					if not closed then
+						vim.cmd("vertical botright MdRender split")
+					end
+				end,
+				desc = "Markdown preview on the right (toggle)",
+			},
+			{ "<leader>mf", "<Plug>(md-render-preview)", desc = "Markdown preview in float (toggle)" },
+			{ "<leader>mt", "<Plug>(md-render-preview-tab)", desc = "Markdown preview in tab (toggle)" },
+			{ "<leader>md", "<Plug>(md-render-demo)", desc = "Markdown render demo" },
+		},
 	},
 	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
 	--
