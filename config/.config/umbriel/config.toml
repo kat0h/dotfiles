@@ -58,7 +58,9 @@ follows_focus = false
 hide_when_typing = false
 
 [input.focus]
-follows_mouse = true
+# Hovering also raises windows; switch to hover_raises = false once the
+# installed build supports it (not in the 2026-10-22 nightly).
+follows_mouse = false
 
 [appearance]
 prefer_no_csd = true
@@ -70,6 +72,9 @@ drag_opacity = 1.0
 [appearance.blur]
 enabled = false
 
+[appearance.title_bar]
+mode = "on"
+
 [appearance.shadow]
 enabled = true
 softness = 4
@@ -77,7 +82,7 @@ offset_x = 0
 offset_y = 0
 
 [layout]
-mode = "dwindle"
+mode = "floating"
 gap = 5
 extent_presets = [0.333, 0.5, 0.667]
 
