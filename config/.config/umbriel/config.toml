@@ -111,7 +111,7 @@ mode = "3840x2160@120"
 "Mod+D" = { action = "spawn:noctalia msg panel-toggle launcher", repeat = false }
 "Mod+Shift+F" = "window-toggle-fullscreen"
 "Mod+Comma" = { action = "spawn:noctalia msg settings-toggle", repeat = false }
-"Alt+Tab" = { action = "spawn:noctalia msg window-switcher", repeat = false }
+"Mod+Tab" = { action = "spawn:noctalia msg window-switcher hold", repeat = false }
 
 # Screenshots and Japanese input toggle
 "Print" = { action = "spawn:noctalia msg screenshot-fullscreen", repeat = false }
@@ -167,7 +167,7 @@ mode = "3840x2160@120"
 "Mod+Shift+Space" = "window-move-to-scratchpad"
 "Mod+Space" = "scratchpad-toggle"
 "Mod+Ctrl+Space" = "window-restore-from-scratchpad"
-"Mod+Tab" = "scratchpad-focus-next"
+"Alt+Tab" = "scratchpad-focus-next"
 
 # Media, brightness, and player controls
 "XF86AudioRaiseVolume" = { action = "spawn:noctalia msg volume-up", allow_when_locked = true }
