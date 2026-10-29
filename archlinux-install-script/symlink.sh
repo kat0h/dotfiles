@@ -3,13 +3,26 @@ set -e -x
 cd $(dirname $0)
 cd ../config
 
-# neovim
-ln -sf $PWD/dot_config/nvim $HOME/.config/nvim
-# hyprland
-ln -sf $PWD/dot_config/hypr/hyprland.lua $HOME/.config/hypr/hyprland.lua
-# xdg-desktop-portal
-ln -sf $PWD/dot_config/xdg-desktop-portal/hyprland-portals.conf $HOME/.config/xdg-desktop-portal/hyprland-portals.conf
-# git
-ln -sf $PWD/dot_gitconfig   $HOME/.gitconfig
-# tmux
-ln -sf $PWD/dot_tmux.conf   $HOME/.tmux.conf
+# Link $HOME/<path> to config/<path>.
+link() {
+    if [ -d "$HOME/$1" ] && [ ! -L "$HOME/$1" ]; then
+        echo "$HOME/$1 is a real directory; move it away first" >&2
+        return 1
+    fi
+    mkdir -p "$(dirname "$HOME/$1")"
+    ln -sfn "$PWD/$1" "$HOME/$1"
+}
+
+# Whole directories
+link .config/nvim
+link .config/alacritty
+link .config/libskk
+# Single files: these directories also hold generated or machine-specific files
+link .config/hypr/hyprland.lua
+link .config/umbriel/config.toml
+link .config/xdg-desktop-portal/hyprland-portals.conf
+link .config/xdg-desktop-portal/umbriel-portals.conf
+link .config/autostart/imsettings-start.desktop
+link .config/autostart/org.kde.xwaylandvideobridge.desktop
+link .gitconfig
+link .tmux.conf

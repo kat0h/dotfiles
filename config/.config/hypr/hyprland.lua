@@ -30,6 +30,34 @@ hl.monitor({
     scale    = "1",
 })
 
+-- Disable the internal panel only while the Dell U2725QE is connected.
+local internalPanel = "eDP-1"
+local dockMonitor   = "DELL U2725QE"
+
+local function isDocked(removed)
+    local removedName = type(removed) == "table" and removed.name or nil
+    for _, m in ipairs(hl.get_monitors()) do
+        if m.name ~= removedName and m.description:find(dockMonitor, 1, true) then
+            return true
+        end
+    end
+    return false
+end
+
+-- Monitor rules are only applied on (re)load, so decide here and reload on change.
+local internalPanelDisabled = isDocked()
+if internalPanelDisabled then
+    hl.monitor({ output = internalPanel, disabled = true })
+end
+
+local function reloadIfDockChanged(removed)
+    if isDocked(removed) ~= internalPanelDisabled then
+        hl.exec_cmd("hyprctl reload")
+    end
+end
+hl.on("monitor.added", function() reloadIfDockChanged() end)
+hl.on("monitor.removed", reloadIfDockChanged)
+
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -52,10 +80,13 @@ hl.on("hyprland.start", function()
     -- KDE's Fcitx5 Wayland launcher is not started automatically in Hyprland.
     hl.exec_cmd("fcitx5 --replace -d")
     hl.exec_cmd("noctalia --daemon")
+    -- polkit-kde's autostart entry is OnlyShowIn=KDE, so start the auth agent explicitly.
+    hl.exec_cmd("/usr/libexec/kf6/polkit-kde-authentication-agent-1")
     -- Make the portal usable when Hyprland is started without a graphical-session.target.
     -- Keep Hyprland-only Qt variables out of the shared systemd user environment.
-    hl.exec_cmd("systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-    hl.exec_cmd("systemctl --user start --job-mode=ignore-dependencies xdg-desktop-portal.service")
+    -- XDG_MENU_PREFIX is also exported so D-Bus-activated KDE services (portal-kde, kded6)
+    -- see the same application menu as Dolphin. Run sequentially so the portal gets the env.
+    hl.exec_cmd("sh -c 'dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_MENU_PREFIX && systemctl --user start --job-mode=ignore-dependencies xdg-desktop-portal.service'")
 end)
 
 
@@ -67,6 +98,8 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+-- KDE apps and portal-kde need this to find plasma-applications.menu ("Open with" list).
+hl.env("XDG_MENU_PREFIX", "plasma-")
 hl.env("XMODIFIERS", "@im=fcitx")
 -- Needed by Qt applications, especially Qt5/XWayland applications.
 hl.env("QT_IM_MODULE", "fcitx")
@@ -264,6 +297,11 @@ hl.gesture({
     direction = "horizontal",
     action = "workspace"
 })
+hl.gesture({
+    fingers = 3,
+    direction = "vertical",
+    action = "fullscreen"
+})
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
@@ -287,10 +325,10 @@ hl.bind("ALT + TAB", hl.dsp.exec_cmd(ipc .. "window-switcher"))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 hl.bind("Print", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
 hl.bind("ALT + Print", hl.dsp.exec_cmd(ipc .. "screenshot-annotate"))
 -- Toggle English/SKK Japanese input.
 hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("fcitx5-remote -t"))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
 -- Vim-style focus movement.
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))

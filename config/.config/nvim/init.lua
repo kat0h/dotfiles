@@ -1,4 +1,4 @@
---[[
+--[[init
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -300,14 +300,14 @@ require("lazy").setup({
 
 	-- Alternatively, use `config = function() ... end` for full control over the configuration.
 	-- If you prefer to call `setup` explicitly, use:
-	--    {
-	--        'lewis6991/gitsigns.nvim',
-	--        config = function()
-	--            require('gitsigns').setup({
-	--                -- Your gitsigns configuration here
-	--            })
-	--        end,
-	--    }
+  {
+     'lewis6991/gitsigns.nvim',
+     config = function()
+         require('gitsigns').setup({
+             -- Your gitsigns configuration here
+         })
+     end,
+  },
 	--
 	-- Here is a more advanced example where we pass configuration
 	-- options to `gitsigns.nvim`.
@@ -962,7 +962,7 @@ require("lazy").setup({
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("tokyonight-night")
+			-- vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
 
@@ -977,24 +977,24 @@ require("lazy").setup({
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		keys = {
-			{
-				"<leader>e",
-				function()
-					if not require("mini.files").close() then
-						require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-					end
-				end,
-				desc = "Open mini.files (Directory of Current File)",
-			},
-			{
-				"<leader>E",
-				function()
-					if not require("mini.files").close() then
-						require("mini.files").open(vim.uv.cwd(), true)
-					end
-				end,
-				desc = "Open mini.files (cwd)",
-			},
+			-- {
+			-- 	"<leader>e",
+			-- 	function()
+			-- 		if not require("mini.files").close() then
+			-- 			require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+			-- 		end
+			-- 	end,
+			-- 	desc = "Open mini.files (Directory of Current File)",
+			-- },
+			-- {
+			-- 	"<leader>E",
+			-- 	function()
+			-- 		if not require("mini.files").close() then
+			-- 			require("mini.files").open(vim.uv.cwd(), true)
+			-- 		end
+			-- 	end,
+			-- 	desc = "Open mini.files (cwd)",
+			-- },
 		},
 		lazy = false,
 		config = function()
@@ -1091,11 +1091,15 @@ require("lazy").setup({
 	{
 		"nvim-tree/nvim-tree.lua",
 		cmd = { "NvimTreeToggle", "NvimTreeOpen" },
-		-- keys = {
-		--   { '<leader>e', '<cmd>NvimTreeToggle<cr>', mode = 'n', desc = 'toggle [e]xplorer' },
-		-- },
+		keys = {
+		  { '<leader>e', '<cmd>NvimTreeToggle<cr>', mode = 'n', desc = 'toggle [e]xplorer' },
+		},
 		config = function()
-			require("nvim-tree").setup()
+			require("nvim-tree").setup({
+        view = {
+          width = 60,
+        }
+      })
 		end,
 	},
 	{
@@ -1185,7 +1189,7 @@ require("lazy").setup({
 	-- require 'kickstart.plugins.debug',
 	require("kickstart.plugins.indent_line"),
 	require("kickstart.plugins.lint"),
-	require("kickstart.plugins.autopairs"),
+	-- require("kickstart.plugins.autopairs"),
 	-- require 'kickstart.plugins.neo-tree',
 	require("kickstart.plugins.gitsigns"), -- adds gitsigns recommend keymaps
 

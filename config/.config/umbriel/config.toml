@@ -12,11 +12,19 @@ honor_restored_maximize = false
 autostart = [
     "fcitx5 --replace -d",
     "noctalia --daemon",
+    # polkit-kde's autostart entry is OnlyShowIn=KDE, so start the auth agent explicitly.
+    "/usr/libexec/kf6/polkit-kde-authentication-agent-1",
+    # Give the portal and D-Bus-activated KDE services the session environment.
+    "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_MENU_PREFIX && systemctl --user start --job-mode=ignore-dependencies xdg-desktop-portal.service",
+    # Disable the internal panel only while the Dell U2725QE is connected.
+    '''sh -c 'last=; check() { if umbriel outputs | grep -qi U2725QE; then s=off; else s=on; fi; [ "$s" = "$last" ] && return; last=$s; if [ "$s" = off ]; then umbriel msg output-disable:eDP-1; else umbriel msg output-enable:eDP-1; fi; }; check; umbriel subscribe outputs | while read -r _; do check; done' ''',
 ]
 
 [environment]
 XCURSOR_SIZE = "24"
 HYPRCURSOR_SIZE = "24"
+# KDE apps and portal-kde need this to find plasma-applications.menu ("Open with" list).
+XDG_MENU_PREFIX = "plasma-"
 XMODIFIERS = "@im=fcitx"
 QT_IM_MODULE = "fcitx"
 SDL_IM_MODULE = "fcitx"
@@ -78,11 +86,18 @@ offset_y = 0
 [layout]
 mode = "dwindle"
 gap = 5
-width_presets = [0.333, 0.5, 0.667]
+extent_presets = [0.333, 0.5, 0.667]
+
+[layout.dwindle]
+preserve_split = true
 
 [workspaces]
 back_and_forth = false
 empty_above = false
+
+# Arrange the laptop's workspaces top-to-bottom.
+# [output.eDP-1]
+# workspace_axis = "vertical"
 
 [keybinds]
 # Applications and Noctalia
@@ -99,6 +114,7 @@ empty_above = false
 # Screenshots and Japanese input toggle
 "Print" = { action = "spawn:noctalia msg screenshot-fullscreen", repeat = false }
 "Shift+Print" = { action = "spawn:noctalia msg screenshot-region", repeat = false }
+"Mod+Shift+S" = { action = "spawn:noctalia msg screenshot-region", repeat = false }
 "Alt+Print" = { action = "spawn:noctalia msg screenshot-annotate", repeat = false }
 "Ctrl+Space" = { action = "spawn:fcitx5-remote -t", repeat = false }
 
@@ -111,10 +127,11 @@ empty_above = false
 "Mod+Shift+J" = "window-move-down"
 "Mod+Shift+K" = "window-move-up"
 "Mod+Shift+L" = "column-move-right"
-"Mod+Ctrl+H" = { action = "window-modify-width:-0.1", repeat = true }
-"Mod+Ctrl+J" = { action = "window-modify-height:0.1", repeat = true }
-"Mod+Ctrl+K" = { action = "window-modify-height:-0.1", repeat = true }
-"Mod+Ctrl+L" = { action = "window-modify-width:0.1", repeat = true }
+"Mod+Ctrl+H" = { action = "window-modify-width-right:-0.1", repeat = true }
+"Mod+Ctrl+J" = { action = "window-modify-height-down:0.1", repeat = true }
+"Mod+Ctrl+K" = { action = "window-modify-height-down:-0.1", repeat = true }
+"Mod+Ctrl+L" = { action = "window-modify-width-right:0.1", repeat = true }
+"Mod+Alt+J" = { action = "layout-toggle-split", repeat = false }
 "Mod+Left" = "window-focus-left"
 "Mod+Down" = "window-focus-down"
 "Mod+Up" = "window-focus-up"
@@ -168,7 +185,7 @@ blur = true
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
-default_size = [1080, 920]
+default_floating_size_px = { width = 1080, height = 920 }
 
 [[layer_rule]]
 match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|window-switcher)$"
@@ -206,4 +223,7 @@ curve = "easeout"
 # curve = "easeout"
 
 [include]
+files = []
+
+[include.optional]
 files = ["noctalia.toml"]
