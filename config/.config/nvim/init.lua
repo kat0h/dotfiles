@@ -106,18 +106,7 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Plugins ]]
 require("lazy").setup({
 	-- ── Git ────────────────────────────────────────────────────────────────
-	-- NOTE: gitsigns is specified three times (here, below, and in
-	-- kickstart.plugins.gitsigns). Because this spec has its own `config`,
-	-- lazy.nvim calls `setup({})` and the merged `opts` are not applied.
-	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup({
-				-- Your gitsigns configuration here
-			})
-		end,
-	},
-	{
+	{ -- Keymaps (on_attach) come from kickstart.plugins.gitsigns; lazy.nvim merges both opts
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
