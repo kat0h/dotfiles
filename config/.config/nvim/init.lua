@@ -666,7 +666,18 @@ require("lazy").setup({
 			vim.fn["skkeleton#config"]({
 				globalDictionaries = { jisyo },
 				eggLikeNewline = true,
+				-- The database is only used with the deno_kv source (needs --unstable-kv).
+				sources = { "deno_kv" },
 				databasePath = vim.fn.expand("~/.cache/skk.db"),
+			})
+			-- Load the dictionary as soon as skkeleton is up instead of blocking on
+			-- the first enable (see :h skkeleton-faq).
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "DenopsPluginPost:skkeleton",
+				once = true,
+				callback = function()
+					vim.fn["skkeleton#initialize"]()
+				end,
 			})
 			vim.fn["skkeleton#register_kanatable"]("rom", {
 				[","] = { "，", "" },
