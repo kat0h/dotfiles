@@ -30,5 +30,6 @@ link .config/autostart/imsettings-start.desktop
 link .config/autostart/org.kde.xwaylandvideobridge.desktop
 link .config/systemd/user/xdg-desktop-portal.service
 link .config/xdg-terminals.list
+link .local/share/applications/nvim-kitty.desktop
 link .gitconfig
 link .tmux.conf

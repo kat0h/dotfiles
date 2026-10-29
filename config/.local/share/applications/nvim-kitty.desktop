@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Neovim (kitty)
+GenericName=Text Editor
+Comment=Edit text files in Neovim inside kitty
+Icon=nvim
+# Launch kitty directly: xdg-open's generic mode ignores Terminal=true.
+Exec=kitty nvim %F
+Terminal=false
+NoDisplay=true
+Categories=Utility;TextEditor;
+MimeType=text/plain;text/markdown;text/javascript;
