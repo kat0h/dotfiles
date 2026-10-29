@@ -1132,10 +1132,17 @@ require("lazy").setup({
 		},
 		config = function()
 			require("nvim-tree").setup({
-        view = {
-          width = 60,
-        }
-      })
+				view = {
+					width = 60,
+				},
+				-- Follow :cd / :lcd
+				sync_root_with_cwd = true,
+				-- Reveal the current buffer's file, re-rooting when it lives outside the tree
+				update_focused_file = {
+					enable = true,
+					update_root = { enable = true },
+				},
+			})
 		end,
 	},
 	{
