@@ -624,7 +624,13 @@ require("lazy").setup({
 			require("emcl").setup()
 		end,
 	},
-	{ "thinca/vim-quickrun" },
+	{
+		"thinca/vim-quickrun",
+		config = function()
+			-- ▶ Run buttons on Markdown code fences (lua/custom/md_run.lua)
+			require("custom.md_run").setup()
+		end,
+	},
 
 	-- ── Japanese input (denops) ────────────────────────────────────────────
 	{
