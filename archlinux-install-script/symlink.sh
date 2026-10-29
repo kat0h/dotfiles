@@ -17,6 +17,10 @@ link() {
 link .config/nvim
 link .config/alacritty
 link .config/libskk
+link .config/fcitx5
+link .config/kitty
+link .config/fontconfig
+link .config/lazygit
 # Single files: these directories also hold generated or machine-specific files
 link .config/hypr/hyprland.lua
 link .config/umbriel/config.toml
@@ -24,5 +28,6 @@ link .config/xdg-desktop-portal/hyprland-portals.conf
 link .config/xdg-desktop-portal/umbriel-portals.conf
 link .config/autostart/imsettings-start.desktop
 link .config/autostart/org.kde.xwaylandvideobridge.desktop
+link .config/systemd/user/xdg-desktop-portal.service
 link .gitconfig
 link .tmux.conf

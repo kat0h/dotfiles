@@ -1,0 +1,13 @@
+# Copy of /usr/lib/systemd/user/xdg-desktop-portal.service without Requisite=graphical-session.target.
+# Hyprland never activates graphical-session.target, so D-Bus activation fails without this.
+# Drop-ins cannot remove dependencies, hence the full override.
+[Unit]
+Description=Portal service
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.portal.Desktop
+ExecStart=/usr/libexec/xdg-desktop-portal
+Slice=session.slice
