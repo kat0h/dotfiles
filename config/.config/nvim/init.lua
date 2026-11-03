@@ -6,6 +6,10 @@
 -- - ディレクトリごとにセッションを保持したい
 -- - nvimの中にいる かつ skk-fcitx5が有効 → 無効にする
 
+-- [[ SKK Implementation Switch ]]
+-- true: skkeleton.nvim (Lua版), false: skkeleton (denops版)
+local use_skkeleton_nvim = true
+
 -- [[ Globals ]]
 -- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
@@ -16,6 +20,7 @@ vim.g.have_nerd_font = true
 
 -- [[ Options ]]
 -- UI
+vim.fn.setcellwidths({ { 0x25BC, 0x25BC, 1 }, { 0x25BD, 0x25BD, 1 } })
 vim.o.number = true
 vim.o.mouse = "a"
 vim.o.showmode = false -- already shown in the statusline
@@ -79,18 +84,14 @@ vim.keymap.set("i", "<C-p>", "<Up>")
 vim.keymap.set("i", "<C-a>", "<Home>")
 vim.keymap.set("i", "<C-e>", "<End>")
 
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "gj", "j")
+vim.keymap.set("n", "gk", "k")
+
 -- NOTE: 設定したい
 -- gfとgFを入れ換える
 -- https://github.com/lambdalisue/vim-gf-improved
-
--- [[ Autocommands ]]
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
-})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -217,6 +218,23 @@ require("lazy").setup({
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
 			},
 		},
+		config = function(_, opts)
+			require("which-key").setup(opts)
+
+			-- <C-o>zz のような 1 コマンドが、which-key の normal モードの trigger（z など）に
+			-- 奪われるのを避ける。実行するキーの前に <C-o> を流し直す。
+			-- which-key #1033 と PR #879 が入ったら消す。
+			local state = require("which-key.state")
+			local execute = state.execute
+			state.execute = function(st, key, node)
+				local in_ctrl_o = vim.api.nvim_get_mode().mode:find("^ni[IRV]") ~= nil
+				local ret = execute(st, key, node)
+				if in_ctrl_o and not (node and node.action) then
+					vim.api.nvim_feedkeys(vim.keycode("<C-o>"), "nit", false)
+				end
+				return ret
+			end
+		end,
 	},
 	{ -- Colorscheme (installed and configured, but not applied)
 		"folke/tokyonight.nvim",
@@ -512,8 +530,6 @@ require("lazy").setup({
 				opts = {},
 			},
 			"folke/lazydev.nvim",
-			{ "saghen/blink.compat", lazy = true },
-			"Xantibody/blink-cmp-skkeleton",
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
@@ -539,7 +555,15 @@ require("lazy").setup({
 			sources = {
 				-- Only offer skkeleton candidates while skkeleton is active
 				default = function()
-					if require("blink-cmp-skkeleton").is_enabled() then
+					local active = false
+					if use_skkeleton_nvim then
+						local ok, skk = pcall(require, "skkeleton")
+						active = ok and skk.is_enabled()
+					else
+						local enabled = vim.g["skkeleton#enabled"]
+						active = enabled == true or enabled == 1
+					end
+					if active then
 						return { "skkeleton" }
 					else
 						return { "lsp", "path", "snippets", "lazydev", "buffer" }
@@ -547,7 +571,10 @@ require("lazy").setup({
 				end,
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					skkeleton = {
+					skkeleton = use_skkeleton_nvim and {
+						name = "skkeleton",
+						module = "skkeleton.completion.blink",
+					} or {
 						name = "skkeleton",
 						module = "blink-cmp-skkeleton",
 					},
@@ -632,7 +659,7 @@ require("lazy").setup({
 		end,
 	},
 
-	-- ── Japanese input (denops) ────────────────────────────────────────────
+	-- ── Japanese input (denops / lua) ────────────────────────────────────
 	{
 		"vim-denops/denops.vim",
 		config = function()
@@ -642,10 +669,16 @@ require("lazy").setup({
 			}
 		end,
 	},
+	-- 元の skkeleton（denops 版）
 	{
 		"vim-skk/skkeleton",
+		enabled = not use_skkeleton_nvim,
 		lazy = false,
-		dependencies = { "vim-denops/denops.vim", "delphinus/skkeleton_indicator.nvim" },
+		dependencies = {
+			"vim-denops/denops.vim",
+			"delphinus/skkeleton_indicator.nvim",
+			"Xantibody/blink-cmp-skkeleton",
+		},
 		config = function()
 			-- 辞書: ~/.config/skk/SKK-JISYO.L
 			-- データベース: ~/.cache/skkeleton.kv
@@ -683,6 +716,47 @@ require("lazy").setup({
 				[","] = { "，", "" },
 				["."] = { "．", "" },
 			})
+			vim.keymap.set({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-toggle)")
+		end,
+	},
+	-- skkeleton.nvim（Lua 版。手元のリポジトリから読む）
+	{
+		dir = "~/ghq/github.com/kat0h/skkeleton.nvim",
+		name = "skkeleton.nvim",
+		enabled = use_skkeleton_nvim,
+		lazy = false,
+		config = function()
+			local jisyo_path = vim.fn.expand("~/.config/skk")
+			local jisyo = jisyo_path .. "/SKK-JISYO.L"
+			if not vim.uv.fs_stat(jisyo) then
+				print("downloading skk jisyo ...")
+				vim.fn.mkdir(jisyo_path, "p")
+				vim.fn.system({
+					"wget",
+					"http://openlab.jp/skk/dic/SKK-JISYO.L.gz",
+					"-O",
+					jisyo_path .. "/SKK-JISYO.L.gz",
+				})
+				vim.fn.system({ "gzip", "-d", jisyo_path .. "/SKK-JISYO.L.gz" })
+			end
+			local skkeleton = require("skkeleton")
+			skkeleton.setup({
+				globalDictionaries = { jisyo },
+				completionRankFile = vim.fn.expand("~/.config/skk/rank.json"),
+				eggLikeNewline = true,
+				popupBorder = "rounded",
+			})
+			require("skkeleton.indicator").setup({
+				style = "pill",
+				fadeOutMs = 2500,
+				showInCmdline = true,
+			})
+			skkeleton.register_kanatable("rom", {
+				[","] = { "，", "" },
+				["."] = { "．", "" },
+			})
+			-- 辞書の DB を起動直後に UI を止めずに用意する
+			skkeleton.initialize()
 			vim.keymap.set({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-toggle)")
 		end,
 	},
