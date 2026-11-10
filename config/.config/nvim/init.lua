@@ -331,6 +331,8 @@ require("lazy").setup({
 			{ "<leader>e", "<cmd>NvimTreeToggle<cr>", mode = "n", desc = "toggle [e]xplorer" },
 		},
 		config = function()
+			-- 各行に +追加 -削除 の行数を右端に出す（lua/custom/nvim_tree_diffstat.lua）
+			local diffstat = require("custom.nvim_tree_diffstat")
 			require("nvim-tree").setup({
 				view = {
 					width = 60,
@@ -342,7 +344,53 @@ require("lazy").setup({
 					enable = true,
 					update_root = { enable = true },
 				},
+				-- Git status badges
+				git = {
+					enable = true,
+					show_on_dirs = true, -- mark directories containing changes
+					show_on_open_dirs = true,
+					timeout = 1000,
+				},
+				renderer = {
+					highlight_git = "name", -- color file names by git status
+					decorators = {
+						"Git",
+						"Open",
+						"Hidden",
+						"Modified",
+						"Bookmark",
+						"Diagnostics",
+						"Copied",
+						diffstat.Decorator,
+						"Cut",
+					},
+					icons = {
+						git_placement = "after", -- badge after the file name
+						show = { git = true },
+						glyphs = {
+							-- Nerd Font (Octicons)
+							git = {
+								unstaged = "\u{F459}", -- nf-oct-diff_modified
+								staged = "\u{F457}", -- nf-oct-diff_added
+								unmerged = "\u{F419}", -- nf-oct-git_merge
+								renamed = "\u{F45A}", -- nf-oct-diff_renamed
+								untracked = "\u{F128}", -- nf-fa-question
+								deleted = "\u{F458}", -- nf-oct-diff_removed
+								ignored = "\u{F474}", -- nf-oct-diff_ignored
+							},
+						},
+					},
+				},
+				filesystem_watchers = { enable = true },
+				-- LSP errors/warnings in the tree, propagated to parent directories
+				diagnostics = {
+					enable = true,
+					show_on_dirs = true,
+				},
+				-- Mark files with unsaved changes
+				modified = { enable = true },
 			})
+			diffstat.setup()
 		end,
 	},
 
