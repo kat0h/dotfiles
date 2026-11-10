@@ -26,6 +26,10 @@ vim.o.mouse = "a"
 vim.o.showmode = false -- already shown in the statusline
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
+vim.o.winborder = "rounded" -- rounded borders on floating windows (hover, diagnostics, etc.)
+vim.o.laststatus = 3 -- one global statusline
+vim.o.smoothscroll = true -- scroll wrapped lines smoothly
+vim.opt.fillchars = { eob = " " } -- hide `~` past the end of the buffer
 vim.o.scrolloff = 10
 vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
@@ -111,12 +115,17 @@ require("lazy").setup({
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "\u{F0DA}" }, -- nf-fa-caret_right
+				topdelete = { text = "\u{F0DA}" },
+				changedelete = { text = "▎" },
+				untracked = { text = "▎" },
 			},
+			-- Show author, date and summary of the last change at the end of the cursor line
+			current_line_blame = true,
+			current_line_blame_opts = { delay = 500 },
+			current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
 		},
 	},
 	{
@@ -236,24 +245,21 @@ require("lazy").setup({
 			end
 		end,
 	},
-	{ -- Colorscheme (installed and configured, but not applied)
-		"folke/tokyonight.nvim",
-		priority = 1000, -- Make sure to load this before all the other start plugins.
+	{ -- Colorscheme: muted, paper-like Kanagawa. The `neovim` branch is the installable runtime.
+		"thesimonho/kanagawa-paper.nvim",
+		branch = "neovim",
+		lazy = false,
+		priority = 1000, -- Load before all the other start plugins
 		config = function()
-			---@diagnostic disable-next-line: missing-fields
-			require("tokyonight").setup({
-				styles = {
-					comments = { italic = false }, -- Disable italics in comments
-				},
-			})
-			-- vim.cmd.colorscheme("tokyonight-night")
+			require("kanagawa-paper").setup({})
+			vim.cmd.colorscheme("kanagawa-paper-ink")
 		end,
 	},
 	{ -- Highlight todo, notes, etc in comments
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		opts = {}, -- icons in the sign column (Nerd Font)
 	},
 	{
 		"junegunn/goyo.vim",
@@ -283,6 +289,8 @@ require("lazy").setup({
 		config = function()
 			require("telescope").setup({
 				defaults = {
+					prompt_prefix = "\u{F002}  ", -- nf-fa-search
+					selection_caret = "\u{F054} ", -- nf-fa-chevron_right
 					-- <Esc> in the prompt closes Telescope instead of entering normal mode.
 					-- While skkeleton is on it takes <Esc> buffer-locally, so <Esc> still confirms the preedit first.
 					mappings = {
@@ -497,6 +505,12 @@ require("lazy").setup({
 				virtual_text = {
 					source = "if_many",
 					spacing = 2,
+					prefix = function(diagnostic)
+						local icons = vim.g.have_nerd_font
+								and { "󰅚", "󰀪", "󰋽", "󰌶" } -- ERROR, WARN, INFO, HINT
+							or { "●", "●", "●", "●" }
+						return icons[diagnostic.severity]
+					end,
 					format = function(diagnostic)
 						local diagnostic_message = {
 							[vim.diagnostic.severity.ERROR] = diagnostic.message,
@@ -614,8 +628,12 @@ require("lazy").setup({
 				nerd_font_variant = "mono",
 			},
 			completion = {
-				-- `<c-space>` shows the documentation
-				documentation = { auto_show = false, auto_show_delay_ms = 500 },
+				menu = { border = "rounded" },
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 300,
+					window = { border = "rounded" },
+				},
 				list = {
 					selection = {
 						preselect = true,
@@ -653,7 +671,7 @@ require("lazy").setup({
 			},
 			snippets = { preset = "luasnip" },
 			fuzzy = { implementation = "lua" },
-			signature = { enabled = true },
+			signature = { enabled = true, window = { border = "rounded" } },
 		},
 	},
 
@@ -730,6 +748,21 @@ require("lazy").setup({
 			end
 
 			require("mini.files").setup()
+
+			-- Underline other occurrences of the word under the cursor
+			require("mini.cursorword").setup()
+
+			-- Auto-close brackets and quotes
+			require("mini.pairs").setup()
+
+			-- Paint hex color codes (#rrggbb) with their own color.
+			-- TODO/FIXME highlighting is left to todo-comments.nvim.
+			local hipatterns = require("mini.hipatterns")
+			hipatterns.setup({
+				highlighters = {
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
 		end,
 	},
 	{
