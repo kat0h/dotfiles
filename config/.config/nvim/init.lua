@@ -634,6 +634,31 @@ require("lazy").setup({
 		},
 	},
 
+	-- ── Treesitter ─────────────────────────────────────────────────────────
+	{ -- Highlighting. Parsers are installed on first use of each filetype.
+		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false,
+		build = ":TSUpdate",
+		config = function()
+			local ts = require("nvim-treesitter")
+			local available = ts.get_available()
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(ev)
+					local lang = vim.treesitter.language.get_lang(ev.match)
+					if not vim.tbl_contains(available, lang) then
+						return
+					end
+					ts.install(lang):await(vim.schedule_wrap(function()
+						if vim.api.nvim_buf_is_valid(ev.buf) then
+							pcall(vim.treesitter.start, ev.buf, lang)
+						end
+					end))
+				end,
+			})
+		end,
+	},
+
 	-- ── Editing ────────────────────────────────────────────────────────────
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
