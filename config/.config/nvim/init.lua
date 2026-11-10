@@ -525,6 +525,22 @@ require("lazy").setup({
 				},
 			}
 
+			-- jdtls: lspconfig names the workspace by the root's basename only, so git worktrees
+			-- (res/language and res-prelim-7/language) shared one workspace and broke the Gradle import.
+			-- Add a hash of the full path to keep one workspace per root.
+			vim.lsp.config("jdtls", {
+				cmd = function(dispatchers, config)
+					local root = config.root_dir or vim.fn.getcwd()
+					local name = vim.fn.fnamemodify(root, ":t") .. "-" .. vim.fn.sha256(root):sub(1, 8)
+					local data = vim.fn.stdpath("cache") .. "/jdtls/workspace/" .. name
+					return vim.lsp.rpc.start({ "jdtls", "-data", data }, dispatchers, {
+						cwd = config.cmd_cwd,
+						env = config.cmd_env,
+						detached = config.detached,
+					})
+				end,
+			})
+
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
