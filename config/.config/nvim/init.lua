@@ -282,6 +282,13 @@ require("lazy").setup({
 		},
 		config = function()
 			require("telescope").setup({
+				defaults = {
+					-- <Esc> in the prompt closes Telescope instead of entering normal mode.
+					-- While skkeleton is on it takes <Esc> buffer-locally, so <Esc> still confirms the preedit first.
+					mappings = {
+						i = { ["<Esc>"] = "close" },
+					},
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
