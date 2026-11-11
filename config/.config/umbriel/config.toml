@@ -54,7 +54,7 @@ sensitivity = 0.0
 [input.cursor]
 size = 24
 hardware_cursor = true
-follows_focus = false
+follows_focus = true
 hide_when_typing = false
 
 [input.focus]
