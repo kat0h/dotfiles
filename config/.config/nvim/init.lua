@@ -553,6 +553,8 @@ require("lazy").setup({
 						detached = config.detached,
 					})
 				end,
+				-- jdtls 1.63 以降は Java 25 が必要。普段の java (21) とは別に sdkman の 25 で動かす
+				cmd_env = { JAVA_HOME = vim.fn.glob("~/.sdkman/candidates/java/25*", false, true)[1] },
 			})
 
 			local ensure_installed = vim.tbl_keys(servers or {})
