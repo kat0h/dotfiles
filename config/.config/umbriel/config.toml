@@ -58,13 +58,13 @@ follows_focus = false
 hide_when_typing = false
 
 [input.focus]
-# Hovering also raises windows; switch to hover_raises = false once the
-# installed build supports it (not in the 2026-10-22 nightly).
-follows_mouse = false
+# カーソルの下の窓にフォーカスを移す。重なった窓を前面には出さない
+follows_mouse = true
+hover_raises = false
 
 [appearance]
 prefer_no_csd = true
-border_width = 2
+border_width = 3
 outer_border_width = 0
 corner_radius = 20
 drag_opacity = 1.0
@@ -180,6 +180,16 @@ mode = "3840x2160@120"
 "XF86AudioPause" = { action = "spawn:playerctl play-pause", allow_when_locked = true }
 "XF86AudioPlay" = { action = "spawn:playerctl play-pause", allow_when_locked = true }
 "XF86AudioPrev" = { action = "spawn:playerctl previous", allow_when_locked = true }
+
+# フォーカス中の窓を kanagawa-paper ink の金色の枠で目立たせ、ほかは少し暗くする
+[[window_rule]]
+match.is_focused = true
+border_color_focused = "#c4b28aFF"
+
+[[window_rule]]
+match.is_focused = false
+border_color_unfocused = "#2A2A37FF"
+opacity = 0.85
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
