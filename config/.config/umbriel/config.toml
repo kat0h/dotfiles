@@ -17,7 +17,7 @@ autostart = [
     # Give the portal and D-Bus-activated KDE services the session environment.
     "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_MENU_PREFIX && systemctl --user start --job-mode=ignore-dependencies xdg-desktop-portal.service",
     # Disable the internal panel only while the Dell U2725QE is connected.
-    '''sh -c 'last=; check() { if umbriel outputs | grep -qi U2725QE; then s=off; else s=on; fi; [ "$s" = "$last" ] && return; last=$s; if [ "$s" = off ]; then umbriel msg output-disable:eDP-1; else umbriel msg output-enable:eDP-1; fi; }; check; umbriel subscribe outputs | while read -r _; do check; done' ''',
+    '''sh -c 'last=; check() { if umbriel outputs | grep -qi U2725QE; then s=off; else s=on; fi; [ "$s" = "$last" ] && return; last=$s; if [ "$s" = off ]; then umbriel msg output-disable eDP-1; else umbriel msg output-enable eDP-1; fi; }; check; umbriel subscribe outputs | while read -r _; do check; done' ''',
 ]
 
 [environment]
@@ -82,7 +82,7 @@ offset_x = 0
 offset_y = 0
 
 [layout]
-mode = "floating"
+mode = "dwindle"
 gap = 5
 extent_presets = [0.333, 0.5, 0.667]
 
@@ -103,22 +103,22 @@ mode = "3840x2160@120"
 
 [keybinds]
 # Applications and Noctalia
-"Mod+Return" = { action = "spawn:kitty", repeat = false }
+"Mod+Return" = { action = "spawn kitty", repeat = false }
 "Mod+Shift+Q" = { action = "window-close", repeat = false }
-"Mod+M" = { action = "spawn:noctalia msg panel-toggle session", repeat = false }
-"Mod+E" = { action = "spawn:dolphin", repeat = false }
+"Mod+M" = { action = "spawn noctalia msg panel-toggle session", repeat = false }
+"Mod+E" = { action = "spawn dolphin", repeat = false }
 "Mod+V" = { action = "window-toggle-floating", repeat = false }
-"Mod+D" = { action = "spawn:noctalia msg panel-toggle launcher", repeat = false }
+"Mod+D" = { action = "spawn noctalia msg panel-toggle launcher", repeat = false }
 "Mod+Shift+F" = "window-toggle-fullscreen"
-"Mod+Comma" = { action = "spawn:noctalia msg settings-toggle", repeat = false }
-"Mod+Tab" = { action = "spawn:noctalia msg window-switcher hold", repeat = false }
+"Mod+Comma" = { action = "spawn noctalia msg settings-toggle", repeat = false }
+"Mod+Tab" = { action = "spawn noctalia msg window-switcher hold", repeat = false }
 
 # Screenshots and Japanese input toggle
-"Print" = { action = "spawn:noctalia msg screenshot-fullscreen", repeat = false }
-"Shift+Print" = { action = "spawn:noctalia msg screenshot-region", repeat = false }
-"Mod+Shift+S" = { action = "spawn:noctalia msg screenshot-region", repeat = false }
-"Alt+Print" = { action = "spawn:noctalia msg screenshot-annotate", repeat = false }
-"Ctrl+Space" = { action = "spawn:fcitx5-remote -t", repeat = false }
+"Print" = { action = "spawn noctalia msg screenshot-fullscreen", repeat = false }
+"Shift+Print" = { action = "spawn noctalia msg screenshot-region", repeat = false }
+"Mod+Shift+S" = { action = "spawn noctalia msg screenshot-region", repeat = false }
+"Alt+Print" = { action = "spawn noctalia msg screenshot-annotate", repeat = false }
+"Ctrl+Space" = { action = "spawn fcitx5-remote -t", repeat = false }
 
 # Focus, move, and resize with Vim keys
 "Mod+H" = "window-focus-left"
@@ -129,10 +129,10 @@ mode = "3840x2160@120"
 "Mod+Shift+J" = "window-move-down"
 "Mod+Shift+K" = "window-move-up"
 "Mod+Shift+L" = "column-move-right"
-"Mod+Ctrl+H" = { action = "window-modify-width-right:-0.1", repeat = true }
-"Mod+Ctrl+J" = { action = "window-modify-height-down:0.1", repeat = true }
-"Mod+Ctrl+K" = { action = "window-modify-height-down:-0.1", repeat = true }
-"Mod+Ctrl+L" = { action = "window-modify-width-right:0.1", repeat = true }
+"Mod+Ctrl+H" = { action = "window-modify-width-right -0.1", repeat = true }
+"Mod+Ctrl+J" = { action = "window-modify-height-down 0.1", repeat = true }
+"Mod+Ctrl+K" = { action = "window-modify-height-down -0.1", repeat = true }
+"Mod+Ctrl+L" = { action = "window-modify-width-right 0.1", repeat = true }
 "Mod+Alt+J" = { action = "layout-toggle-split", repeat = false }
 "Mod+Left" = "window-focus-left"
 "Mod+Down" = "window-focus-down"
@@ -140,26 +140,26 @@ mode = "3840x2160@120"
 "Mod+Right" = "window-focus-right"
 
 # Workspaces: 0 is workspace 10, as in the Hyprland config.
-"Mod+1" = "workspace-switch:1"
-"Mod+2" = "workspace-switch:2"
-"Mod+3" = "workspace-switch:3"
-"Mod+4" = "workspace-switch:4"
-"Mod+5" = "workspace-switch:5"
-"Mod+6" = "workspace-switch:6"
-"Mod+7" = "workspace-switch:7"
-"Mod+8" = "workspace-switch:8"
-"Mod+9" = "workspace-switch:9"
-"Mod+0" = "workspace-switch:10"
-"Mod+Shift+1" = "window-move-to-workspace:1"
-"Mod+Shift+2" = "window-move-to-workspace:2"
-"Mod+Shift+3" = "window-move-to-workspace:3"
-"Mod+Shift+4" = "window-move-to-workspace:4"
-"Mod+Shift+5" = "window-move-to-workspace:5"
-"Mod+Shift+6" = "window-move-to-workspace:6"
-"Mod+Shift+7" = "window-move-to-workspace:7"
-"Mod+Shift+8" = "window-move-to-workspace:8"
-"Mod+Shift+9" = "window-move-to-workspace:9"
-"Mod+Shift+0" = "window-move-to-workspace:10"
+"Mod+1" = "workspace-switch 1"
+"Mod+2" = "workspace-switch 2"
+"Mod+3" = "workspace-switch 3"
+"Mod+4" = "workspace-switch 4"
+"Mod+5" = "workspace-switch 5"
+"Mod+6" = "workspace-switch 6"
+"Mod+7" = "workspace-switch 7"
+"Mod+8" = "workspace-switch 8"
+"Mod+9" = "workspace-switch 9"
+"Mod+0" = "workspace-switch 10"
+"Mod+Shift+1" = "window-move-to-workspace 1"
+"Mod+Shift+2" = "window-move-to-workspace 2"
+"Mod+Shift+3" = "window-move-to-workspace 3"
+"Mod+Shift+4" = "window-move-to-workspace 4"
+"Mod+Shift+5" = "window-move-to-workspace 5"
+"Mod+Shift+6" = "window-move-to-workspace 6"
+"Mod+Shift+7" = "window-move-to-workspace 7"
+"Mod+Shift+8" = "window-move-to-workspace 8"
+"Mod+Shift+9" = "window-move-to-workspace 9"
+"Mod+Shift+0" = "window-move-to-workspace 10"
 "Mod+WheelUp" = { action = "workspace-previous", cooldown_ms = 150 }
 "Mod+WheelDown" = { action = "workspace-next", cooldown_ms = 150 }
 
@@ -170,16 +170,16 @@ mode = "3840x2160@120"
 "Alt+Tab" = "scratchpad-focus-next"
 
 # Media, brightness, and player controls
-"XF86AudioRaiseVolume" = { action = "spawn:noctalia msg volume-up", allow_when_locked = true }
-"XF86AudioLowerVolume" = { action = "spawn:noctalia msg volume-down", allow_when_locked = true }
-"XF86AudioMute" = { action = "spawn:noctalia msg volume-mute", allow_when_locked = true }
-"XF86AudioMicMute" = { action = "spawn:noctalia msg mic-mute", allow_when_locked = true }
-"XF86MonBrightnessUp" = { action = "spawn:noctalia msg brightness-up", allow_when_locked = true }
-"XF86MonBrightnessDown" = { action = "spawn:noctalia msg brightness-down", allow_when_locked = true }
-"XF86AudioNext" = { action = "spawn:playerctl next", allow_when_locked = true }
-"XF86AudioPause" = { action = "spawn:playerctl play-pause", allow_when_locked = true }
-"XF86AudioPlay" = { action = "spawn:playerctl play-pause", allow_when_locked = true }
-"XF86AudioPrev" = { action = "spawn:playerctl previous", allow_when_locked = true }
+"XF86AudioRaiseVolume" = { action = "spawn noctalia msg volume-up", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn noctalia msg volume-down", allow_when_locked = true }
+"XF86AudioMute" = { action = "spawn noctalia msg volume-mute", allow_when_locked = true }
+"XF86AudioMicMute" = { action = "spawn noctalia msg mic-mute", allow_when_locked = true }
+"XF86MonBrightnessUp" = { action = "spawn noctalia msg brightness-up", allow_when_locked = true }
+"XF86MonBrightnessDown" = { action = "spawn noctalia msg brightness-down", allow_when_locked = true }
+"XF86AudioNext" = { action = "spawn playerctl next", allow_when_locked = true }
+"XF86AudioPause" = { action = "spawn playerctl play-pause", allow_when_locked = true }
+"XF86AudioPlay" = { action = "spawn playerctl play-pause", allow_when_locked = true }
+"XF86AudioPrev" = { action = "spawn playerctl previous", allow_when_locked = true }
 
 # フォーカス中の窓を kanagawa-paper ink の金色の枠で目立たせ、ほかは少し暗くする
 [[window_rule]]
@@ -189,7 +189,7 @@ border_color_focused = "#c4b28aFF"
 [[window_rule]]
 match.is_focused = false
 border_color_unfocused = "#2A2A37FF"
-opacity = 0.85
+opacity = 1
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
