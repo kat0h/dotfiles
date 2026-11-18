@@ -28,6 +28,7 @@ link .config/xdg-desktop-portal/hyprland-portals.conf
 link .config/xdg-desktop-portal/umbriel-portals.conf
 link .config/autostart/imsettings-start.desktop
 link .config/autostart/org.kde.xwaylandvideobridge.desktop
+link .config/bash/inline-edit.bash
 link .config/systemd/user/xdg-desktop-portal.service
 link .config/xdg-terminals.list
 link .local/share/applications/nvim-kitty.desktop
