@@ -7,8 +7,29 @@
 -- - nvimの中にいる かつ skk-fcitx5が有効 → 無効にする
 
 -- [[ SKK Implementation Switch ]]
--- true: skkeleton.nvim (Lua版), false: skkeleton (denops版)
-local use_skkeleton_nvim = true
+-- "skkeleton.nvim": skkeleton.nvim (Lua版)
+-- "skkeleton":      skkeleton (denops版)
+-- "eskk":           eskk.vim
+-- "skk.vim":        skk.vim
+local skk_impl = "skkeleton.nvim"
+
+-- SKK-JISYO.L のパス。なければダウンロードする
+local function skk_jisyo()
+	local jisyo_path = vim.fn.expand("~/.config/skk")
+	local jisyo = jisyo_path .. "/SKK-JISYO.L"
+	if not vim.uv.fs_stat(jisyo) then
+		print("downloading skk jisyo ...")
+		vim.fn.mkdir(jisyo_path, "p")
+		vim.fn.system({
+			"wget",
+			"http://openlab.jp/skk/dic/SKK-JISYO.L.gz",
+			"-O",
+			jisyo_path .. "/SKK-JISYO.L.gz",
+		})
+		vim.fn.system({ "gzip", "-d", jisyo_path .. "/SKK-JISYO.L.gz" })
+	end
+	return jisyo
+end
 
 -- [[ Globals ]]
 -- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -97,6 +118,9 @@ vim.keymap.set("n", "gk", "k")
 -- gfとgFを入れ換える
 -- https://github.com/lambdalisue/vim-gf-improved
 
+--- Translate with plamo-3-translate
+vim.api.nvim_create_user_command("Translate",function()local t=table.concat(vim.fn.getregion(vim.fn.getpos("'<"),vim.fn.getpos("'>"),{type=vim.fn.visualmode()}),"\n");local ja=t:find("[\227-\233]")~=nil;local b=vim.json.encode({model="plamo-3-translate",messages={{role="user",content=t}},temperature=0,stop={"<|plamo:tag|>","<|plamo:bos|>"},chat_template_kwargs={target_lang=ja and "en" or "ja"}});vim.system({"curl","-s","http://localhost:8000/v1/chat/completions","-H","Content-Type: application/json","-d","@-"},{stdin=b},function(r)vim.schedule(function()local ok,j=pcall(vim.json.decode,r.stdout or "");local s=ok and type(j)=="table" and j.choices and j.choices[1].message.content or ("error: "..(r.stderr~="" and r.stderr or r.stdout or ""));vim.lsp.util.open_floating_preview(vim.split(vim.trim(s),"\n"),"markdown",{border="rounded",max_width=80,wrap=true})end)end)end,{range=true})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -136,6 +160,7 @@ require("lazy").setup({
 	-- ── Markdown ───────────────────────────────────────────────────────────
 	{
 		dir = "~/ghq/github.com/kat0h/bufpreview.vim",
+    enabled = false,
 		dependencies = { "vim-denops/denops.vim" },
 		build = "deno task prepare",
 		lazy = false,
@@ -174,6 +199,48 @@ require("lazy").setup({
 			{ "<leader>mf", "<Plug>(md-render-preview)", desc = "Markdown preview in float (toggle)" },
 			{ "<leader>mt", "<Plug>(md-render-preview-tab)", desc = "Markdown preview in tab (toggle)" },
 			{ "<leader>md", "<Plug>(md-render-demo)", desc = "Markdown render demo" },
+		},
+	},
+	{
+		"obsidian-nvim/obsidian.nvim",
+		version = "*",
+		ft = "markdown",
+		cmd = "Obsidian",
+		opts = {
+			legacy_commands = false,
+			workspaces = {
+				{ name = "vault", path = "~/Documents/Obsidian Vault" },
+			},
+			daily_notes = { folder = "Daily Note" },
+			new_notes_location = "current_dir",
+			attachments = { folder = "./attachments" },
+			completion = { min_chars = 0 },
+			picker = { name = "telescope.nvim" },
+			ui = { enable = true },
+		},
+		config = function(_, opts)
+			require("obsidian").setup(opts)
+			local refs = require("obsidian.completion.refs")
+			local can_complete = refs.can_complete
+			refs.can_complete = function(request, o)
+				return can_complete(request, vim.tbl_extend("keep", o or {}, { allow_empty = true }))
+			end
+		end,
+		init = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "markdown",
+				callback = function()
+					vim.opt_local.conceallevel = 2
+				end,
+			})
+		end,
+		keys = {
+			{ "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "[O]bsidian quick switch" },
+			{ "<leader>os", "<cmd>Obsidian search<cr>", desc = "[O]bsidian [S]earch" },
+			{ "<leader>od", "<cmd>Obsidian today<cr>", desc = "[O]bsidian [D]aily note" },
+			{ "<leader>on", "<cmd>Obsidian new<cr>", desc = "[O]bsidian [N]ew note" },
+			{ "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "[O]bsidian [B]acklinks" },
+			{ "<leader>ot", "<cmd>Obsidian tags<cr>", desc = "[O]bsidian [T]ags" },
 		},
 	},
 
@@ -225,6 +292,7 @@ require("lazy").setup({
 				{ "<leader>s", group = "[S]earch" },
 				{ "<leader>t", group = "[T]oggle" },
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+				{ "<leader>o", group = "[O]bsidian" },
 			},
 		},
 		config = function(_, opts)
@@ -233,6 +301,7 @@ require("lazy").setup({
 			-- <C-o>zz のような 1 コマンドが、which-key の normal モードの trigger（z など）に
 			-- 奪われるのを避ける。実行するキーの前に <C-o> を流し直す。
 			-- which-key #1033 と PR #879 が入ったら消す。
+      --
 			local state = require("which-key.state")
 			local execute = state.execute
 			state.execute = function(st, key, node)
@@ -644,25 +713,36 @@ require("lazy").setup({
 				},
 			},
 			sources = {
-				-- Only offer skkeleton candidates while skkeleton is active
+				-- Only offer skkeleton candidates while skkeleton is active.
+				-- eskk / skk.vim have their own popup, so blink stays quiet while they are on.
 				default = function()
 					local active = false
-					if use_skkeleton_nvim then
+					if skk_impl == "skkeleton.nvim" then
 						local ok, skk = pcall(require, "skkeleton")
 						active = ok and skk.is_enabled()
-					else
+					elseif skk_impl == "skkeleton" then
 						local enabled = vim.g["skkeleton#enabled"]
 						active = enabled == true or enabled == 1
+					elseif skk_impl == "eskk" then
+						active = vim.fn.exists("*eskk#is_enabled") == 1 and vim.fn["eskk#is_enabled"]() == 1
+					elseif skk_impl == "skk.vim" then
+						active = vim.b.skk_on == 1
 					end
 					if active then
-						return { "skkeleton" }
+						if skk_impl == "skkeleton.nvim" and require("skkeleton").get_preedit() == "" then
+							local before = vim.api.nvim_get_current_line():sub(1, vim.api.nvim_win_get_cursor(0)[2])
+							if before:match("%[%[[^%]]*$") then
+								return { "lsp" }
+							end
+						end
+						return (skk_impl == "skkeleton.nvim" or skk_impl == "skkeleton") and { "skkeleton" } or {}
 					else
 						return { "lsp", "path", "snippets", "lazydev", "buffer" }
 					end
 				end,
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					skkeleton = use_skkeleton_nvim and {
+					skkeleton = skk_impl == "skkeleton.nvim" and {
 						name = "skkeleton",
 						module = "skkeleton.completion.blink",
 					} or {
@@ -803,7 +883,7 @@ require("lazy").setup({
 	-- 元の skkeleton（denops 版）
 	{
 		"vim-skk/skkeleton",
-		enabled = not use_skkeleton_nvim,
+		enabled = skk_impl == "skkeleton",
 		lazy = false,
 		dependencies = {
 			"vim-denops/denops.vim",
@@ -814,19 +894,7 @@ require("lazy").setup({
 			-- 辞書: ~/.config/skk/SKK-JISYO.L
 			-- データベース: ~/.cache/skkeleton.kv
 			require("skkeleton_indicator").setup()
-			local jisyo_path = vim.fn.expand("~/.config/skk")
-			local jisyo = jisyo_path .. "/SKK-JISYO.L"
-			if not vim.uv.fs_stat(jisyo) then
-				print("downloading skk jisyo ...")
-				vim.fn.mkdir(jisyo_path, "p")
-				vim.fn.system({
-					"wget",
-					"http://openlab.jp/skk/dic/SKK-JISYO.L.gz",
-					"-O",
-					jisyo_path .. "/SKK-JISYO.L.gz",
-				})
-				vim.fn.system({ "gzip", "-d", jisyo_path .. "/SKK-JISYO.L.gz" })
-			end
+			local jisyo = skk_jisyo()
 			vim.fn["skkeleton#config"]({
 				globalDictionaries = { jisyo },
 				eggLikeNewline = true,
@@ -852,24 +920,13 @@ require("lazy").setup({
 	},
 	-- skkeleton.nvim（Lua 版。手元のリポジトリから読む）
 	{
-		dir = "~/ghq/github.com/kat0h/skkeleton.nvim",
+    "kat0h/skkeleton.nvim",
+		-- dir = "~/ghq/github.com/kat0h/skkeleton.nvim",
 		name = "skkeleton.nvim",
-		enabled = use_skkeleton_nvim,
+		enabled = skk_impl == "skkeleton.nvim",
 		lazy = false,
 		config = function()
-			local jisyo_path = vim.fn.expand("~/.config/skk")
-			local jisyo = jisyo_path .. "/SKK-JISYO.L"
-			if not vim.uv.fs_stat(jisyo) then
-				print("downloading skk jisyo ...")
-				vim.fn.mkdir(jisyo_path, "p")
-				vim.fn.system({
-					"wget",
-					"http://openlab.jp/skk/dic/SKK-JISYO.L.gz",
-					"-O",
-					jisyo_path .. "/SKK-JISYO.L.gz",
-				})
-				vim.fn.system({ "gzip", "-d", jisyo_path .. "/SKK-JISYO.L.gz" })
-			end
+			local jisyo = skk_jisyo()
 			local skkeleton = require("skkeleton")
 			skkeleton.setup({
 				globalDictionaries = { jisyo },
@@ -889,6 +946,62 @@ require("lazy").setup({
 			-- 辞書の DB を起動直後に UI を止めずに用意する
 			skkeleton.initialize()
 			vim.keymap.set({ "i", "c" }, "<C-j>", "<Plug>(skkeleton-toggle)")
+		end,
+	},
+	-- eskk.vim
+	{
+		"vim-skk/eskk.vim",
+		enabled = skk_impl == "eskk",
+		lazy = false,
+		init = function()
+			-- ユーザー辞書: ~/.config/skk/eskk-jisyo
+			vim.g["eskk#directory"] = vim.fn.expand("~/.config/skk/eskk")
+			vim.g["eskk#dictionary"] = {
+				path = vim.fn.expand("~/.config/skk/eskk-jisyo"),
+				sorted = 0,
+				encoding = "utf-8",
+			}
+			vim.g["eskk#large_dictionary"] = {
+				path = skk_jisyo(),
+				sorted = 1,
+				encoding = "euc-jp",
+			}
+			vim.g["eskk#egg_like_newline"] = 1
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "eskk-initialize-pre",
+				callback = function()
+					vim.cmd([[
+						let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+						call t.add_map(',', '，')
+						call t.add_map('.', '．')
+						call eskk#register_mode_table('hira', t)
+						let t = eskk#table#new('rom_to_kata*', 'rom_to_kata')
+						call t.add_map(',', '，')
+						call t.add_map('.', '．')
+						call eskk#register_mode_table('kata', t)
+					]])
+				end,
+			})
+		end,
+		config = function()
+			vim.keymap.set({ "i", "c" }, "<C-j>", "<Plug>(eskk:toggle)")
+		end,
+	},
+	-- skk.vim
+	{
+		"vim-skk/skk.vim",
+		enabled = skk_impl == "skk.vim",
+		lazy = false,
+		init = function()
+			-- ユーザー辞書: ~/.config/skk/skk-jisyo
+			vim.g.skk_jisyo = vim.fn.expand("~/.config/skk/skk-jisyo")
+			vim.g.skk_large_jisyo = skk_jisyo()
+			vim.g.skk_auto_save_jisyo = 1
+			vim.g.skk_egg_like_newline = 1
+			vim.g.skk_kutouten_type = "en" -- ．，
+			vim.g.skk_keep_state = 0
+			-- Neovim には 'imdisable' がない (E519)。0/1 以外にすると skk.vim は触らない
+			vim.g.skk_imdisable_state = -1
 		end,
 	},
 
